@@ -2,6 +2,8 @@ export const globalThemes = {
   light: {
     name: '浅色',
     icon: '☀️',
+    defaultFont: 'georgia',
+    recommendedFonts: ['georgia', 'garamond', 'palatino'],
     colors: {
       '--rusty-red': '#8B4513',
       '--parchment-yellow': '#F5E6D3',
@@ -23,6 +25,8 @@ export const globalThemes = {
   dark: {
     name: '深色',
     icon: '🌙',
+    defaultFont: 'helvetica',
+    recommendedFonts: ['helvetica', 'arial', 'verdana'],
     colors: {
       '--rusty-red': '#CD853F',
       '--parchment-yellow': '#2D2D2D',
@@ -44,6 +48,8 @@ export const globalThemes = {
   autumn: {
     name: '秋季落叶',
     icon: '🍂',
+    defaultFont: 'garamond',
+    recommendedFonts: ['garamond', 'palatino', 'georgia'],
     colors: {
       '--rusty-red': '#D35400',
       '--parchment-yellow': '#FAD7A0',
@@ -65,6 +71,8 @@ export const globalThemes = {
   winter: {
     name: '冬日雪夜',
     icon: '❄️',
+    defaultFont: 'times',
+    recommendedFonts: ['times', 'georgia', 'palatino'],
     colors: {
       '--rusty-red': '#5D6D7E',
       '--parchment-yellow': '#EBF5FB',
@@ -86,6 +94,8 @@ export const globalThemes = {
   ink: {
     name: '水墨风格',
     icon: '🖌️',
+    defaultFont: 'kaiti',
+    recommendedFonts: ['kaiti', 'songti', 'georgia'],
     colors: {
       '--rusty-red': '#4A4A4A',
       '--parchment-yellow': '#FAFAFA',
@@ -107,6 +117,8 @@ export const globalThemes = {
   vintage: {
     name: '年代感',
     icon: '📜',
+    defaultFont: 'courier',
+    recommendedFonts: ['courier', 'monaco', 'times'],
     colors: {
       '--rusty-red': '#8B4513',
       '--parchment-yellow': '#F5E6D3',
@@ -131,8 +143,14 @@ export const getGlobalThemes = () => {
   return Object.keys(globalThemes).map(id => ({
     id,
     name: globalThemes[id].name,
-    icon: globalThemes[id].icon
+    icon: globalThemes[id].icon,
+    defaultFont: globalThemes[id].defaultFont,
+    recommendedFonts: globalThemes[id].recommendedFonts
   }))
+}
+
+export const getThemeById = (themeId) => {
+  return globalThemes[themeId]
 }
 
 export const applyGlobalTheme = (themeId) => {

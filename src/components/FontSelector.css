@@ -1,0 +1,184 @@
+.font-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-primary) 100%);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.font-label {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.font-categories {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.font-category {
+  padding: 0.4rem 0.8rem;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.font-category:hover {
+  background: var(--accent-color);
+  color: var(--text-primary);
+  border-color: var(--accent-color);
+}
+
+.font-category.active {
+  background: var(--accent-color);
+  color: var(--text-primary);
+  border-color: var(--accent-color);
+  font-weight: bold;
+}
+
+.font-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.8rem;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.font-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+.font-grid::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+  border-radius: 3px;
+}
+
+.font-grid::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+.font-grid::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+.font-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1rem;
+  background: var(--background-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  min-height: 100px;
+  justify-content: center;
+}
+
+.font-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color);
+  border-color: var(--accent-color);
+}
+
+.font-option.active {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.font-option.recommended {
+  border-color: var(--copper-green);
+}
+
+.font-option.recommended:hover {
+  border-color: var(--accent-color);
+}
+
+.font-option.active .font-preview,
+.font-option.active .font-name {
+  color: var(--text-primary);
+}
+
+.font-preview {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.font-name {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: center;
+  font-weight: normal;
+}
+
+.font-recommend {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: var(--copper-green);
+  color: var(--background-primary);
+  font-size: 0.6rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+@media (max-width: 768px) {
+  .font-selector {
+    padding: 0.8rem;
+  }
+
+  .font-categories {
+    gap: 0.3rem;
+  }
+
+  .font-category {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+  }
+
+  .font-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 0.6rem;
+    max-height: 300px;
+  }
+
+  .font-option {
+    padding: 0.8rem;
+    min-height: 90px;
+  }
+
+  .font-preview {
+    font-size: 1.8rem;
+  }
+
+  .font-name {
+    font-size: 0.7rem;
+  }
+}

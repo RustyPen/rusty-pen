@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import './WritingArea.css'
+import { getFontById } from '../utils/fontUtils'
 
 const themes = {
   vintage: {
@@ -64,7 +65,7 @@ const pens = {
   }
 }
 
-function WritingArea({ theme, pen, soundEnabled }) {
+function WritingArea({ theme, pen, font, soundEnabled }) {
   const [content, setContent] = useState('')
   const textareaRef = useRef(null)
   const audioCacheRef = useRef({})
@@ -73,6 +74,7 @@ function WritingArea({ theme, pen, soundEnabled }) {
   
   const currentTheme = themes[theme] || themes.vintage
   const currentPen = pens[pen] || pens.fountain
+  const currentFont = getFontById(font) || getFontById('georgia')
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -154,7 +156,7 @@ function WritingArea({ theme, pen, soundEnabled }) {
           onChange={handleTyping}
           placeholder="开始你的创作..."
           style={{
-            fontFamily: currentPen.fontFamily,
+            fontFamily: currentFont.family,
             fontWeight: currentPen.fontWeight,
             fontStyle: currentPen.fontStyle || 'normal',
             letterSpacing: currentPen.letterSpacing || '0em',

@@ -20,6 +20,7 @@
   --border-color: #8B4513;
   --accent-color: #D4AF37;
   --shadow-color: rgba(0, 0, 0, 0.1);
+  --writing-font-family: 'Georgia', serif;
 }
 
 body {
