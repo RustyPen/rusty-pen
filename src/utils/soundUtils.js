@@ -21,7 +21,6 @@ export const getClickSound = () => {
 export const getClickSounds = () => {
   return Object.keys(clickSounds).map(id => ({
     id,
-    name: id === 'none' ? '无声音' : `声音 ${id.replace('click', '')}`,
     path: clickSounds[id]
   }));
 };

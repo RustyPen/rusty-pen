@@ -1,14 +1,15 @@
 import { useState, useEffect, useRef } from 'react'
 import './BackgroundMusic.css'
 import { playButtonSound } from '../utils/soundUtils'
+import { useI18n } from '../contexts/I18nContext'
 
 const ambientSounds = [
-  { id: 'fireplace', name: '壁炉', icon: '🔥' },
-  { id: 'rain', name: '雨声', icon: '🌧️' },
-  { id: 'train', name: '火车', icon: '🚂' },
-  { id: 'cafe', name: '咖啡馆', icon: '☕' },
-  { id: 'forest', name: '森林', icon: '🌲' },
-  { id: 'ocean', name: '海浪', icon: '🌊' }
+  { id: 'fireplace', icon: '🔥' },
+  { id: 'rain', icon: '🌧️' },
+  { id: 'train', icon: '🚂' },
+  { id: 'cafe', icon: '☕' },
+  { id: 'forest', icon: '🌲' },
+  { id: 'ocean', icon: '🌊' }
 ]
 
 function BackgroundMusic() {
@@ -16,6 +17,7 @@ function BackgroundMusic() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [volume, setVolume] = useState(0.3)
   const audioRef = useRef(null)
+  const { t } = useI18n()
 
   useEffect(() => {
     return () => {
@@ -76,7 +78,7 @@ function BackgroundMusic() {
 
   return (
     <div className="background-music">
-      <label className="music-label">环境音效</label>
+      <label className="music-label">{t('controls.ambient_sound')}</label>
       <div className="music-controls">
         <div className="sound-buttons">
           {ambientSounds.map((sound) => (
@@ -84,10 +86,10 @@ function BackgroundMusic() {
               key={sound.id}
               className={`sound-btn ${currentSound === sound.id && isPlaying ? 'active' : ''}`}
               onClick={() => handleSoundSelect(sound.id)}
-              title={sound.name}
+              title={t(`sounds.${sound.id}`)}
             >
               <span className="sound-icon">{sound.icon}</span>
-              <span className="sound-name">{sound.name}</span>
+              <span className="sound-name">{t(`sounds.${sound.id}`)}</span>
             </button>
           ))}
         </div>

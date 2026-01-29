@@ -2,27 +2,37 @@ import { useState, useEffect } from 'react'
 import './FontSelector.css'
 import { getFonts, applyFont } from '../utils/fontUtils'
 import { getThemeById } from '../utils/themeUtils'
+import { getAvailableFontsForLanguage } from '../utils/languageUtils'
 import { playButtonSound } from '../utils/soundUtils'
+import { useI18n } from '../contexts/I18nContext'
 
-function FontSelector({ currentFont, onFontChange, currentTheme }) {
+function FontSelector({ currentFont, onFontChange, currentTheme, currentLanguage }) {
   const [selectedFont, setSelectedFont] = useState(currentFont || 'georgia')
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const fonts = getFonts()
+  const allFonts = getFonts()
   const theme = getThemeById(currentTheme)
   const recommendedFonts = theme?.recommendedFonts || []
+  const availableFontIds = getAvailableFontsForLanguage(currentLanguage)
+  const fonts = allFonts.filter(font => availableFontIds.includes(font.id))
+  const { t } = useI18n()
 
   useEffect(() => {
     setSelectedFont(currentFont || 'georgia')
   }, [currentFont])
 
   const categories = [
-    { id: 'all', name: '全部' },
-    { id: 'serif', name: '衬线体' },
-    { id: 'sans-serif', name: '无衬线' },
-    { id: 'chinese', name: '中文字体' },
-    { id: 'monospace', name: '等宽字体' },
-    { id: 'cursive', name: '手写体' }
-  ]
+    { id: 'all' },
+    { id: 'serif' },
+    { id: 'sans-serif' },
+    { id: 'chinese_serif' },
+    { id: 'chinese_sans' },
+    { id: 'chinese_cursive' },
+    { id: 'monospace' },
+    { id: 'cursive' }
+  ].filter(category => {
+    if (category.id === 'all') return true
+    return fonts.some(font => font.category === category.id)
+  })
 
   const filteredFonts = selectedCategory === 'all' 
     ? fonts 
@@ -42,7 +52,7 @@ function FontSelector({ currentFont, onFontChange, currentTheme }) {
 
   return (
     <div className="font-selector">
-      <label className="font-label">字体选择</label>
+      <label className="font-label">{t('controls.font')}</label>
       
       <div className="font-categories">
         {categories.map((category) => (
@@ -51,7 +61,7 @@ function FontSelector({ currentFont, onFontChange, currentTheme }) {
             className={`font-category ${selectedCategory === category.id ? 'active' : ''}`}
             onClick={() => handleCategoryChange(category.id)}
           >
-            {category.name}
+            {t(`fonts.${category.id}`)}
           </button>
         ))}
       </div>
@@ -70,9 +80,9 @@ function FontSelector({ currentFont, onFontChange, currentTheme }) {
             >
               {font.preview}
             </span>
-            <span className="font-name">{font.name}</span>
+            <span className="font-name">{t(`fonts.${font.id}`)}</span>
             {recommendedFonts.includes(font.id) && (
-              <span className="font-recommend">推荐</span>
+              <span className="font-recommend">{t('fonts.recommended')}</span>
             )}
           </button>
         ))}

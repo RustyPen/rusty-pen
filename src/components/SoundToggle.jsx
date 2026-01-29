@@ -1,7 +1,10 @@
 import './SoundToggle.css'
 import { playButtonSound } from '../utils/soundUtils'
+import { useI18n } from '../contexts/I18nContext'
 
 function SoundToggle({ enabled, onToggle }) {
+  const { t } = useI18n()
+
   const handleToggle = () => {
     playButtonSound()
     onToggle(!enabled)
@@ -9,14 +12,14 @@ function SoundToggle({ enabled, onToggle }) {
 
   return (
     <div className="sound-toggle">
-      <label className="sound-label">笔具音效</label>
+      <label className="sound-label">{t('controls.sound')}</label>
       <button
         className={`sound-button ${enabled ? 'enabled' : ''}`}
         onClick={handleToggle}
-        title={enabled ? '关闭音效' : '开启音效'}
+        title={enabled ? t('buttons.disable') : t('buttons.enable')}
       >
         <span className="sound-icon">{enabled ? '🔊' : '🔇'}</span>
-        <span className="sound-status">{enabled ? '已开启' : '已关闭'}</span>
+        <span className="sound-status">{enabled ? t('sounds.enabled') : t('sounds.disabled')}</span>
       </button>
     </div>
   )

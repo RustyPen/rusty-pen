@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Rusty Pen",
+    "slogan": "笔可能生锈，思想不会"
+  },
+  "header": {
+    "logo": "Rusty Pen Logo"
+  },
+  "controls": {
+    "language": "语言",
+    "global_theme": "全局主题",
+    "paper_theme": "纸张主题",
+    "pen": "笔具",
+    "font": "字体选择",
+    "sound": "笔具音效",
+    "click_sound": "点击音效",
+    "ambient_sound": "环境音效"
+  },
+  "writing": {
+    "placeholder": "开始你的创作...",
+    "word_count": "字",
+    "current_pen": "当前笔具"
+  },
+  "themes": {
+    "light": "浅色",
+    "dark": "深色",
+    "autumn": "秋季落叶",
+    "winter": "冬日雪夜",
+    "ink": "水墨风格",
+    "vintage": "年代感",
+    "vintage_paper": "复古信纸",
+    "parchment_paper": "羊皮纸",
+    "manuscript_paper": "手稿纸",
+    "telegram_paper": "电报纸"
+  },
+  "pens": {
+    "fountain": "钢笔",
+    "brush": "毛笔",
+    "feather": "羽毛笔",
+    "ballpoint": "圆珠笔"
+  },
+  "fonts": {
+    "all": "全部",
+    "serif": "衬线体",
+    "sans_serif": "无衬线",
+    "chinese": "中文字体",
+    "chinese_serif": "中文衬线",
+    "chinese_sans": "中文无衬线",
+    "chinese_cursive": "中文书法",
+    "monospace": "等宽字体",
+    "cursive": "手写体",
+    "recommended": "推荐",
+    "xingshu": "行书",
+    "kaiti": "楷体",
+    "lishu": "隶书",
+    "caoshu": "草书",
+    "shoujin": "瘦金体",
+    "songti": "宋体",
+    "fangsong": "仿宋",
+    "heiti": "黑体",
+    "yahei": "微软雅黑",
+    "yuan": "圆体"
+  },
+  "sounds": {
+    "none": "无声音",
+    "click1": "声音 1",
+    "click2": "声音 2",
+    "click3": "声音 3",
+    "click4": "声音 4",
+    "enabled": "已开启",
+    "disabled": "已关闭",
+    "fireplace": "壁炉",
+    "rain": "雨声",
+    "train": "火车",
+    "cafe": "咖啡馆",
+    "forest": "森林",
+    "ocean": "海浪"
+  },
+  "buttons": {
+    "enable": "开启",
+    "disable": "关闭",
+    "play": "播放",
+    "pause": "暂停"
+  }
+}

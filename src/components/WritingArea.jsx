@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import './WritingArea.css'
 import { getFontById } from '../utils/fontUtils'
+import { useI18n } from '../contexts/I18nContext'
 
 const themes = {
   vintage: {
@@ -65,7 +66,7 @@ const pens = {
   }
 }
 
-function WritingArea({ theme, pen, font, soundEnabled }) {
+function WritingArea({ theme, pen, font, soundEnabled, language }) {
   const [content, setContent] = useState('')
   const textareaRef = useRef(null)
   const audioCacheRef = useRef({})
@@ -75,6 +76,9 @@ function WritingArea({ theme, pen, font, soundEnabled }) {
   const currentTheme = themes[theme] || themes.vintage
   const currentPen = pens[pen] || pens.fountain
   const currentFont = getFontById(font) || getFontById('georgia')
+  const { t } = useI18n()
+  
+  const placeholderText = t('writing.placeholder')
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -154,7 +158,7 @@ function WritingArea({ theme, pen, font, soundEnabled }) {
           data-pen={pen}
           value={content}
           onChange={handleTyping}
-          placeholder="开始你的创作..."
+          placeholder={placeholderText}
           style={{
             fontFamily: currentFont.family,
             fontWeight: currentPen.fontWeight,
@@ -165,8 +169,8 @@ function WritingArea({ theme, pen, font, soundEnabled }) {
         />
       </div>
       <div className="writing-info">
-        <span className="word-count">{content.length} 字</span>
-        <span className="current-pen">{currentPen.name}</span>
+        <span className="word-count">{content.length} {t('writing.word_count')}</span>
+        <span className="current-pen">{t(`pens.${pen}`)}</span>
       </div>
     </div>
   )

@@ -1,0 +1,85 @@
+{
+  "app": {
+    "title": "Rusty Pen",
+    "slogan": "The pen is rusty. The mind isn't."
+  },
+  "header": {
+    "logo": "Rusty Pen Logo"
+  },
+  "controls": {
+    "language": "Language",
+    "global_theme": "Global Theme",
+    "paper_theme": "Paper Theme",
+    "pen": "Pen",
+    "font": "Font",
+    "sound": "Pen Sound",
+    "click_sound": "Click Sound",
+    "ambient_sound": "Ambient Sound"
+  },
+  "writing": {
+    "placeholder": "Start writing...",
+    "word_count": "chars",
+    "current_pen": "Current Pen"
+  },
+  "themes": {
+    "light": "Light",
+    "dark": "Dark",
+    "autumn": "Autumn",
+    "winter": "Winter",
+    "ink": "Ink Style",
+    "vintage": "Vintage",
+    "vintage_paper": "Vintage Paper",
+    "parchment_paper": "Parchment",
+    "manuscript_paper": "Manuscript",
+    "telegram_paper": "Telegram"
+  },
+  "pens": {
+    "fountain": "Fountain Pen",
+    "brush": "Brush",
+    "feather": "Quill",
+    "ballpoint": "Ballpoint"
+  },
+  "fonts": {
+    "all": "All",
+    "serif": "Serif",
+    "sans_serif": "Sans-Serif",
+    "chinese": "Chinese",
+    "chinese_serif": "Chinese Serif",
+    "chinese_sans": "Chinese Sans-Serif",
+    "chinese_cursive": "Chinese Calligraphy",
+    "monospace": "Monospace",
+    "cursive": "Cursive",
+    "recommended": "Recommended",
+    "xingshu": "Xingshu",
+    "kaiti": "KaiTi",
+    "lishu": "LiSu",
+    "caoshu": "Caoshu",
+    "shoujin": "Shoujin",
+    "songti": "SimSun",
+    "fangsong": "FangSong",
+    "heiti": "SimHei",
+    "yahei": "Microsoft YaHei",
+    "yuan": "YouYuan"
+  },
+  "sounds": {
+    "none": "No Sound",
+    "click1": "Click 1",
+    "click2": "Click 2",
+    "click3": "Click 3",
+    "click4": "Click 4",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "fireplace": "Fireplace",
+    "rain": "Rain",
+    "train": "Train",
+    "cafe": "Cafe",
+    "forest": "Forest",
+    "ocean": "Ocean"
+  },
+  "buttons": {
+    "enable": "Enable",
+    "disable": "Disable",
+    "play": "Play",
+    "pause": "Pause"
+  }
+}

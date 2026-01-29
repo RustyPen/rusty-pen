@@ -2,8 +2,8 @@ export const globalThemes = {
   light: {
     name: '浅色',
     icon: '☀️',
-    defaultFont: 'georgia',
-    recommendedFonts: ['georgia', 'garamond', 'palatino'],
+    defaultFont: 'yahei',
+    recommendedFonts: ['yahei', 'heiti', 'songti', 'kaiti'],
     colors: {
       '--rusty-red': '#8B4513',
       '--parchment-yellow': '#F5E6D3',
@@ -25,8 +25,8 @@ export const globalThemes = {
   dark: {
     name: '深色',
     icon: '🌙',
-    defaultFont: 'helvetica',
-    recommendedFonts: ['helvetica', 'arial', 'verdana'],
+    defaultFont: 'heiti',
+    recommendedFonts: ['heiti', 'yahei', 'songti', 'fangsong'],
     colors: {
       '--rusty-red': '#CD853F',
       '--parchment-yellow': '#2D2D2D',
@@ -48,8 +48,8 @@ export const globalThemes = {
   autumn: {
     name: '秋季落叶',
     icon: '🍂',
-    defaultFont: 'garamond',
-    recommendedFonts: ['garamond', 'palatino', 'georgia'],
+    defaultFont: 'xingshu',
+    recommendedFonts: ['xingshu', 'caoshu', 'shoujin', 'kaiti'],
     colors: {
       '--rusty-red': '#D35400',
       '--parchment-yellow': '#FAD7A0',
@@ -71,8 +71,8 @@ export const globalThemes = {
   winter: {
     name: '冬日雪夜',
     icon: '❄️',
-    defaultFont: 'times',
-    recommendedFonts: ['times', 'georgia', 'palatino'],
+    defaultFont: 'songti',
+    recommendedFonts: ['songti', 'fangsong', 'kaiti', 'lishu'],
     colors: {
       '--rusty-red': '#5D6D7E',
       '--parchment-yellow': '#EBF5FB',
@@ -94,8 +94,8 @@ export const globalThemes = {
   ink: {
     name: '水墨风格',
     icon: '🖌️',
-    defaultFont: 'kaiti',
-    recommendedFonts: ['kaiti', 'songti', 'georgia'],
+    defaultFont: 'caoshu',
+    recommendedFonts: ['caoshu', 'xingshu', 'shoujin', 'kaiti'],
     colors: {
       '--rusty-red': '#4A4A4A',
       '--parchment-yellow': '#FAFAFA',
@@ -117,8 +117,8 @@ export const globalThemes = {
   vintage: {
     name: '年代感',
     icon: '📜',
-    defaultFont: 'courier',
-    recommendedFonts: ['courier', 'monaco', 'times'],
+    defaultFont: 'lishu',
+    recommendedFonts: ['lishu', 'songti', 'fangsong', 'kaiti'],
     colors: {
       '--rusty-red': '#8B4513',
       '--parchment-yellow': '#F5E6D3',

@@ -1,14 +1,17 @@
 import './ThemeSelector.css'
 import { playButtonSound } from '../utils/soundUtils'
+import { useI18n } from '../contexts/I18nContext'
 
 const themes = [
-  { id: 'vintage', name: '复古信纸', icon: '📜' },
-  { id: 'parchment', name: '羊皮纸', icon: '📄' },
-  { id: 'manuscript', name: '手稿纸', icon: '📝' },
-  { id: 'telegram', name: '电报纸', icon: '📨' }
+  { id: 'vintage', icon: '📜' },
+  { id: 'parchment', icon: '📄' },
+  { id: 'manuscript', icon: '📝' },
+  { id: 'telegram', icon: '📨' }
 ]
 
 function ThemeSelector({ currentTheme, onThemeChange }) {
+  const { t } = useI18n()
+
   const handleThemeChange = (themeId) => {
     playButtonSound()
     onThemeChange(themeId)
@@ -16,17 +19,17 @@ function ThemeSelector({ currentTheme, onThemeChange }) {
 
   return (
     <div className="theme-selector">
-      <label className="theme-label">纸张主题</label>
+      <label className="theme-label">{t('controls.paper_theme')}</label>
       <div className="theme-buttons">
         {themes.map((theme) => (
           <button
             key={theme.id}
             className={`theme-button ${currentTheme === theme.id ? 'active' : ''}`}
             onClick={() => handleThemeChange(theme.id)}
-            title={theme.name}
+            title={t(`themes.${theme.id}_paper`)}
           >
             <span className="theme-icon">{theme.icon}</span>
-            <span className="theme-name">{theme.name}</span>
+            <span className="theme-name">{t(`themes.${theme.id}_paper`)}</span>
           </button>
         ))}
       </div>

@@ -3,15 +3,18 @@ import './PenSelector.css'
 import './PenIcon.css'
 import PenIcon from './PenIcon'
 import { playButtonSound } from '../utils/soundUtils'
+import { useI18n } from '../contexts/I18nContext'
 
 const pens = [
-  { id: 'fountain', name: '钢笔' },
-  { id: 'brush', name: '毛笔' },
-  { id: 'feather', name: '羽毛笔' },
-  { id: 'ballpoint', name: '圆珠笔' }
+  { id: 'fountain' },
+  { id: 'brush' },
+  { id: 'feather' },
+  { id: 'ballpoint' }
 ]
 
 function PenSelector({ currentPen, onPenChange }) {
+  const { t } = useI18n()
+
   const handlePenChange = (penId) => {
     playButtonSound()
     onPenChange(penId)
@@ -19,17 +22,17 @@ function PenSelector({ currentPen, onPenChange }) {
 
   return (
     <div className="pen-selector">
-      <label className="pen-label">笔具选择</label>
+      <label className="pen-label">{t('controls.pen')}</label>
       <div className="pen-buttons">
         {pens.map((pen) => (
           <button
             key={pen.id}
             className={`pen-button ${currentPen === pen.id ? 'active' : ''}`}
             onClick={() => handlePenChange(pen.id)}
-            title={pen.name}
+            title={t(`pens.${pen.id}`)}
           >
             <PenIcon type={pen.id} size={24} />
-            <span className="pen-name">{pen.name}</span>
+            <span className="pen-name">{t(`pens.${pen.id}`)}</span>
           </button>
         ))}
       </div>
