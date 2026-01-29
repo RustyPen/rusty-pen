@@ -11,7 +11,7 @@ function ClickSoundSelector() {
   }, [])
 
   const handleSoundChange = (soundId) => {
-    playButtonSound()
+    playButtonSound(soundId)
     setClickSound(soundId)
     setCurrentSound(soundId)
   }

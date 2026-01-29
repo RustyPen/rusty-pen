@@ -26,17 +26,15 @@ export const getClickSounds = () => {
   }));
 };
 
-export const playButtonSound = () => {
-  const soundPath = clickSounds[currentClickSound];
+export const playButtonSound = (soundId = null) => {
+  const soundToPlay = soundId || currentClickSound;
+  const soundPath = clickSounds[soundToPlay];
   if (!soundPath) return;
 
-  if (!buttonSound) {
-    buttonSound = new Audio(soundPath);
-  }
-  
-  buttonSound.currentTime = 0;
-  buttonSound.volume = 0.3;
-  buttonSound.play().catch(err => {
+  const audio = new Audio(soundPath);
+  audio.currentTime = 0;
+  audio.volume = 0.3;
+  audio.play().catch(err => {
     console.log('Button sound play failed:', err);
   });
 };
