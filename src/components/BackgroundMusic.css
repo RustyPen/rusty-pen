@@ -60,7 +60,7 @@
 
 .sound-btn.active .sound-icon,
 .sound-btn.active .sound-name {
-  color: var(--text-primary);
+  color: var(--background-primary);
 }
 
 .sound-icon {

@@ -9,9 +9,8 @@ import BackgroundMusic from './components/BackgroundMusic'
 import ClickSoundSelector from './components/ClickSoundSelector'
 import SettingsButton from './components/SettingsButton'
 import SettingsModal from './components/SettingsModal'
-import { applyGlobalTheme, getThemeById } from './utils/themeUtils'
+import { applyGlobalTheme } from './utils/themeUtils'
 import { applyFont } from './utils/fontUtils'
-import { languages } from './utils/languageUtils'
 import { I18nProvider, useI18n } from './contexts/I18nContext'
 
 function AppContent() {
@@ -30,17 +29,7 @@ function AppContent() {
 
   useEffect(() => {
     applyGlobalTheme(globalTheme)
-    const theme = getThemeById(globalTheme)
-    if (theme && theme.defaultFont) {
-      const langConfig = languages[language]
-      const availableFonts = langConfig?.fonts || []
-      const defaultFont = availableFonts.find(fontId => fontId === theme.defaultFont) || availableFonts[0]
-      if (defaultFont) {
-        setCurrentFont(defaultFont)
-        applyFont(defaultFont)
-      }
-    }
-  }, [globalTheme, language])
+  }, [globalTheme])
 
   const handleGlobalThemeChange = (themeId) => {
     setGlobalTheme(themeId)
@@ -48,11 +37,6 @@ function AppContent() {
 
   const handleLanguageChange = (languageId) => {
     changeLanguage(languageId)
-    const langConfig = languages[languageId]
-    if (langConfig && langConfig.fonts && langConfig.fonts.length > 0) {
-      setCurrentFont(langConfig.fonts[0])
-      applyFont(langConfig.fonts[0])
-    }
   }
 
   const handleFontChange = (fontId) => {

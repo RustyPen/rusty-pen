@@ -41,15 +41,15 @@
 }
 
 .font-category:hover {
-  background: var(--accent-color);
-  color: var(--text-primary);
-  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color);
 }
 
 .font-category.active {
-  background: var(--accent-color);
-  color: var(--text-primary);
-  border-color: var(--accent-color);
+  background: linear-gradient(180deg, var(--accent-color) 0%, var(--copper-green) 100%);
+  border-color: var(--border-color);
+  box-shadow: 0 4px 8px var(--shadow-color);
+  color: var(--background-primary);
   font-weight: bold;
 }
 
@@ -102,8 +102,8 @@
 }
 
 .font-option.active {
-  background: var(--accent-color);
-  border-color: var(--accent-color);
+  background: linear-gradient(180deg, var(--accent-color) 0%, var(--copper-green) 100%);
+  border-color: var(--border-color);
   box-shadow: 0 4px 8px var(--shadow-color);
 }
 
@@ -117,7 +117,7 @@
 
 .font-option.active .font-preview,
 .font-option.active .font-name {
-  color: var(--text-primary);
+  color: var(--background-primary);
 }
 
 .font-preview {

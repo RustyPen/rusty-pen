@@ -49,7 +49,7 @@
 }
 
 .global-theme-button.active .global-theme-name {
-  color: var(--parchment-yellow);
+  color: var(--background-primary);
 }
 
 .global-theme-icon {
