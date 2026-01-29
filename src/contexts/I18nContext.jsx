@@ -9,8 +9,20 @@ const translations = {
 
 let translationCache = {}
 
+const getSystemLanguage = () => {
+  const browserLang = navigator.language || navigator.userLanguage
+  const langCode = browserLang.split('-')[0]
+  const supportedLanguages = Object.keys(translations)
+  
+  if (supportedLanguages.includes(langCode)) {
+    return langCode
+  }
+  
+  return 'zh'
+}
+
 export const I18nProvider = ({ children }) => {
-  const [language, setLanguage] = useState('zh')
+  const [language, setLanguage] = useState(getSystemLanguage())
   const [translationsData, setTranslationsData] = useState({})
 
   useEffect(() => {
