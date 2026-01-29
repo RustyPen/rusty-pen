@@ -10,6 +10,133 @@
   opacity: 1;
 }
 
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-primary);
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      var(--shadow-color) 2px,
+      var(--shadow-color) 4px
+    ),
+    url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='4' height='4' fill='var(--shadow-color)'/%3E%3Ccircle cx='2' cy='2' r='0.5' fill='var(--shadow-color)'/%3E%3C/svg%3E");
+  background-blend-mode: overlay;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: 
+    inset 0 1px 3px rgba(0, 0, 0, 0.1),
+    inset 0 0 2px var(--shadow-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  background-image: 
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 1px,
+      var(--shadow-color) 1px,
+      var(--shadow-color) 2px
+    ),
+    url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='6' height='6' fill='var(--shadow-color)'/%3E%3Cpath d='M0 0L6 6M6 0L0 6' stroke='var(--shadow-color)' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-blend-mode: overlay;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.15),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+  background-image: 
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 1px,
+      var(--shadow-color) 1px,
+      var(--shadow-color) 2px
+    ),
+    url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='6' height='6' fill='var(--shadow-color)'/%3E%3Cpath d='M0 0L6 6M6 0L0 6' stroke='var(--shadow-color)' stroke-width='0.5'/%3E%3C/svg%3E");
+  background-blend-mode: overlay;
+  border-color: var(--accent-color);
+  box-shadow: 
+    0 3px 6px rgba(0, 0, 0, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--copper-green);
+  border-color: var(--copper-green);
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.15),
+    inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--background-primary);
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      var(--shadow-color) 2px,
+      var(--shadow-color) 4px
+    ),
+    url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='4' height='4' fill='var(--shadow-color)'/%3E%3Ccircle cx='2' cy='2' r='0.5' fill='var(--shadow-color)'/%3E%3C/svg%3E");
+  background-blend-mode: overlay;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-button {
+  background: var(--border-color);
+  background-image: 
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 1px,
+      var(--shadow-color) 1px,
+      var(--shadow-color) 2px
+    );
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  width: 16px;
+  height: 16px;
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+  transition: all 0.2s ease;
+}
+
+::-webkit-scrollbar-button:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.15),
+    inset 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+
+::-webkit-scrollbar-button:active {
+  background: var(--copper-green);
+  border-color: var(--copper-green);
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--background-primary);
+}
+
 .app-controls {
   display: flex;
   justify-content: center;
