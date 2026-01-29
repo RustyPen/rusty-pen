@@ -1,7 +1,7 @@
 {
   "app": {
     "title": "Rusty Pen",
-    "slogan": "笔可能生锈，思想不会"
+    "slogan": "笔会生锈，思想不会"
   },
   "header": {
     "logo": "Rusty Pen Logo"
@@ -14,7 +14,8 @@
     "font": "字体选择",
     "sound": "笔具音效",
     "click_sound": "点击音效",
-    "ambient_sound": "环境音效"
+    "ambient_sound": "环境音效",
+    "settings": "设置"
   },
   "writing": {
     "placeholder": "开始你的创作...",
@@ -80,6 +81,7 @@
     "enable": "开启",
     "disable": "关闭",
     "play": "播放",
-    "pause": "暂停"
+    "pause": "暂停",
+    "close": "关闭"
   }
 }

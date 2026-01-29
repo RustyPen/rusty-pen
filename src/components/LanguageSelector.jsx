@@ -1,38 +1,31 @@
-import { useState, useEffect } from 'react'
 import './LanguageSelector.css'
-import { getLanguages, applyLanguage } from '../utils/languageUtils'
-import { playButtonSound } from '../utils/soundUtils'
 import { useI18n } from '../contexts/I18nContext'
+import { playButtonSound } from '../utils/soundUtils'
 
 function LanguageSelector({ currentLanguage, onLanguageChange }) {
-  const [selectedLanguage, setSelectedLanguage] = useState(currentLanguage || 'zh')
-  const languages = getLanguages()
   const { t } = useI18n()
 
-  useEffect(() => {
-    setSelectedLanguage(currentLanguage || 'zh')
-  }, [currentLanguage])
+  const languages = [
+    { id: 'zh', name: '中文', icon: '🇨🇳' },
+    { id: 'en', name: 'English', icon: '🇺🇸' }
+  ]
 
   const handleLanguageChange = (languageId) => {
     playButtonSound()
-    setSelectedLanguage(languageId)
-    applyLanguage(languageId)
     onLanguageChange(languageId)
   }
 
   return (
     <div className="language-selector">
-      <label className="language-label">{t('controls.language')}</label>
       <div className="language-buttons">
-        {languages.map((language) => (
+        {languages.map((lang) => (
           <button
-            key={language.id}
-            className={`language-button ${selectedLanguage === language.id ? 'active' : ''}`}
-            onClick={() => handleLanguageChange(language.id)}
-            title={language.name}
+            key={lang.id}
+            className={`language-button ${currentLanguage === lang.id ? 'active' : ''}`}
+            onClick={() => handleLanguageChange(lang.id)}
           >
-            <span className="language-icon">{language.icon}</span>
-            <span className="language-name">{language.name}</span>
+            <span className="language-icon">{lang.icon}</span>
+            <span className="language-name">{lang.name}</span>
           </button>
         ))}
       </div>

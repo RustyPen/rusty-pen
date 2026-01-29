@@ -12,14 +12,14 @@ function SoundToggle({ enabled, onToggle }) {
 
   return (
     <div className="sound-toggle">
-      <label className="sound-label">{t('controls.sound')}</label>
+      <label className="control-label">{t('controls.sound')}</label>
       <button
-        className={`sound-button ${enabled ? 'enabled' : ''}`}
+        className={`control-button ${enabled ? 'active' : ''}`}
         onClick={handleToggle}
         title={enabled ? t('buttons.disable') : t('buttons.enable')}
       >
-        <span className="sound-icon">{enabled ? '🔊' : '🔇'}</span>
-        <span className="sound-status">{enabled ? t('sounds.enabled') : t('sounds.disabled')}</span>
+        <span className="control-icon">{enabled ? '🔊' : '🔇'}</span>
+        <span className="control-text">{enabled ? t('sounds.enabled') : t('sounds.disabled')}</span>
       </button>
     </div>
   )

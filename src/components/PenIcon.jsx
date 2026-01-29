@@ -12,7 +12,7 @@ const PenIcon = ({ type, size = 24 }) => {
   const iconPath = iconPaths[type] || iconPaths.fountain;
 
   return (
-    <div className="pen-icon-wrapper" style={{ width: size, height: size }}>
+    <div className="control-icon" style={{ width: size, height: size }}>
       <img
         src={iconPath}
         alt={type}

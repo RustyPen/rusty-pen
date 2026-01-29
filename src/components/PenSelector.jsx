@@ -22,17 +22,17 @@ function PenSelector({ currentPen, onPenChange }) {
 
   return (
     <div className="pen-selector">
-      <label className="pen-label">{t('controls.pen')}</label>
+      <label className="control-label">{t('controls.pen')}</label>
       <div className="pen-buttons">
         {pens.map((pen) => (
           <button
             key={pen.id}
-            className={`pen-button ${currentPen === pen.id ? 'active' : ''}`}
+            className={`control-button ${currentPen === pen.id ? 'active' : ''}`}
             onClick={() => handlePenChange(pen.id)}
             title={t(`pens.${pen.id}`)}
           >
             <PenIcon type={pen.id} size={24} />
-            <span className="pen-name">{t(`pens.${pen.id}`)}</span>
+            <span className="control-text">{t(`pens.${pen.id}`)}</span>
           </button>
         ))}
       </div>

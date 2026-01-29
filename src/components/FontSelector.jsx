@@ -52,8 +52,6 @@ function FontSelector({ currentFont, onFontChange, currentTheme, currentLanguage
 
   return (
     <div className="font-selector">
-      <label className="font-label">{t('controls.font')}</label>
-      
       <div className="font-categories">
         {categories.map((category) => (
           <button

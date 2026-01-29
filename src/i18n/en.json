@@ -14,7 +14,8 @@
     "font": "Font",
     "sound": "Pen Sound",
     "click_sound": "Click Sound",
-    "ambient_sound": "Ambient Sound"
+    "ambient_sound": "Ambient Sound",
+    "settings": "Settings"
   },
   "writing": {
     "placeholder": "Start writing...",
@@ -80,6 +81,7 @@
     "enable": "Enable",
     "disable": "Disable",
     "play": "Play",
-    "pause": "Pause"
+    "pause": "Pause",
+    "close": "Close"
   }
 }

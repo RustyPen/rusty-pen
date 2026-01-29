@@ -3,13 +3,12 @@ import './App.css'
 import Header from './components/Header'
 import WritingArea from './components/WritingArea'
 import ThemeSelector from './components/ThemeSelector'
-import GlobalThemeSelector from './components/GlobalThemeSelector'
 import PenSelector from './components/PenSelector'
-import FontSelector from './components/FontSelector'
-import LanguageSelector from './components/LanguageSelector'
 import SoundToggle from './components/SoundToggle'
 import BackgroundMusic from './components/BackgroundMusic'
 import ClickSoundSelector from './components/ClickSoundSelector'
+import SettingsButton from './components/SettingsButton'
+import SettingsModal from './components/SettingsModal'
 import { applyGlobalTheme, getThemeById } from './utils/themeUtils'
 import { applyFont } from './utils/fontUtils'
 import { languages } from './utils/languageUtils'
@@ -22,7 +21,8 @@ function AppContent() {
   const [currentPen, setCurrentPen] = useState('fountain')
   const [soundEnabled, setSoundEnabled] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
-  const { language, changeLanguage } = useI18n()
+  const [settingsOpen, setSettingsOpen] = useState(false)
+  const { language, changeLanguage, t } = useI18n()
 
   useEffect(() => {
     setTimeout(() => setIsLoaded(true), 500)
@@ -64,14 +64,12 @@ function AppContent() {
     <div className={`app ${isLoaded ? 'loaded' : ''}`}>
       <Header />
       <div className="app-controls">
-        <LanguageSelector currentLanguage={language} onLanguageChange={handleLanguageChange} />
-        <GlobalThemeSelector currentTheme={globalTheme} onThemeChange={handleGlobalThemeChange} />
         <ThemeSelector currentTheme={currentTheme} onThemeChange={setCurrentTheme} />
         <PenSelector currentPen={currentPen} onPenChange={setCurrentPen} />
-        <FontSelector currentFont={currentFont} onFontChange={handleFontChange} currentTheme={globalTheme} currentLanguage={language} />
         <SoundToggle enabled={soundEnabled} onToggle={setSoundEnabled} />
         <ClickSoundSelector />
         <BackgroundMusic />
+        <SettingsButton onClick={() => setSettingsOpen(true)} />
       </div>
       <WritingArea 
         theme={currentTheme} 
@@ -79,6 +77,16 @@ function AppContent() {
         font={currentFont}
         language={language}
         soundEnabled={soundEnabled}
+      />
+      <SettingsModal 
+        isOpen={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        currentTheme={globalTheme}
+        onThemeChange={handleGlobalThemeChange}
+        currentFont={currentFont}
+        onFontChange={handleFontChange}
+        currentLanguage={language}
+        onLanguageChange={handleLanguageChange}
       />
     </div>
   )

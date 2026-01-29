@@ -1,17 +1,10 @@
+@import './Control.css';
+
 .background-music {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-}
-
-.music-label {
-  font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .music-controls {
@@ -35,7 +28,7 @@
   gap: 0.2rem;
   padding: 0.6rem 0.8rem;
   background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-primary) 100%);
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--copper-green);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -50,8 +43,8 @@
 }
 
 .sound-btn.active {
-  background: linear-gradient(180deg, var(--accent-color) 0%, var(--copper-green) 100%);
-  border-color: var(--accent-color);
+  background: linear-gradient(180deg, var(--copper-green) 0%, var(--border-color) 100%);
+  border-color: var(--border-color);
   box-shadow: 0 4px 8px var(--shadow-color);
   animation: pulse 2s infinite;
 }

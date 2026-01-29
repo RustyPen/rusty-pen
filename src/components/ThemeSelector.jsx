@@ -19,17 +19,17 @@ function ThemeSelector({ currentTheme, onThemeChange }) {
 
   return (
     <div className="theme-selector">
-      <label className="theme-label">{t('controls.paper_theme')}</label>
+      <label className="control-label">{t('controls.paper_theme')}</label>
       <div className="theme-buttons">
         {themes.map((theme) => (
           <button
             key={theme.id}
-            className={`theme-button ${currentTheme === theme.id ? 'active' : ''}`}
+            className={`control-button ${currentTheme === theme.id ? 'active' : ''}`}
             onClick={() => handleThemeChange(theme.id)}
             title={t(`themes.${theme.id}_paper`)}
           >
-            <span className="theme-icon">{theme.icon}</span>
-            <span className="theme-name">{t(`themes.${theme.id}_paper`)}</span>
+            <span className="control-icon">{theme.icon}</span>
+            <span className="control-text">{t(`themes.${theme.id}_paper`)}</span>
           </button>
         ))}
       </div>

@@ -1,52 +1,57 @@
-@import './Control.css';
-
-.click-sound-selector {
+.control-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
 }
 
-.click-sound-buttons {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
+.control-label {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.click-sound-button {
+.control-button {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.6rem 1rem;
+  padding: 0.8rem 1rem;
   background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-primary) 100%);
   border: 2px solid var(--copper-green);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px var(--shadow-color);
-  min-width: 70px;
+  min-width: 80px;
 }
 
-.click-sound-button:hover {
+.control-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px var(--shadow-color);
   background: linear-gradient(180deg, var(--background-primary) 0%, var(--background-secondary) 100%);
 }
 
-.click-sound-button.active {
+.control-button.active {
   background: linear-gradient(180deg, var(--copper-green) 0%, var(--border-color) 100%);
   border-color: var(--border-color);
-  box-shadow: 0 4px 8px var(--shadow-color);
+  box-shadow: 0 4px 8px var(--shadow-color)
 }
 
-.click-sound-button.active .click-sound-name {
+.control-button.active .control-icon,
+.control-button.active .control-text {
   color: var(--background-primary);
 }
 
-.click-sound-name {
+.control-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.control-text {
   font-family: 'Georgia', 'Times New Roman', serif;
   font-size: 0.8rem;
   color: var(--text-secondary);
@@ -54,17 +59,16 @@
 }
 
 @media (max-width: 768px) {
-  .click-sound-buttons {
-    flex-direction: row;
-    gap: 0.3rem;
-  }
-  
-  .click-sound-button {
+  .control-button {
     min-width: 60px;
     padding: 0.5rem 0.8rem;
   }
   
-  .click-sound-name {
+  .control-icon {
+    font-size: 1.2rem;
+  }
+  
+  .control-text {
     font-size: 0.7rem;
   }
 }

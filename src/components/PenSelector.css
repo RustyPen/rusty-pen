@@ -1,3 +1,5 @@
+@import './Control.css';
+
 .pen-selector {
   display: flex;
   flex-direction: column;
@@ -5,58 +7,11 @@
   gap: 0.5rem;
 }
 
-.pen-label {
-  font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
 .pen-buttons {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.pen-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 0.8rem 1rem;
-  background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-primary) 100%);
-  border: 2px solid var(--copper-green);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px var(--shadow-color);
-  min-width: 80px;
-}
-
-.pen-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px var(--shadow-color);
-  background: linear-gradient(180deg, var(--background-primary) 0%, var(--background-secondary) 100%);
-}
-
-.pen-button.active {
-  background: linear-gradient(180deg, var(--copper-green) 0%, var(--border-color) 100%);
-  border-color: var(--accent-color);
-  box-shadow: 0 4px 8px var(--shadow-color);
-}
-
-.pen-button.active .pen-name {
-  color: var(--background-primary);
-}
-
-.pen-name {
-  font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  font-weight: normal;
 }
 
 @media (max-width: 768px) {

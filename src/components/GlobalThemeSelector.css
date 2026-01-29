@@ -44,7 +44,7 @@
 
 .global-theme-button.active {
   background: linear-gradient(180deg, var(--accent-color) 0%, var(--copper-green) 100%);
-  border-color: var(--accent-color);
+  border-color: var(--border-color);
   box-shadow: 0 4px 8px var(--shadow-color);
 }
 

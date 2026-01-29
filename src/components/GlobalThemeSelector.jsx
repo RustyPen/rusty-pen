@@ -21,7 +21,6 @@ function GlobalThemeSelector({ currentTheme, onThemeChange }) {
 
   return (
     <div className="global-theme-selector">
-      <label className="global-theme-label">{t('controls.global_theme')}</label>
       <div className="global-theme-buttons">
         {themes.map((theme) => (
           <button

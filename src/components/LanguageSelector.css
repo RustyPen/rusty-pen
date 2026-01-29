@@ -5,15 +5,6 @@
   gap: 0.5rem;
 }
 
-.language-label {
-  font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
 .language-buttons {
   display: flex;
   gap: 0.5rem;
@@ -23,58 +14,50 @@
 
 .language-button {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.3rem;
-  padding: 0.8rem 1.2rem;
-  background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-primary) 100%);
+  gap: 6px;
+  padding: 6px 12px;
   border: 2px solid var(--border-color);
-  border-radius: 8px;
+  border-radius: 6px;
+  background: var(--background-primary);
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px var(--shadow-color);
-  min-width: 80px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  color: var(--text-primary);
 }
 
 .language-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px var(--shadow-color);
-  background: linear-gradient(180deg, var(--background-primary) 0%, var(--background-secondary) 100%);
+  background: linear-gradient(180deg, var(--parchment-yellow) 0%, var(--aged-paper) 100%);
 }
 
 .language-button.active {
   background: linear-gradient(180deg, var(--accent-color) 0%, var(--copper-green) 100%);
-  border-color: var(--accent-color);
+  border-color: var(--border-color);
   box-shadow: 0 4px 8px var(--shadow-color);
-}
-
-.language-button.active .language-name {
-  color: var(--text-primary);
+  color: var(--background-primary);
 }
 
 .language-icon {
-  font-size: 2rem;
-  line-height: 1;
+  font-size: 16px;
 }
 
 .language-name {
-  font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  font-weight: normal;
+  font-weight: 500;
 }
 
 @media (max-width: 768px) {
+  .language-selector {
+    gap: 6px;
+  }
+
   .language-button {
-    min-width: 70px;
-    padding: 0.6rem 1rem;
+    padding: 5px 10px;
+    font-size: 13px;
   }
-  
+
   .language-icon {
-    font-size: 1.5rem;
-  }
-  
-  .language-name {
-    font-size: 0.7rem;
+    font-size: 14px;
   }
 }
