@@ -22,7 +22,7 @@ function PenSelector({ currentPen, onPenChange }) {
 
   return (
     <div className="pen-selector">
-      <label className="control-label">{t('controls.pen')}</label>
+      <span className="control-label">{t('controls.pen')}</span>
       <div className="pen-buttons">
         {pens.map((pen) => (
           <button

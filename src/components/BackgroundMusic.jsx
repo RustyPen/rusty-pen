@@ -78,7 +78,7 @@ function BackgroundMusic() {
 
   return (
     <div className="background-music">
-      <label className="control-label">{t('controls.ambient_sound')}</label>
+      <span className="control-label">{t('controls.ambient_sound')}</span>
       <div className="music-controls">
         <div className="sound-buttons">
           {ambientSounds.map((sound) => (

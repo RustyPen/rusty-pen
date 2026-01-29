@@ -13,7 +13,7 @@ function SettingsButton({ onClick }) {
 
   return (
     <div className="settings-button-wrapper">
-      <label className="control-label">{t('controls.settings')}</label>
+      <span className="control-label">{t('controls.settings')}</span>
       <button 
         className="control-button"
         onClick={handleClick}

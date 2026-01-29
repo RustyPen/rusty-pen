@@ -154,6 +154,7 @@ function WritingArea({ theme, pen, font, soundEnabled, language }) {
         ></div>
         <textarea
           ref={textareaRef}
+          id="writing-textarea"
           className="writing-textarea"
           data-pen={pen}
           value={content}

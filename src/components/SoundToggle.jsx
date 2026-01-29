@@ -12,7 +12,7 @@ function SoundToggle({ enabled, onToggle }) {
 
   return (
     <div className="sound-toggle">
-      <label className="control-label">{t('controls.sound')}</label>
+      <span className="control-label">{t('controls.sound')}</span>
       <button
         className={`control-button ${enabled ? 'active' : ''}`}
         onClick={handleToggle}

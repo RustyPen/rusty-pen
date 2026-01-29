@@ -20,7 +20,7 @@ function ClickSoundSelector() {
 
   return (
     <div className="click-sound-selector">
-      <label className="control-label">{t('controls.click_sound')}</label>
+      <span className="control-label">{t('controls.click_sound')}</span>
       <div className="click-sound-buttons">
         {sounds.map((sound) => (
           <button
