@@ -13,12 +13,19 @@
   --sepia-brown: #704214;
   --gold-accent: #D4AF37;
   --dark-brown: #3E2723;
+  --background-primary: #F5E6D3;
+  --background-secondary: #E8DCC8;
+  --text-primary: #1a1a1a;
+  --text-secondary: #704214;
+  --border-color: #8B4513;
+  --accent-color: #D4AF37;
+  --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
 body {
   font-family: 'Georgia', 'Times New Roman', serif;
-  background-color: var(--aged-paper);
-  color: var(--ink-black);
+  background-color: var(--background-primary);
+  color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
 }

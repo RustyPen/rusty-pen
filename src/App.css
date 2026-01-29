@@ -15,9 +15,9 @@
   justify-content: center;
   gap: 2rem;
   padding: 1rem;
-  background: linear-gradient(180deg, var(--aged-paper) 0%, var(--parchment-yellow) 100%);
-  border-bottom: 2px solid var(--rusty-red);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-primary) 100%);
+  border-bottom: 2px solid var(--border-color);
+  box-shadow: 0 2px 10px var(--shadow-color);
 }
 
 @media (max-width: 768px) {

@@ -1,74 +1,85 @@
-.sound-toggle {
+.global-theme-selector {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
 }
 
-.sound-label {
+.global-theme-label {
   font-family: 'Georgia', 'Times New Roman', serif;
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: var(--sepia-brown);
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-.sound-button {
+.global-theme-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.global-theme-button {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.8rem 1.5rem;
-  background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-primary) 100%);
-  border: 2px solid var(--border-color);
+  padding: 0.6rem 1rem;
+  background: linear-gradient(180deg, var(--aged-paper) 0%, var(--parchment-yellow) 100%);
+  border: 2px solid var(--sepia-brown);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px var(--shadow-color);
-  min-width: 100px;
+  min-width: 70px;
 }
 
-.sound-button:hover {
+.global-theme-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px var(--shadow-color);
-  background: linear-gradient(180deg, var(--background-primary) 0%, var(--background-secondary) 100%);
+  background: linear-gradient(180deg, var(--parchment-yellow) 0%, var(--aged-paper) 100%);
 }
 
-.sound-button.enabled {
+.global-theme-button.active {
   background: linear-gradient(180deg, var(--accent-color) 0%, var(--copper-green) 100%);
   border-color: var(--accent-color);
   box-shadow: 0 4px 8px var(--shadow-color);
 }
 
-.sound-button.enabled .sound-icon,
-.sound-button.enabled .sound-status {
-  color: var(--text-primary);
+.global-theme-button.active .global-theme-name {
+  color: var(--parchment-yellow);
 }
 
-.sound-icon {
+.global-theme-icon {
   font-size: 1.5rem;
   line-height: 1;
 }
 
-.sound-status {
+.global-theme-name {
   font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--sepia-brown);
   font-weight: normal;
 }
 
 @media (max-width: 768px) {
-  .sound-button {
-    min-width: 80px;
-    padding: 0.5rem 1rem;
+  .global-theme-buttons {
+    flex-direction: row;
+    gap: 0.3rem;
   }
   
-  .sound-icon {
+  .global-theme-button {
+    min-width: 60px;
+    padding: 0.5rem 0.8rem;
+  }
+  
+  .global-theme-icon {
     font-size: 1.2rem;
   }
   
-  .sound-status {
+  .global-theme-name {
     font-size: 0.7rem;
   }
 }
