@@ -1,0 +1,110 @@
+.writing-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.writing-paper {
+  flex: 1;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    inset 0 0 100px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  min-height: 60vh;
+  transition: all 0.3s ease;
+}
+
+.writing-paper:hover {
+  box-shadow: 
+    0 8px 12px rgba(0, 0, 0, 0.15),
+    0 2px 6px rgba(0, 0, 0, 0.1),
+    inset 0 0 100px rgba(0, 0, 0, 0.05);
+}
+
+.paper-texture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.writing-textarea {
+  width: 100%;
+  height: 100%;
+  min-height: 60vh;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 2rem;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  resize: none;
+  position: relative;
+  z-index: 1;
+}
+
+.writing-textarea::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+  font-style: italic;
+}
+
+.writing-textarea[data-pen="fountain"] {
+  text-shadow: 0.5px 0.5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.writing-textarea[data-pen="brush"] {
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.15);
+}
+
+.writing-textarea[data-pen="feather"] {
+  text-shadow: 0.3px 0.3px 0 rgba(0, 0, 0, 0.08);
+}
+
+.writing-textarea[data-pen="ballpoint"] {
+  text-shadow: none;
+}
+
+.writing-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  color: var(--sepia-brown);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.word-count,
+.current-pen {
+  padding: 0.5rem 1rem;
+  background: rgba(139, 69, 19, 0.1);
+  border-radius: 4px;
+  border: 1px solid rgba(139, 69, 19, 0.2);
+}
+
+@media (max-width: 768px) {
+  .writing-area {
+    padding: 1rem;
+  }
+  
+  .writing-textarea {
+    padding: 1.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .writing-info {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+}

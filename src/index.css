@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --rusty-red: #8B4513;
+  --parchment-yellow: #F5E6D3;
+  --ink-black: #1a1a1a;
+  --copper-green: #B87333;
+  --aged-paper: #E8DCC8;
+  --sepia-brown: #704214;
+  --gold-accent: #D4AF37;
+  --dark-brown: #3E2723;
+}
+
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background-color: var(--aged-paper);
+  color: var(--ink-black);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

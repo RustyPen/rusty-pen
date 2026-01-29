@@ -1,0 +1,86 @@
+.theme-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.theme-label {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.9rem;
+  color: var(--sepia-brown);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.theme-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.theme-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(180deg, var(--aged-paper) 0%, var(--parchment-yellow) 100%);
+  border: 2px solid var(--rusty-red);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 80px;
+}
+
+.theme-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(180deg, var(--parchment-yellow) 0%, var(--aged-paper) 100%);
+}
+
+.theme-button.active {
+  background: linear-gradient(180deg, var(--rusty-red) 0%, var(--sepia-brown) 100%);
+  border-color: var(--gold-accent);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.theme-button.active .theme-icon,
+.theme-button.active .theme-name {
+  color: var(--parchment-yellow);
+}
+
+.theme-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.theme-name {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.8rem;
+  color: var(--sepia-brown);
+  font-weight: normal;
+}
+
+@media (max-width: 768px) {
+  .theme-buttons {
+    flex-direction: row;
+    gap: 0.3rem;
+  }
+  
+  .theme-button {
+    min-width: 60px;
+    padding: 0.5rem 0.8rem;
+  }
+  
+  .theme-icon {
+    font-size: 1.2rem;
+  }
+  
+  .theme-name {
+    font-size: 0.7rem;
+  }
+}

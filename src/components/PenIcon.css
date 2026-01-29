@@ -1,0 +1,17 @@
+.pen-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.pen-icon-image {
+  display: block;
+  color: var(--sepia-brown);
+  transition: all 0.3s ease;
+}
+
+.pen-button:hover .pen-icon-image {
+  transform: scale(1.1);
+}
