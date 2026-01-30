@@ -58,7 +58,13 @@ const Sidebar = ({ activeTab, onTabChange, articles, activeArticle, onArticleSel
 
       <div className="sidebar-right">
         <div className="sidebar-content">
-          <button className="new-article-btn" onClick={onNewArticle}>
+          <button 
+            className="new-article-btn" 
+            onClick={() => {
+              playButtonSound()
+              onNewArticle()
+            }}
+          >
             <span className="btn-icon">➕</span>
             <span className="btn-text">{t('sidebar.new_article')}</span>
           </button>
@@ -76,6 +82,7 @@ const Sidebar = ({ activeTab, onTabChange, articles, activeArticle, onArticleSel
                     className="article-delete"
                     onClick={(e) => {
                       e.stopPropagation()
+                      playButtonSound()
                       onDeleteArticle(article.id)
                     }}
                   >

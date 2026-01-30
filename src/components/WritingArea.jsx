@@ -4,6 +4,7 @@ import jsPDF from 'jspdf'
 import './WritingArea.css'
 import { getFontById } from '../utils/fontUtils'
 import { useI18n } from '../contexts/I18nContext'
+import { playButtonSound } from '../utils/soundUtils'
 
 const themes = {
   vintage: {
@@ -184,13 +185,11 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
   }
 
   const handleExportPDF = async () => {
-    if (!paperRef.current) {
-      return
-    }
-
     if (!content.trim()) {
       return
     }
+
+    playButtonSound()
 
     const hexToRgba = (hex, alpha) => {
       const r = parseInt(hex.slice(1, 3), 16)
@@ -211,16 +210,60 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
       exportContainer.style.height = `${A4_HEIGHT}px`
       document.body.appendChild(exportContainer)
 
-      const clonedPaper = paperRef.current.cloneNode(true)
-      clonedPaper.style.width = '100%'
-      clonedPaper.style.height = '100%'
-      clonedPaper.style.minHeight = '100%'
-      clonedPaper.style.boxShadow = 'none'
-      const borderColor = hexToRgba(currentTheme.textColor, 0.1)
-      clonedPaper.style.border = `1px solid ${borderColor}`
-      clonedPaper.style.overflow = 'hidden'
-      
-      exportContainer.appendChild(clonedPaper)
+      const writingArea = document.querySelector('.writing-area')
+      if (!writingArea) {
+        document.body.removeChild(exportContainer)
+        return
+      }
+
+      const clonedWritingArea = writingArea.cloneNode(true)
+      clonedWritingArea.style.width = '100%'
+      clonedWritingArea.style.height = '100%'
+      clonedWritingArea.style.minHeight = '100%'
+      clonedWritingArea.style.boxShadow = 'none'
+      clonedWritingArea.style.overflow = 'hidden'
+      clonedWritingArea.style.padding = '0'
+      clonedWritingArea.style.backgroundColor = 'var(--background-primary)'
+
+      const writingInfo = clonedWritingArea.querySelector('.writing-info')
+      if (writingInfo) {
+        writingInfo.remove()
+      }
+
+      const writingPaper = clonedWritingArea.querySelector('.writing-paper')
+      if (writingPaper) {
+        writingPaper.style.border = 'none'
+        writingPaper.style.borderRadius = '0'
+        writingPaper.style.boxShadow = 'none'
+      }
+
+      const writingEditor = clonedWritingArea.querySelector('.writing-editor')
+      if (writingEditor) {
+        writingEditor.style.padding = '2rem'
+        
+        if (writingEditor.classList.contains('lined-paper')) {
+          const isTelegram = writingPaper?.getAttribute('data-theme') === 'telegram'
+          const lineColor = isTelegram ? 'rgba(0, 0, 0, 0.2)' : 'rgba(184, 115, 51, 0.3)'
+          
+          const svgPattern = `
+            <svg width="100%" height="32" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="lines" width="100%" height="32" patternUnits="userSpaceOnUse">
+                  <line x1="0" y1="28.5" x2="100%" y2="28.5" stroke="${lineColor}" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#lines)"/>
+            </svg>
+          `
+          
+          const svgDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgPattern)}`
+          writingEditor.style.backgroundImage = `url('${svgDataUrl}')`
+          writingEditor.style.backgroundSize = '100% 32px'
+          writingEditor.style.backgroundRepeat = 'repeat-y'
+        }
+      }
+
+      exportContainer.appendChild(clonedWritingArea)
 
       const canvas = await html2canvas(exportContainer, {
         scale: 2,
