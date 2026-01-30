@@ -91,6 +91,34 @@
   border: 1px solid rgba(139, 69, 19, 0.2);
 }
 
+.submit-btn {
+  padding: 0.5rem 1.5rem;
+  background: linear-gradient(180deg, var(--copper-green) 0%, var(--border-color) 100%);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--background-primary);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
   .writing-area {
     padding: 1rem;

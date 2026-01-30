@@ -30,7 +30,9 @@
   "writing": {
     "placeholder": "开始你的创作...",
     "word_count": "字",
-    "current_pen": "当前笔具"
+    "current_pen": "当前笔具",
+    "submit": "提交",
+    "submitted": "文章已提交！"
   },
   "themes": {
     "light": "浅色",
