@@ -6,27 +6,27 @@ import { useI18n } from '../contexts/I18nContext'
 const themes = {
   vintage: {
     name: '复古信纸',
-    background: 'linear-gradient(180deg, #F5E6D3 0%, #E8DCC8 100%)',
+    background: 'linear-gradient(180deg, #FAF3E0 0%, #F5E6D3 50%, #E8DCC8 100%)',
     textColor: '#1a1a1a',
-    paperTexture: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.08\'/%3E%3C/svg%3E")'
+    paperTexture: 'url("data:image/svg+xml,%3Csvg width=\'200\' height=\'200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.10\'/%3E%3Cfilter id=\'paper\'%3E%3CfeTurbulence type=\'turbulence\' baseFrequency=\'0.04\' numOctaves=\'2\' stitchTiles=\'stitch\'/%3E%3CfeColorMatrix type=\'matrix\' values=\'0 0 0 0 0.95 0 0 0 0 0.9 0 0 0 0 0.85 0 0 0 0.15 0\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23paper)\'/%3E%3C/svg%3E")'
   },
   parchment: {
     name: '羊皮纸',
-    background: 'linear-gradient(180deg, #D4C4A8 0%, #C4B393 100%)',
+    background: 'linear-gradient(135deg, #C9B896 0%, #B8A67E 25%, #D4C4A8 50%, #C4B393 75%, #B8A67E 100%)',
     textColor: '#2c1810',
-    paperTexture: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.6\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'0.12\'/%3E%3C/svg%3E")'
+    paperTexture: 'url("data:image/svg+xml,%3Csvg width=\'150\' height=\'150\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'rough\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'5\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23rough)\' opacity=\'0.15\'/%3E%3Cfilter id=\'parchment\'%3E%3CfeTurbulence type=\'turbulence\' baseFrequency=\'0.02\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3CfeColorMatrix type=\'matrix\' values=\'0 0 0 0 0.85 0 0 0 0 0.78 0 0 0 0 0.65 0 0 0 0.2 0\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23parchment)\'/%3E%3C/svg%3E")'
   },
   manuscript: {
     name: '手稿纸',
     background: 'linear-gradient(180deg, #FFF8E7 0%, #F5E6D3 100%)',
     textColor: '#2c1810',
-    paperTexture: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpattern id=\'lines\' width=\'100%25\' height=\'32\' patternUnits=\'userSpaceOnUse\'%3E%3Cline x1=\'0\' y1=\'31\' x2=\'100%25\' y2=\'31\' stroke=\'%23B87333\' stroke-width=\'0.5\' opacity=\'0.3\'/%3E%3C/pattern%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'url(%23lines)\'/%3E%3C/svg%3E")'
+    paperTexture: 'url("data:image/svg+xml,%3Csvg width=\'120\' height=\'120\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'paper\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.5\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23paper)\' opacity=\'0.08\'/%3E%3C/svg%3E")'
   },
   telegram: {
     name: '电报纸',
     background: 'linear-gradient(180deg, #FFF8DC 0%, #F0E68C 100%)',
     textColor: '#000000',
-    paperTexture: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpattern id=\'grid\' width=\'100%25\' height=\'32\' patternUnits=\'userSpaceOnUse\'%3E%3Cline x1=\'0\' y1=\'31\' x2=\'100%25\' y2=\'31\' stroke=\'%23000\' stroke-width=\'0.3\' opacity=\'0.2\'/%3E%3C/pattern%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'url(%23grid)\'/%3E%3C/svg%3E")'
+    paperTexture: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'telegraph\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.7\' numOctaves=\'2\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23telegraph)\' opacity=\'0.12\'/%3E%3C/svg%3E")'
   }
 }
 
@@ -60,15 +60,18 @@ const pens = {
 
 function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, onContentChange }) {
   const [content, setContent] = useState('')
-  const textareaRef = useRef(null)
+  const editorRef = useRef(null)
   const audioCacheRef = useRef({})
   const typingTimerRef = useRef(null)
   const isTypingRef = useRef(false)
+  const isUpdatingRef = useRef(false)
   
   const currentTheme = themes[theme] || themes.vintage
   const currentPen = pens[pen] || pens.fountain
   const currentFont = getFontById(font) || getFontById('georgia')
   const { t } = useI18n()
+  
+  const isLinedPaper = theme === 'manuscript' || theme === 'telegram'
   
   const penPaths = {
     fountain: '/cursors/fountain.svg',
@@ -81,16 +84,22 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
   const placeholderText = t('writing.placeholder')
 
   useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.focus()
+    if (editorRef.current) {
+      editorRef.current.focus()
     }
   }, [])
 
   useEffect(() => {
-    if (activeArticle) {
+    if (activeArticle && !isUpdatingRef.current) {
       setContent(activeArticle.content || '')
-    } else {
+      if (editorRef.current) {
+        editorRef.current.innerText = activeArticle.content || ''
+      }
+    } else if (!activeArticle && !isUpdatingRef.current) {
       setContent('')
+      if (editorRef.current) {
+        editorRef.current.innerText = ''
+      }
     }
   }, [activeArticle])
 
@@ -139,7 +148,8 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
   }
 
   const handleTyping = (e) => {
-    const newContent = e.target.value
+    isUpdatingRef.current = true
+    const newContent = e.target.innerText
     setContent(newContent)
     
     if (soundEnabled) {
@@ -148,6 +158,17 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
     
     if (activeArticle && onContentChange) {
       onContentChange(activeArticle.id, newContent)
+    }
+    
+    setTimeout(() => {
+      isUpdatingRef.current = false
+    }, 0)
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      document.execCommand('insertLineBreak', false, null)
     }
   }
 
@@ -162,24 +183,26 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
   return (
     <div className="writing-area">
       <div 
-        className="writing-paper"
+        className={`writing-paper ${isLinedPaper ? 'lined-paper' : ''}`}
         style={{
           background: currentTheme.background,
           color: currentTheme.textColor
         }}
+        data-theme={theme}
       >
         <div 
           className="paper-texture"
           style={{ backgroundImage: currentTheme.paperTexture }}
         ></div>
-        <textarea
-          ref={textareaRef}
-          id="writing-textarea"
-          className="writing-textarea"
+        <div
+          ref={editorRef}
+          id="writing-editor"
+          className={`writing-editor ${isLinedPaper ? 'lined-paper' : ''}`}
+          contentEditable="true"
           data-pen={pen}
-          value={content}
-          onChange={handleTyping}
-          placeholder={placeholderText}
+          data-placeholder={placeholderText}
+          onInput={handleTyping}
+          onKeyDown={handleKeyDown}
           style={{
             fontFamily: currentFont.family,
             fontWeight: currentPen.fontWeight,
@@ -188,7 +211,7 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
             color: currentTheme.textColor,
             cursor: `url('${cursorPath}') 0 24, auto`
           }}
-        />
+        ></div>
       </div>
       <div className="writing-info">
         <span className="word-count">{content.length} {t('writing.word_count')}</span>

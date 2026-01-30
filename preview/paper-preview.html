@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纸张主题预览 - Rusty Pen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #f0f0f0;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+        
+        .preview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+        }
+        
+        .paper-preview {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .paper-header {
+            padding: 15px 20px;
+            background: #333;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        
+        .paper-sample {
+            height: 300px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+        
+        .paper-texture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+        
+        .sample-text {
+            position: relative;
+            z-index: 1;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 100%;
+        }
+        
+        .vintage {
+            background: linear-gradient(180deg, #FAF3E0 0%, #F5E6D3 50%, #E8DCC8 100%);
+            color: #1a1a1a;
+        }
+        
+        .vintage .paper-texture {
+            background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.10'/%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.04' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.95 0 0 0 0 0.9 0 0 0 0 0.85 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)'/%3E%3C/svg%3E");
+        }
+        
+        .parchment {
+            background: linear-gradient(135deg, #C9B896 0%, #B8A67E 25%, #D4C4A8 50%, #C4B393 75%, #B8A67E 100%);
+            color: #2c1810;
+        }
+        
+        .parchment .paper-texture {
+            background-image: url("data:image/svg+xml,%3Csvg width='150' height='150' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='rough'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23rough)' opacity='0.15'/%3E%3Cfilter id='parchment'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.02' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.85 0 0 0 0 0.78 0 0 0 0 0.65 0 0 0 0.2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23parchment)'/%3E%3C/svg%3E");
+        }
+        
+        .manuscript {
+            background: linear-gradient(180deg, #FFF8E7 0%, #F5E6D3 100%);
+            color: #2c1810;
+        }
+        
+        .manuscript .paper-texture {
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.08'/%3E%3C/svg%3E");
+        }
+        
+        .telegram {
+            background: linear-gradient(180deg, #FFF8DC 0%, #F0E68C 100%);
+            color: #000000;
+        }
+        
+        .telegram .paper-texture {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='telegraph'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23telegraph)' opacity='0.12'/%3E%3C/svg%3E");
+        }
+        
+        @media (max-width: 768px) {
+            .preview-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>纸张主题预览</h1>
+    
+    <div class="preview-container">
+        <div class="paper-preview">
+            <div class="paper-header">复古信纸</div>
+            <div class="paper-sample vintage">
+                <div class="paper-texture"></div>
+                <div class="sample-text">
+                    这是一张复古信纸，保存完好的旧纸张，泛黄但依然清晰可读。
+                </div>
+            </div>
+        </div>
+        
+        <div class="paper-preview">
+            <div class="paper-header">羊皮纸</div>
+            <div class="paper-sample parchment">
+                <div class="paper-texture"></div>
+                <div class="sample-text">
+                    这是一张羊皮纸，表面粗糙，质地厚重，具有天然质感。
+                </div>
+            </div>
+        </div>
+        
+        <div class="paper-preview">
+            <div class="paper-header">手稿纸</div>
+            <div class="paper-sample manuscript">
+                <div class="paper-texture"></div>
+                <div class="sample-text">
+                    这是一张手稿纸，干净整洁，适合书写和创作。
+                </div>
+            </div>
+        </div>
+        
+        <div class="paper-preview">
+            <div class="paper-header">电报纸</div>
+            <div class="paper-sample telegram">
+                <div class="paper-texture"></div>
+                <div class="sample-text">
+                    这是一张电报纸，黄色纸张，带有印刷质感。
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

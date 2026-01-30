@@ -3,9 +3,9 @@
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  max-width: 900px;
   width: 100%;
   margin: 0 auto;
+  height: 100vh;
 }
 
 .writing-paper {
@@ -16,9 +16,8 @@
     0 4px 6px var(--shadow-color),
     0 1px 3px var(--shadow-color),
     inset 0 0 100px var(--shadow-color);
-  overflow: hidden;
-  min-height: 60vh;
   transition: all 0.3s ease;
+  overflow-y: auto;
 }
 
 .writing-paper:hover {
@@ -50,6 +49,87 @@
   resize: none;
   position: relative;
   z-index: 1;
+}
+
+.writing-editor {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 2rem;
+  line-height: 1.8;
+  position: relative;
+  z-index: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.writing-editor p {
+  margin: 0;
+  padding: 0;
+  min-height: 32px;
+}
+
+.writing-editor div {
+  margin: 0;
+  padding: 0;
+  min-height: 32px;
+}
+
+.writing-editor br {
+  display: block;
+  content: '';
+  margin: 0;
+}
+
+.writing-editor:empty::before {
+  content: attr(data-placeholder);
+  color: rgba(0, 0, 0, 0.3);
+  font-style: italic;
+  pointer-events: none;
+}
+
+.writing-editor:focus {
+  outline: none;
+}
+
+.writing-editor[contenteditable="true"] {
+  cursor: text;
+}
+
+.writing-editor[contenteditable="true"]:empty:focus {
+  outline: none;
+}
+
+.writing-editor.lined-paper {
+  line-height: 32px;
+  padding-top: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 28px,
+    rgba(184, 115, 51, 0.3) 28px,
+    rgba(184, 115, 51, 0.3) 29px,
+    transparent 29px,
+    transparent 32px
+  );
+  background-size: 100% 32px;
+  background-attachment: local;
+}
+
+.writing-paper[data-theme="telegram"] .writing-editor.lined-paper {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 28px,
+    rgba(0, 0, 0, 0.2) 28px,
+    rgba(0, 0, 0, 0.2) 29px,
+    transparent 29px,
+    transparent 32px
+  );
 }
 
 .writing-textarea::placeholder {
