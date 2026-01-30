@@ -4,9 +4,10 @@ import { useI18n } from '../contexts/I18nContext'
 import GlobalThemeSelector from './GlobalThemeSelector'
 import FontSelector from './FontSelector'
 import LanguageSelector from './LanguageSelector'
+import FontSizeSelector from './FontSizeSelector'
 import { playButtonSound } from '../utils/soundUtils'
 
-function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFont, onFontChange, currentLanguage, onLanguageChange }) {
+function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFont, onFontChange, currentLanguage, onLanguageChange, currentFontSize, onFontSizeChange }) {
   const { t } = useI18n()
   const [isClosing, setIsClosing] = useState(false)
 
@@ -85,6 +86,14 @@ function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFo
               onFontChange={onFontChange} 
               currentTheme={currentTheme}
               currentLanguage={currentLanguage}
+            />
+          </div>
+
+          <div className="settings-section">
+            <h3 className="settings-section-title">{t('controls.font_size')}</h3>
+            <FontSizeSelector 
+              currentFontSize={currentFontSize}
+              onFontSizeChange={onFontSizeChange}
             />
           </div>
         </div>

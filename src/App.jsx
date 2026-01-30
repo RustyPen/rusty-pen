@@ -13,6 +13,7 @@ function AppContent() {
   const [currentTheme, setCurrentTheme] = useState('vintage')
   const [globalTheme, setGlobalTheme] = useState('light')
   const [currentFont, setCurrentFont] = useState('yahei')
+  const [fontSize, setFontSize] = useState('medium')
   const [currentPen, setCurrentPen] = useState('fountain')
   const [soundEnabled, setSoundEnabled] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -104,6 +105,10 @@ function AppContent() {
     changeLanguage(languageId)
   }
 
+  const handleFontSizeChange = (fontSizeId) => {
+    setFontSize(fontSizeId)
+  }
+
   return (
     <div className={`app ${isLoaded ? 'loaded' : ''}`}>
       <Sidebar 
@@ -120,6 +125,7 @@ function AppContent() {
           theme={currentTheme} 
           pen={currentPen} 
           font={currentFont}
+          fontSize={fontSize}
           language={language}
           soundEnabled={soundEnabled}
           activeArticle={activeArticle}
@@ -143,6 +149,8 @@ function AppContent() {
         onFontChange={handleFontChange}
         currentLanguage={language}
         onLanguageChange={handleLanguageChange}
+        currentFontSize={fontSize}
+        onFontSizeChange={handleFontSizeChange}
       />
       <AboutModal 
         isOpen={aboutOpen}

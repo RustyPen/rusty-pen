@@ -12,6 +12,7 @@
     "paper_theme": "纸张主题",
     "pen": "笔具",
     "font": "字体选择",
+    "font_size": "字号",
     "click_sound": "点击音效",
     "ambient_sound": "环境音效",
     "settings": "设置"
@@ -71,6 +72,12 @@
     "heiti": "黑体",
     "yahei": "微软雅黑",
     "yuan": "圆体"
+  },
+  "font_sizes": {
+    "small": "小号",
+    "medium": "中号",
+    "large": "大号",
+    "xlarge": "特大号"
   },
   "sounds": {
     "none": "无声音",

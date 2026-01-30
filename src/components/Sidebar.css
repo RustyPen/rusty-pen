@@ -145,7 +145,7 @@
 
 .sidebar-tab.active {
   background: linear-gradient(180deg, var(--copper-green) 0%, var(--border-color) 100%);
-  border-color: var(--accent-color);
+  border-color: var(--border-color);
   box-shadow: 0 3px 6px var(--shadow-color);
 }
 
@@ -168,7 +168,7 @@
 }
 
 .sidebar-tab.active .tab-label {
-  color: var(--text-primary);
+  color: var(--background-primary);
 }
 
 .sidebar-footer {
@@ -238,8 +238,8 @@
   gap: 0.5rem;
   width: 100%;
   padding: 0.75rem 1rem;
-  background: linear-gradient(180deg, var(--accent-color) 0%, var(--copper-green) 100%);
-  border: 2px solid var(--accent-color);
+  background: linear-gradient(180deg, var(--copper-green) 0%, var(--border-color) 100%);
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -263,7 +263,7 @@
 .btn-text {
   font-family: 'Georgia', 'Times New Roman', serif;
   font-size: 0.9rem;
-  color: var(--text-primary);
+  color: var(--background-primary);
   font-weight: bold;
 }
 
@@ -291,7 +291,7 @@
 
 .article-item.active {
   background: linear-gradient(180deg, var(--copper-green) 0%, var(--border-color) 100%);
-  border-color: var(--accent-color);
+  border-color: var(--border-color);
   box-shadow: 0 3px 6px var(--shadow-color);
 }
 
@@ -304,7 +304,7 @@
 }
 
 .article-item.active .article-title {
-  color: var(--text-primary);
+  color: var(--background-primary);
 }
 
 .article-meta {

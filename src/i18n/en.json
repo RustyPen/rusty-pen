@@ -12,6 +12,7 @@
     "paper_theme": "Paper Theme",
     "pen": "Pen",
     "font": "Font",
+    "font_size": "Font Size",
     "click_sound": "Click Sound",
     "ambient_sound": "Ambient Sound",
     "settings": "Settings"
@@ -71,6 +72,12 @@
     "heiti": "SimHei",
     "yahei": "Microsoft YaHei",
     "yuan": "YouYuan"
+  },
+  "font_sizes": {
+    "small": "Small",
+    "medium": "Medium",
+    "large": "Large",
+    "xlarge": "Extra Large"
   },
   "sounds": {
     "none": "No Sound",

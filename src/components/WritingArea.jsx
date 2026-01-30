@@ -66,7 +66,14 @@ const pens = {
   }
 }
 
-function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, onContentChange }) {
+const fontSizes = {
+  small: '1.0rem',
+  medium: '1.2rem',
+  large: '1.4rem',
+  xlarge: '1.6rem'
+}
+
+function WritingArea({ theme, pen, font, fontSize, soundEnabled, language, activeArticle, onContentChange }) {
   const [content, setContent] = useState('')
   const textareaRef = useRef(null)
   const audioCacheRef = useRef({})
@@ -76,6 +83,8 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
   const currentTheme = themes[theme] || themes.vintage
   const currentPen = pens[pen] || pens.fountain
   const currentFont = getFontById(font) || getFontById('georgia')
+  const currentFontSize = fontSizes[fontSize] || fontSizes.medium
+  const infoFontSize = parseFloat(currentFontSize) * 0.75 + 'rem'
   const { t } = useI18n()
   
   const penPaths = {
@@ -186,12 +195,13 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
             fontWeight: currentPen.fontWeight,
             fontStyle: currentPen.fontStyle || 'normal',
             letterSpacing: currentPen.letterSpacing || '0em',
+            fontSize: currentFontSize,
             color: currentTheme.textColor,
             cursor: `url('${cursorPath}') 0 24, auto`
           }}
         />
       </div>
-      <div className="writing-info">
+      <div className="writing-info" style={{ fontSize: infoFontSize }}>
         <span className="word-count">{content.length} {t('writing.word_count')}</span>
         <span className="current-pen">{t(`pens.${pen}`)}</span>
       </div>
