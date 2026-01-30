@@ -8,6 +8,37 @@
   height: 100vh;
 }
 
+.empty-state {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.empty-icon {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.6;
+}
+
+.empty-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.empty-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  max-width: 400px;
+  line-height: 1.6;
+}
+
 .writing-paper {
   flex: 1;
   position: relative;
@@ -171,6 +202,12 @@
   border: 1px solid rgba(139, 69, 19, 0.2);
 }
 
+.writing-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.export-btn,
 .submit-btn {
   padding: 0.5rem 1.5rem;
   background: linear-gradient(180deg, var(--copper-green) 0%, var(--border-color) 100%);
@@ -185,15 +222,18 @@
   box-shadow: 0 2px 4px var(--shadow-color);
 }
 
+.export-btn:hover:not(:disabled),
 .submit-btn:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px var(--shadow-color);
 }
 
+.export-btn:active:not(:disabled),
 .submit-btn:active:not(:disabled) {
   transform: translateY(0);
 }
 
+.export-btn:disabled,
 .submit-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;

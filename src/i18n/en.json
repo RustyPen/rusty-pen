@@ -25,14 +25,16 @@
     "new_article": "New Article",
     "untitled": "Untitled",
     "settings_hint": "All settings are available here",
-    "about_description": "Rusty Pen is a vintage-style writing app that lets you experience the joy of traditional writing in the digital age."
+    "about_description": "Rusty Pen is a vintage-style writing app that lets you experience the joy of traditional writing in the digital age.",
+    "empty_hint": "Please create a new article from the left sidebar to start writing"
   },
   "writing": {
     "placeholder": "Start writing...",
     "word_count": "chars",
     "current_pen": "Current Pen",
     "submit": "Submit",
-    "submitted": "Article submitted!"
+    "submitted": "Article submitted!",
+    "export_pdf": "Export PDF"
   },
   "themes": {
     "light": "Light",

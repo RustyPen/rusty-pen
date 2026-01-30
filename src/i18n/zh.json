@@ -25,14 +25,16 @@
     "new_article": "新建文章",
     "untitled": "未命名",
     "settings_hint": "所有设置选项都在这里",
-    "about_description": "Rusty Pen 是一个复古风格的写作应用，让你在数字时代体验传统写作的乐趣。"
+    "about_description": "Rusty Pen 是一个复古风格的写作应用，让你在数字时代体验传统写作的乐趣。",
+    "empty_hint": "请先在左侧新建一篇文章开始创作"
   },
   "writing": {
     "placeholder": "开始你的创作...",
     "word_count": "字",
     "current_pen": "当前笔具",
     "submit": "提交",
-    "submitted": "文章已提交！"
+    "submitted": "文章已提交！",
+    "export_pdf": "导出 PDF"
   },
   "themes": {
     "light": "浅色",

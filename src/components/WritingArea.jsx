@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
 import './WritingArea.css'
 import { getFontById } from '../utils/fontUtils'
 import { useI18n } from '../contexts/I18nContext'
@@ -61,6 +63,7 @@ const pens = {
 function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, onContentChange }) {
   const [content, setContent] = useState('')
   const editorRef = useRef(null)
+  const paperRef = useRef(null)
   const audioCacheRef = useRef({})
   const typingTimerRef = useRef(null)
   const isTypingRef = useRef(false)
@@ -180,49 +183,137 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
     alert(t('writing.submitted'))
   }
 
+  const handleExportPDF = async () => {
+    if (!paperRef.current) {
+      return
+    }
+
+    if (!content.trim()) {
+      return
+    }
+
+    const hexToRgba = (hex, alpha) => {
+      const r = parseInt(hex.slice(1, 3), 16)
+      const g = parseInt(hex.slice(3, 5), 16)
+      const b = parseInt(hex.slice(5, 7), 16)
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`
+    }
+
+    try {
+      const A4_WIDTH = 794
+      const A4_HEIGHT = 1123
+
+      const exportContainer = document.createElement('div')
+      exportContainer.style.position = 'fixed'
+      exportContainer.style.left = '-9999px'
+      exportContainer.style.top = '0'
+      exportContainer.style.width = `${A4_WIDTH}px`
+      exportContainer.style.height = `${A4_HEIGHT}px`
+      document.body.appendChild(exportContainer)
+
+      const clonedPaper = paperRef.current.cloneNode(true)
+      clonedPaper.style.width = '100%'
+      clonedPaper.style.height = '100%'
+      clonedPaper.style.minHeight = '100%'
+      clonedPaper.style.boxShadow = 'none'
+      const borderColor = hexToRgba(currentTheme.textColor, 0.1)
+      clonedPaper.style.border = `1px solid ${borderColor}`
+      clonedPaper.style.overflow = 'hidden'
+      
+      exportContainer.appendChild(clonedPaper)
+
+      const canvas = await html2canvas(exportContainer, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: null,
+        allowTaint: true,
+        logging: false,
+        letterRendering: true
+      })
+
+      document.body.removeChild(exportContainer)
+
+      const imgData = canvas.toDataURL('image/png', 1.0)
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      })
+
+      const pdfWidth = pdf.internal.pageSize.getWidth()
+      const pdfHeight = pdf.internal.pageSize.getHeight()
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
+      const fileName = activeArticle?.title || 'untitled'
+      pdf.save(`${fileName}.pdf`)
+    } catch (error) {
+      console.error('Export PDF failed:', error)
+    }
+  }
+
   return (
     <div className="writing-area">
-      <div 
-        className={`writing-paper ${isLinedPaper ? 'lined-paper' : ''}`}
-        style={{
-          background: currentTheme.background,
-          color: currentTheme.textColor
-        }}
-        data-theme={theme}
-      >
-        <div 
-          className="paper-texture"
-          style={{ backgroundImage: currentTheme.paperTexture }}
-        ></div>
-        <div
-          ref={editorRef}
-          id="writing-editor"
-          className={`writing-editor ${isLinedPaper ? 'lined-paper' : ''}`}
-          contentEditable="true"
-          data-pen={pen}
-          data-placeholder={placeholderText}
-          onInput={handleTyping}
-          onKeyDown={handleKeyDown}
-          style={{
-            fontFamily: currentFont.family,
-            fontWeight: currentPen.fontWeight,
-            fontStyle: currentPen.fontStyle || 'normal',
-            letterSpacing: currentPen.letterSpacing || '0em',
-            color: currentTheme.textColor,
-            cursor: `url('${cursorPath}') 0 24, auto`
-          }}
-        ></div>
-      </div>
-      <div className="writing-info">
-        <span className="word-count">{content.length} {t('writing.word_count')}</span>
-        <button 
-          className="submit-btn"
-          onClick={handleSubmit}
-          disabled={!activeArticle || !content.trim()}
-        >
-          {t('writing.submit')}
-        </button>
-      </div>
+      {!activeArticle ? (
+        <div className="empty-state">
+          <div className="empty-icon">📝</div>
+          <h2 className="empty-title">{t('sidebar.new_article')}</h2>
+          <p className="empty-description">{t('sidebar.empty_hint')}</p>
+        </div>
+      ) : (
+        <>
+          <div 
+            ref={paperRef}
+            className={`writing-paper ${isLinedPaper ? 'lined-paper' : ''}`}
+            style={{
+              background: currentTheme.background,
+              color: currentTheme.textColor
+            }}
+            data-theme={theme}
+          >
+            <div 
+              className="paper-texture"
+              style={{ backgroundImage: currentTheme.paperTexture }}
+            ></div>
+            <div
+              ref={editorRef}
+              id="writing-editor"
+              className={`writing-editor ${isLinedPaper ? 'lined-paper' : ''}`}
+              contentEditable="true"
+              data-pen={pen}
+              data-placeholder={placeholderText}
+              onInput={handleTyping}
+              onKeyDown={handleKeyDown}
+              style={{
+                fontFamily: currentFont.family,
+                fontWeight: currentPen.fontWeight,
+                fontStyle: currentPen.fontStyle || 'normal',
+                letterSpacing: currentPen.letterSpacing || '0em',
+                color: currentTheme.textColor,
+                cursor: `url('${cursorPath}') 0 24, auto`
+              }}
+            ></div>
+          </div>
+          <div className="writing-info">
+            <span className="word-count">{content.length} {t('writing.word_count')}</span>
+            <div className="writing-buttons">
+              <button 
+                className="export-btn"
+                onClick={handleExportPDF}
+                disabled={!content.trim()}
+              >
+                {t('writing.export_pdf')}
+              </button>
+              <button 
+                className="submit-btn"
+                onClick={handleSubmit}
+                disabled={!content.trim()}
+              >
+                {t('writing.submit')}
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }
