@@ -12,7 +12,7 @@ const pens = [
   { id: 'ballpoint' }
 ]
 
-function PenSelector({ currentPen, onPenChange }) {
+function PenSelector({ currentPen, onPenChange, soundEnabled, onSoundToggle }) {
   const { t } = useI18n()
 
   const handlePenChange = (penId) => {
@@ -20,9 +20,13 @@ function PenSelector({ currentPen, onPenChange }) {
     onPenChange(penId)
   }
 
+  const handleSoundToggle = () => {
+    playButtonSound()
+    onSoundToggle(!soundEnabled)
+  }
+
   return (
     <div className="pen-selector">
-      <span className="control-label">{t('controls.pen')}</span>
       <div className="pen-buttons">
         {pens.map((pen) => (
           <button
@@ -35,7 +39,17 @@ function PenSelector({ currentPen, onPenChange }) {
             <span className="control-text">{t(`pens.${pen.id}`)}</span>
           </button>
         ))}
+
+        <button
+          className={`control-button ${soundEnabled ? 'active' : ''}`}
+          onClick={handleSoundToggle}
+          title={soundEnabled ? t('buttons.disable') : t('buttons.enable')}
+        >
+          <span className="control-icon">{soundEnabled ? '🔊' : '🔇'}</span>
+          <span className="control-text">{t('pens.sound')}</span>
+        </button>
       </div>
+
     </div>
   )
 }

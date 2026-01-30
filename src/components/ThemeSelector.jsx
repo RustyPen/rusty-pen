@@ -19,7 +19,6 @@ function ThemeSelector({ currentTheme, onThemeChange }) {
 
   return (
     <div className="theme-selector">
-      <span className="control-label">{t('controls.paper_theme')}</span>
       <div className="theme-buttons">
         {themes.map((theme) => (
           <button

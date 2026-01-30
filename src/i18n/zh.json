@@ -12,10 +12,19 @@
     "paper_theme": "纸张主题",
     "pen": "笔具",
     "font": "字体选择",
-    "sound": "笔具音效",
     "click_sound": "点击音效",
     "ambient_sound": "环境音效",
     "settings": "设置"
+  },
+  "sidebar": {
+    "articles": "文章列表",
+    "settings": "设置",
+    "about": "关于",
+    "slogan": "笔会生锈，思想不会",
+    "new_article": "新建文章",
+    "untitled": "未命名",
+    "settings_hint": "所有设置选项都在这里",
+    "about_description": "Rusty Pen 是一个复古风格的写作应用，让你在数字时代体验传统写作的乐趣。"
   },
   "writing": {
     "placeholder": "开始你的创作...",
@@ -38,7 +47,8 @@
     "fountain": "钢笔",
     "brush": "毛笔",
     "feather": "羽毛笔",
-    "ballpoint": "圆珠笔"
+    "ballpoint": "圆珠笔",
+    "sound": "笔具音效"
   },
   "fonts": {
     "all": "全部",
@@ -68,8 +78,6 @@
     "click2": "声音 2",
     "click3": "声音 3",
     "click4": "声音 4",
-    "enabled": "已开启",
-    "disabled": "已关闭",
     "fireplace": "壁炉",
     "rain": "雨声",
     "train": "火车",

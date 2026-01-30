@@ -12,10 +12,19 @@
     "paper_theme": "Paper Theme",
     "pen": "Pen",
     "font": "Font",
-    "sound": "Pen Sound",
     "click_sound": "Click Sound",
     "ambient_sound": "Ambient Sound",
     "settings": "Settings"
+  },
+  "sidebar": {
+    "articles": "Articles",
+    "settings": "Settings",
+    "about": "About",
+    "slogan": "The pen is rusty. The mind isn't.",
+    "new_article": "New Article",
+    "untitled": "Untitled",
+    "settings_hint": "All settings are available here",
+    "about_description": "Rusty Pen is a vintage-style writing app that lets you experience the joy of traditional writing in the digital age."
   },
   "writing": {
     "placeholder": "Start writing...",
@@ -38,7 +47,8 @@
     "fountain": "Fountain Pen",
     "brush": "Brush",
     "feather": "Quill",
-    "ballpoint": "Ballpoint"
+    "ballpoint": "Ballpoint",
+    "sound": "Pen Sound"
   },
   "fonts": {
     "all": "All",
@@ -68,8 +78,6 @@
     "click2": "Click 2",
     "click3": "Click 3",
     "click4": "Click 4",
-    "enabled": "Enabled",
-    "disabled": "Disabled",
     "fireplace": "Fireplace",
     "rain": "Rain",
     "train": "Train",

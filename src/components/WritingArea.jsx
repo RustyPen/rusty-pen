@@ -66,7 +66,7 @@ const pens = {
   }
 }
 
-function WritingArea({ theme, pen, font, soundEnabled, language }) {
+function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, onContentChange }) {
   const [content, setContent] = useState('')
   const textareaRef = useRef(null)
   const audioCacheRef = useRef({})
@@ -93,6 +93,14 @@ function WritingArea({ theme, pen, font, soundEnabled, language }) {
       textareaRef.current.focus()
     }
   }, [])
+
+  useEffect(() => {
+    if (activeArticle) {
+      setContent(activeArticle.content || '')
+    } else {
+      setContent('')
+    }
+  }, [activeArticle])
 
   const preloadAudio = (soundType) => {
     if (audioCacheRef.current[soundType]) {
@@ -139,10 +147,15 @@ function WritingArea({ theme, pen, font, soundEnabled, language }) {
   }
 
   const handleTyping = (e) => {
-    setContent(e.target.value)
+    const newContent = e.target.value
+    setContent(newContent)
     
     if (soundEnabled) {
       startTypingSound()
+    }
+    
+    if (activeArticle && onContentChange) {
+      onContentChange(activeArticle.id, newContent)
     }
   }
 
