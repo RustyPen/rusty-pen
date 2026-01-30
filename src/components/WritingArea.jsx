@@ -78,6 +78,14 @@ function WritingArea({ theme, pen, font, soundEnabled, language }) {
   const currentFont = getFontById(font) || getFontById('georgia')
   const { t } = useI18n()
   
+  const penPaths = {
+    fountain: '/cursors/fountain.svg',
+    brush: '/cursors/brush.svg',
+    feather: '/cursors/feather.svg',
+    ballpoint: '/cursors/ballpoint.svg'
+  }
+  const cursorPath = penPaths[pen] || penPaths.fountain
+  
   const placeholderText = t('writing.placeholder')
 
   useEffect(() => {
@@ -165,7 +173,8 @@ function WritingArea({ theme, pen, font, soundEnabled, language }) {
             fontWeight: currentPen.fontWeight,
             fontStyle: currentPen.fontStyle || 'normal',
             letterSpacing: currentPen.letterSpacing || '0em',
-            color: currentTheme.textColor
+            color: currentTheme.textColor,
+            cursor: `url('${cursorPath}') 0 24, auto`
           }}
         />
       </div>
