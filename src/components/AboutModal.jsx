@@ -37,7 +37,7 @@ function AboutModal({ isOpen, onClose }) {
             </div>
             <div className="info-item">
               <span className="info-label">Year</span>
-              <span className="info-value">2025</span>
+              <span className="info-value">2026</span>
             </div>
           </div>
           <div className="about-github">
