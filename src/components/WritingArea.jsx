@@ -5,6 +5,8 @@ import './WritingArea.css'
 import { getFontById } from '../utils/fontUtils'
 import { useI18n } from '../contexts/I18nContext'
 import { playButtonSound } from '../utils/soundUtils'
+import { save } from '@tauri-apps/plugin-dialog'
+import { writeFile } from '@tauri-apps/plugin-fs'
 
 const themes = {
   vintage: {
@@ -268,7 +270,6 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
 
       document.body.removeChild(exportContainer)
 
-      const imgData = canvas.toDataURL('image/png', 1.0)
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
@@ -278,9 +279,28 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
       const pdfWidth = pdf.internal.pageSize.getWidth()
       const pdfHeight = pdf.internal.pageSize.getHeight()
 
+      const imgData = canvas.toDataURL('image/png', 1.0)
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
+      
+      const pdfBytes = pdf.output('arraybuffer')
+      const pdfArray = new Uint8Array(pdfBytes)
+      
       const fileName = activeArticle?.title || 'untitled'
-      pdf.save(`${fileName}.pdf`)
+      const defaultPath = `${fileName}.pdf`
+      
+      const filePath = await save({
+        defaultPath,
+        filters: [
+          {
+            name: 'PDF',
+            extensions: ['pdf']
+          }
+        ]
+      })
+      
+      if (filePath) {
+        await writeFile(filePath, pdfArray)
+      }
     } catch (error) {
       console.error('Export PDF failed:', error)
     }
