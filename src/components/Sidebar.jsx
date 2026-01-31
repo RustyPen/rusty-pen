@@ -3,7 +3,7 @@ import './Sidebar.css'
 import { useI18n } from '../contexts/I18nContext'
 import { playButtonSound } from '../utils/soundUtils'
 
-const Sidebar = ({ activeTab, onTabChange, articles, activeArticle, onArticleSelect, onNewArticle, onDeleteArticle }) => {
+const Sidebar = ({ activeTab, onTabChange }) => {
   const { t } = useI18n()
   const [menuExpanded, setMenuExpanded] = useState(true)
 
@@ -53,45 +53,6 @@ const Sidebar = ({ activeTab, onTabChange, articles, activeArticle, onArticleSel
           >
             {menuExpanded ? '◀' : '▶'}
           </button>
-        </div>
-      </div>
-
-      <div className="sidebar-right">
-        <div className="sidebar-content">
-          <button 
-            className="new-article-btn" 
-            onClick={() => {
-              playButtonSound()
-              onNewArticle()
-            }}
-          >
-            <span className="btn-icon">➕</span>
-            <span className="btn-text">{t('sidebar.new_article')}</span>
-          </button>
-          <div className="article-list">
-            {articles.map(article => (
-              <div
-                key={article.id}
-                className={`article-item ${activeArticle?.id === article.id ? 'active' : ''}`}
-                onClick={() => onArticleSelect(article)}
-              >
-                <div className="article-title">{article.title || t('sidebar.untitled')}</div>
-                <div className="article-meta">
-                  <span className="article-date">{article.date}</span>
-                  <button
-                    className="article-delete"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      playButtonSound()
-                      onDeleteArticle(article.id)
-                    }}
-                  >
-                    🗑️
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </div>

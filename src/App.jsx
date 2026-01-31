@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import WritingArea from './components/WritingArea'
 import Sidebar from './components/Sidebar'
+import ArticleList from './components/ArticleList'
+import WritingSettingsPanel from './components/WritingSettingsPanel'
 import SettingsPanel from './components/SettingsPanel'
-import SettingsModal from './components/SettingsModal'
-import AboutModal from './components/AboutModal'
+import AboutPanel from './components/AboutPanel'
 import { applyGlobalTheme } from './utils/themeUtils'
 import { applyFont } from './utils/fontUtils'
 import { I18nProvider, useI18n } from './contexts/I18nContext'
@@ -19,8 +20,6 @@ function AppContent() {
   const [activeTab, setActiveTab] = useState('articles')
   const [articles, setArticles] = useState([])
   const [activeArticle, setActiveArticle] = useState(null)
-  const [settingsOpen, setSettingsOpen] = useState(false)
-  const [aboutOpen, setAboutOpen] = useState(false)
   const { language, changeLanguage, t } = useI18n()
 
   useEffect(() => {
@@ -72,11 +71,6 @@ function AppContent() {
 
   const handleTabClick = (tabId) => {
     setActiveTab(tabId)
-    if (tabId === 'settings') {
-      setSettingsOpen(true)
-    } else if (tabId === 'about') {
-      setAboutOpen(true)
-    }
   }
 
   const handleThemeChange = (themeId) => {
@@ -109,45 +103,50 @@ function AppContent() {
       <Sidebar 
         activeTab={activeTab}
         onTabChange={handleTabClick}
-        articles={articles}
-        activeArticle={activeArticle}
-        onArticleSelect={handleArticleSelect}
-        onNewArticle={handleNewArticle}
-        onDeleteArticle={handleDeleteArticle}
       />
-      <div className="main-content">
-        <WritingArea 
-          theme={currentTheme} 
-          pen={currentPen} 
-          font={currentFont}
-          language={language}
-          soundEnabled={soundEnabled}
-          activeArticle={activeArticle}
-          onContentChange={handleContentChange}
+      {activeTab === 'articles' && (
+        <>
+          <ArticleList 
+            articles={articles}
+            activeArticle={activeArticle}
+            onArticleSelect={handleArticleSelect}
+            onNewArticle={handleNewArticle}
+            onDeleteArticle={handleDeleteArticle}
+          />
+          <div className="main-content">
+            <WritingArea 
+              theme={currentTheme} 
+              pen={currentPen} 
+              font={currentFont}
+              language={language}
+              soundEnabled={soundEnabled}
+              activeArticle={activeArticle}
+              onContentChange={handleContentChange}
+            />
+          </div>
+          <WritingSettingsPanel 
+            currentTheme={currentTheme}
+            onThemeChange={handleThemeChange}
+            currentPen={currentPen}
+            onPenChange={handlePenChange}
+            soundEnabled={soundEnabled}
+            onSoundToggle={handleSoundToggle}
+          />
+        </>
+      )}
+      {activeTab === 'settings' && (
+        <SettingsPanel 
+          currentTheme={globalTheme}
+          onThemeChange={handleGlobalThemeChange}
+          currentFont={currentFont}
+          onFontChange={handleFontChange}
+          currentLanguage={language}
+          onLanguageChange={handleLanguageChange}
         />
-      </div>
-      <SettingsPanel 
-        currentTheme={currentTheme}
-        onThemeChange={handleThemeChange}
-        currentPen={currentPen}
-        onPenChange={handlePenChange}
-        soundEnabled={soundEnabled}
-        onSoundToggle={handleSoundToggle}
-      />
-      <SettingsModal 
-        isOpen={settingsOpen}
-        onClose={() => setSettingsOpen(false)}
-        currentTheme={globalTheme}
-        onThemeChange={handleGlobalThemeChange}
-        currentFont={currentFont}
-        onFontChange={handleFontChange}
-        currentLanguage={language}
-        onLanguageChange={handleLanguageChange}
-      />
-      <AboutModal 
-        isOpen={aboutOpen}
-        onClose={() => setAboutOpen(false)}
-      />
+      )}
+      {activeTab === 'about' && (
+        <AboutPanel />
+      )}
     </div>
   )
 }

@@ -4,6 +4,6 @@
   transition: all 0.3s ease;
 }
 
-.pen-button:hover .pen-icon-image {
+.pen-icon-image {
   transform: scale(1.1);
 }

@@ -1,65 +1,51 @@
 .settings-panel {
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  width: 520px;
-  height: 100vh;
-  background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-primary) 100%);
-  border-left: 2px solid var(--border-color);
-  box-shadow: -2px 0 8px var(--shadow-color);
-  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
 }
 
-.settings-header {
-  padding: 1.5rem;
-  background: linear-gradient(180deg, var(--copper-green) 0%, var(--border-color) 100%);
-  border-bottom: 2px solid var(--border-color);
+.settings-panel-content {
+  max-width: 800px;
+  width: 100%;
+  padding: 3rem;
 }
 
-.settings-title {
+.settings-panel-title {
   font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: bold;
   color: var(--text-primary);
+  margin-bottom: 2rem;
+  text-align: center;
   letter-spacing: 0.05em;
-}
-
-.settings-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 1.5rem;
 }
 
 .settings-section {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
-.section-title {
+.settings-section-title {
   font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
+  font-size: 1.2rem;
   font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--text-secondary);
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--border-color);
 }
 
-@media (max-width: 1024px) {
-  .settings-panel {
-    width: 280px;
-  }
-}
-
 @media (max-width: 768px) {
-  .settings-panel {
-    width: 100%;
-    height: auto;
-    border-left: none;
-    border-top: 2px solid var(--border-color);
+  .settings-panel-content {
+    padding: 2rem;
   }
-  
-  .settings-content {
-    padding: 1rem;
+
+  .settings-panel-title {
+    font-size: 1.5rem;
+  }
+
+  .settings-section-title {
+    font-size: 1rem;
   }
 }

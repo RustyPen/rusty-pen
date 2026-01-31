@@ -1,51 +1,41 @@
-import { useState } from 'react'
 import './SettingsPanel.css'
-import ThemeSelector from './ThemeSelector'
-import PenSelector from './PenSelector'
-import ClickSoundSelector from './ClickSoundSelector'
-import BackgroundMusic from './BackgroundMusic'
 import { useI18n } from '../contexts/I18nContext'
+import GlobalThemeSelector from './GlobalThemeSelector'
+import FontSelector from './FontSelector'
+import LanguageSelector from './LanguageSelector'
 
-const SettingsPanel = ({ 
-  currentTheme, 
-  onThemeChange, 
-  currentPen, 
-  onPenChange, 
-  soundEnabled, 
-  onSoundToggle 
-}) => {
+const SettingsPanel = ({ currentTheme, onThemeChange, currentFont, onFontChange, currentLanguage, onLanguageChange }) => {
   const { t } = useI18n()
 
   return (
     <div className="settings-panel">
-      <div className="settings-header">
-        <span className="settings-title">{t('sidebar.settings')}</span>
-      </div>
-      
-      <div className="settings-content">
+      <div className="settings-panel-content">
+        <h1 className="settings-panel-title">{t('controls.settings')}</h1>
+        
         <div className="settings-section">
-          <div className="section-title">{t('controls.paper_theme')}</div>
-          <ThemeSelector currentTheme={currentTheme} onThemeChange={onThemeChange} />
-        </div>
-
-        <div className="settings-section">
-          <div className="section-title">{t('controls.pen')}</div>
-          <PenSelector 
-            currentPen={currentPen} 
-            onPenChange={onPenChange}
-            soundEnabled={soundEnabled}
-            onSoundToggle={onSoundToggle}
+          <h2 className="settings-section-title">{t('controls.language')}</h2>
+          <LanguageSelector 
+            currentLanguage={currentLanguage}
+            onLanguageChange={onLanguageChange}
           />
         </div>
-
+        
         <div className="settings-section">
-          <div className="section-title">{t('controls.click_sound')}</div>
-          <ClickSoundSelector />
+          <h2 className="settings-section-title">{t('controls.global_theme')}</h2>
+          <GlobalThemeSelector 
+            currentTheme={currentTheme} 
+            onThemeChange={onThemeChange} 
+          />
         </div>
-
+        
         <div className="settings-section">
-          <div className="section-title">{t('controls.ambient_sound')}</div>
-          <BackgroundMusic />
+          <h2 className="settings-section-title">{t('controls.font')}</h2>
+          <FontSelector 
+            currentFont={currentFont} 
+            onFontChange={onFontChange} 
+            currentTheme={currentTheme}
+            currentLanguage={currentLanguage}
+          />
         </div>
       </div>
     </div>

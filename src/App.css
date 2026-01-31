@@ -151,7 +151,8 @@
   }
   
   .sidebar,
-  .settings-panel {
+  .article-list-panel,
+  .writing-settings-panel {
     width: 100%;
     height: auto;
   }
@@ -163,7 +164,8 @@
   }
   
   .sidebar,
-  .settings-panel {
+  .article-list-panel,
+  .writing-settings-panel {
     width: 100%;
     height: auto;
   }
