@@ -13,7 +13,7 @@ import { I18nProvider, useI18n } from './contexts/I18nContext'
 import { loadSettings, saveSettings, loadArticles, saveArticles, loadArticleContent, saveArticleContent, deleteArticleFile } from './utils/settingsUtils'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 
-function AppContent() {
+function AppContent({ initialSettings }) {
   const [currentTheme, setCurrentTheme] = useState('vintage')
   const [globalTheme, setGlobalTheme] = useState('light')
   const [currentFont, setCurrentFont] = useState('yahei')
@@ -27,30 +27,19 @@ function AppContent() {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
   const [articleToDelete, setArticleToDelete] = useState(null)
   const [isDeleting, setIsDeleting] = useState(false)
-  const [settingsLoaded, setSettingsLoaded] = useState(false)
-  const settingsLoadedRef = useRef(false)
   const { language, changeLanguage, t } = useI18n()
 
   useEffect(() => {
-    if (settingsLoadedRef.current) return
-    
-    settingsLoadedRef.current = true
-    
     const initApp = async () => {
-      const settings = await loadSettings()
-      
-      setGlobalTheme(settings.globalTheme)
-      setCurrentFont(settings.font)
-      changeLanguage(settings.language)
-      
-      setSettingsLoaded(true)
+      setGlobalTheme(initialSettings.globalTheme)
+      setCurrentFont(initialSettings.font)
       
       const savedArticles = await loadArticles()
       setArticles(savedArticles)
     }
-    
+
     initApp()
-    
+
     setTimeout(() => setIsLoaded(true), 500)
 
     const handleOpenSettings = () => {
@@ -78,7 +67,7 @@ function AppContent() {
     const timeoutId = setTimeout(() => {
       saveArticles(articles)
     }, 500)
-    
+
     return () => clearTimeout(timeoutId)
   }, [articles])
 
@@ -115,7 +104,7 @@ function AppContent() {
 
   const handleDeleteArticle = (articleId) => {
     if (isDeleting) return
-    
+
     const article = articles.find(a => a.id === articleId)
     if (article) {
       setArticleToDelete(article)
@@ -125,27 +114,27 @@ function AppContent() {
 
   const handleConfirmDelete = async () => {
     if (isDeleting || !articleToDelete) return
-    
+
     setIsDeleting(true)
     setDeleteConfirmOpen(false)
-    
+
     setArticles(articles.filter(a => a.id !== articleToDelete.id))
     if (activeArticle?.id === articleToDelete.id) {
       setActiveArticle(null)
     }
-    
+
     await deleteArticleFile(articleToDelete.id)
     setArticleToDelete(null)
     setIsDeleting(false)
   }
 
   const handleContentChange = (articleId, newContent) => {
-    setArticles(articles.map(article => 
-      article.id === articleId 
+    setArticles(articles.map(article =>
+      article.id === articleId
         ? { ...article, content: newContent }
         : article
     ))
-    
+
     if (activeArticle?.id === articleId) {
       setActiveArticle({ ...activeArticle, content: newContent })
     }
@@ -156,12 +145,12 @@ function AppContent() {
   }
 
   const handleUpdateArticle = (articleId, updates) => {
-    setArticles(articles.map(article => 
-      article.id === articleId 
+    setArticles(articles.map(article =>
+      article.id === articleId
         ? { ...article, ...updates }
         : article
     ))
-    
+
     if (activeArticle?.id === articleId) {
       setActiveArticle({ ...activeArticle, ...updates })
     }
@@ -181,43 +170,37 @@ function AppContent() {
 
   const handleGlobalThemeChange = async (themeId) => {
     setGlobalTheme(themeId)
-    if (settingsLoaded) {
-      await saveSettings({
-        globalTheme: themeId,
-        font: currentFont,
-        language: language
-      })
-    }
+    await saveSettings({
+      globalTheme: themeId,
+      font: currentFont,
+      language: language
+    })
   }
 
   const handleFontChange = async (fontId) => {
     setCurrentFont(fontId)
     applyFont(fontId)
-    if (settingsLoaded) {
-      await saveSettings({
-        globalTheme: globalTheme,
-        font: fontId,
-        language: language
-      })
-    }
+    await saveSettings({
+      globalTheme: globalTheme,
+      font: fontId,
+      language: language
+    })
   }
 
   const handleLanguageChange = async (languageId) => {
     changeLanguage(languageId)
-    if (settingsLoaded) {
-      await saveSettings({
-        globalTheme: globalTheme,
-        font: currentFont,
-        language: languageId
-      })
-    }
+    await saveSettings({
+      globalTheme: globalTheme,
+      font: currentFont,
+      language: languageId
+    })
   }
 
   return (
     <div className={`app ${isLoaded ? 'loaded' : ''}`}>
       <TitleBar />
       <div className="app-content">
-        <Sidebar 
+        <Sidebar
           articles={articles}
           activeArticle={activeArticle}
           onArticleSelect={handleArticleSelect}
@@ -226,9 +209,9 @@ function AppContent() {
           onUpdateArticle={handleUpdateArticle}
         />
         <div className="main-content">
-          <WritingArea 
-            theme={currentTheme} 
-            pen={currentPen} 
+          <WritingArea
+            theme={currentTheme}
+            pen={currentPen}
             font={currentFont}
             soundEnabled={soundEnabled}
             activeArticle={activeArticle}
@@ -236,7 +219,7 @@ function AppContent() {
             onBlurSave={handleBlurSave}
           />
         </div>
-        <WritingSettingsPanel 
+        <WritingSettingsPanel
           currentTheme={currentTheme}
           onThemeChange={handleThemeChange}
           currentPen={currentPen}
@@ -245,7 +228,7 @@ function AppContent() {
           onSoundToggle={handleSoundToggle}
         />
       </div>
-      <SettingsModal 
+      <SettingsModal
         isOpen={settingsModalOpen}
         onClose={() => setSettingsModalOpen(false)}
         currentTheme={globalTheme}
@@ -255,11 +238,11 @@ function AppContent() {
         currentLanguage={language}
         onLanguageChange={handleLanguageChange}
       />
-      <AboutModal 
+      <AboutModal
         isOpen={aboutModalOpen}
         onClose={() => setAboutModalOpen(false)}
       />
-      <DeleteConfirmModal 
+      <DeleteConfirmModal
         isOpen={deleteConfirmOpen}
         onClose={() => setDeleteConfirmOpen(false)}
         onConfirm={handleConfirmDelete}
@@ -270,9 +253,30 @@ function AppContent() {
 }
 
 function App() {
+  const [initialSettings, setInitialSettings] = useState(null)
+  const hasInitialized = useRef(false)
+  const [isAppReady, setIsAppReady] = useState(false)
+
+  useEffect(() => {
+    if (hasInitialized.current) return
+    hasInitialized.current = true
+
+    const initApp = async () => {
+      const settings = await loadSettings()
+      setInitialSettings(settings)
+      setIsAppReady(true)
+    }
+
+    initApp()
+  }, [])
+
+  if (!isAppReady) {
+    return null
+  }
+
   return (
-    <I18nProvider>
-      <AppContent />
+    <I18nProvider initialLanguage={initialSettings.language}>
+      <AppContent initialSettings={initialSettings} />
     </I18nProvider>
   )
 }

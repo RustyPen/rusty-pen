@@ -1,6 +1,7 @@
 import { Store } from '@tauri-apps/plugin-store'
 import { appDataDir, join } from '@tauri-apps/api/path'
-import { readTextFile, writeTextFile, exists, mkdir, remove, BaseDirectory } from '@tauri-apps/plugin-fs'
+import { readTextFile, writeTextFile, exists, mkdir, remove } from '@tauri-apps/plugin-fs'
+import { invoke } from '@tauri-apps/api/core'
 
 const SETTINGS_FILE = 'rusty-pen-settings.json'
 const SETTINGS_KEY = 'settings'
@@ -19,11 +20,15 @@ export async function loadSettings() {
   try {
     if(!await store.has(SETTINGS_KEY)) {
       console.log('No settings found, using default settings')
-      await store.set(SETTINGS_KEY, defaultSettings)
+      
+      const systemLang = await invoke('get_system_language')
+      const settingsWithSystemLang = { ...defaultSettings, language: systemLang }
+      
+      await store.set(SETTINGS_KEY, settingsWithSystemLang)
       const val = await store.get(SETTINGS_KEY);  
       console.log('Default settings saved:', val);
       await store.save()
-      return defaultSettings
+      return settingsWithSystemLang
     }
 
     const settings = await store.get(SETTINGS_KEY)

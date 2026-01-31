@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { invoke } from '@tauri-apps/api/core'
 
 const I18nContext = createContext()
 
@@ -8,20 +7,16 @@ const translations = {
   en: () => import('../i18n/en.json')
 }
 
-export const I18nProvider = ({ children }) => {
-  const [language, setLanguage] = useState('en')
+export const I18nProvider = ({ children, initialLanguage = 'en' }) => {
+  const [language, setLanguage] = useState(initialLanguage)
   const [translationsData, setTranslationsData] = useState({})
 
   useEffect(() => {
-    const initLanguage = async () => {
-      const systemLang = await invoke('get_system_language')
-      setLanguage(systemLang)
-      document.documentElement.lang = systemLang
-      await loadTranslations(systemLang)
+    if (language) {
+      loadTranslations(language)
+      document.documentElement.lang = language
     }
-
-    initLanguage()
-  }, [])
+  }, [language])
 
   const loadTranslations = async (lang) => {
     try {
