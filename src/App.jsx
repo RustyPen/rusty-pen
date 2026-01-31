@@ -59,7 +59,7 @@ function AppContent() {
   const handleNewArticle = () => {
     const newArticle = {
       id: Date.now(),
-      title: '',
+      title: t('sidebar.untitled'),
       content: '',
       date: new Date().toLocaleDateString()
     }
@@ -82,6 +82,14 @@ function AppContent() {
     setArticles(articles.map(article => 
       article.id === articleId 
         ? { ...article, content: newContent }
+        : article
+    ))
+  }
+
+  const handleUpdateArticle = (articleId, updates) => {
+    setArticles(articles.map(article => 
+      article.id === articleId 
+        ? { ...article, ...updates }
         : article
     ))
   }
@@ -121,6 +129,7 @@ function AppContent() {
           onArticleSelect={handleArticleSelect}
           onNewArticle={handleNewArticle}
           onDeleteArticle={handleDeleteArticle}
+          onUpdateArticle={handleUpdateArticle}
         />
         <div className="main-content">
           <WritingArea 

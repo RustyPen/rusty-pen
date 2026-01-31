@@ -1,9 +1,31 @@
 import './Sidebar.css'
 import { useI18n } from '../contexts/I18nContext'
 import { playButtonSound } from '../utils/soundUtils'
+import { useState } from 'react'
 
-const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDeleteArticle }) => {
+const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDeleteArticle, onUpdateArticle }) => {
   const { t } = useI18n()
+  const [editingId, setEditingId] = useState(null)
+  const [editingTitle, setEditingTitle] = useState('')
+
+  const handleEdit = (article) => {
+    playButtonSound()
+    setEditingId(article.id)
+    setEditingTitle(article.title || t('sidebar.untitled'))
+  }
+
+  const handleSave = (articleId) => {
+    playButtonSound()
+    onUpdateArticle(articleId, { title: editingTitle })
+    setEditingId(null)
+    setEditingTitle('')
+  }
+
+  const handleCancel = () => {
+    playButtonSound()
+    setEditingId(null)
+    setEditingTitle('')
+  }
 
   return (
     <div className="sidebar-panel">
@@ -22,21 +44,66 @@ const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDel
           <div
             key={article.id}
             className={`article-item ${activeArticle?.id === article.id ? 'active' : ''}`}
-            onClick={() => onArticleSelect(article)}
+            onClick={() => editingId === article.id ? null : onArticleSelect(article)}
           >
-            <div className="article-title">{article.title || t('sidebar.untitled')}</div>
+            {editingId === article.id ? (
+              <input
+                type="text"
+                className="article-title-input"
+                value={editingTitle}
+                onChange={(e) => setEditingTitle(e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+                autoFocus
+              />
+            ) : (
+              <div className="article-title">{article.title || t('sidebar.untitled')}</div>
+            )}
             <div className="article-meta">
               <span className="article-date">{article.date}</span>
-              <button
-                className="article-delete"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  playButtonSound()
-                  onDeleteArticle(article.id)
-                }}
-              >
-                🗑️
-              </button>
+              {editingId === article.id ? (
+                <>
+                  <button
+                    className="article-save"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleSave(article.id)
+                    }}
+                  >
+                    ✓
+                  </button>
+                  <button
+                    className="article-cancel"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleCancel()
+                    }}
+                  >
+                    ✕
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    className="article-edit"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleEdit(article)
+                    }}
+                  >
+                    ✏️
+                  </button>
+                  <button
+                    className="article-delete"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      playButtonSound()
+                      onDeleteArticle(article.id)
+                    }}
+                  >
+                    🗑️
+                  </button>
+                </>
+              )}
             </div>
           </div>
         ))}
