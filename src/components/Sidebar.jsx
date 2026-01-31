@@ -53,6 +53,7 @@ const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDel
                 value={editingTitle}
                 onChange={(e) => setEditingTitle(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
+                onBlur={() => handleSave(article.id)}
                 autoFocus
               />
             ) : (
