@@ -63,7 +63,7 @@ const pens = {
   }
 }
 
-function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, onContentChange }) {
+function WritingArea({ theme, pen, font, soundEnabled, activeArticle, onContentChange, onBlurSave }) {
   const [content, setContent] = useState('')
   const editorRef = useRef(null)
   const paperRef = useRef(null)
@@ -169,6 +169,12 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
     setTimeout(() => {
       isUpdatingRef.current = false
     }, 0)
+  }
+
+  const handleBlur = () => {
+    if (activeArticle && onBlurSave) {
+      onBlurSave(activeArticle.id, content)
+    }
   }
 
   const handleKeyDown = (e) => {
@@ -337,6 +343,7 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
               data-pen={pen}
               data-placeholder={placeholderText}
               onInput={handleTyping}
+              onBlur={handleBlur}
               onKeyDown={handleKeyDown}
               style={{
                 fontFamily: currentFont.family,

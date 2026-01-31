@@ -10,7 +10,8 @@ import TitleBar from './components/TitleBar'
 import { applyGlobalTheme } from './utils/themeUtils'
 import { applyFont } from './utils/fontUtils'
 import { I18nProvider, useI18n } from './contexts/I18nContext'
-import { loadSettings, saveSettings } from './utils/settingsUtils'
+import { loadSettings, saveSettings, loadArticles, saveArticles, loadArticleContent, saveArticleContent, deleteArticleFile } from './utils/settingsUtils'
+import { getCurrentWindow } from '@tauri-apps/api/window'
 
 function AppContent() {
   const [currentTheme, setCurrentTheme] = useState('vintage')
@@ -35,7 +36,7 @@ function AppContent() {
     
     settingsLoadedRef.current = true
     
-    const loadAppSettings = async () => {
+    const initApp = async () => {
       const settings = await loadSettings()
       
       setGlobalTheme(settings.globalTheme)
@@ -43,16 +44,14 @@ function AppContent() {
       changeLanguage(settings.language)
       
       setSettingsLoaded(true)
+      
+      const savedArticles = await loadArticles()
+      setArticles(savedArticles)
     }
     
-    loadAppSettings()
+    initApp()
     
     setTimeout(() => setIsLoaded(true), 500)
-    
-    const savedArticles = localStorage.getItem('rusty-pen-articles')
-    if (savedArticles) {
-      setArticles(JSON.parse(savedArticles))
-    }
 
     const handleOpenSettings = () => {
       setSettingsModalOpen(true)
@@ -76,8 +75,24 @@ function AppContent() {
   }, [globalTheme])
 
   useEffect(() => {
-    localStorage.setItem('rusty-pen-articles', JSON.stringify(articles))
+    const timeoutId = setTimeout(() => {
+      saveArticles(articles)
+    }, 500)
+    
+    return () => clearTimeout(timeoutId)
   }, [articles])
+
+  useEffect(() => {
+    const unlisten = getCurrentWindow().onCloseRequested(async () => {
+      if (activeArticle) {
+        await saveArticleContent(activeArticle)
+      }
+    })
+
+    return () => {
+      unlisten.then(fn => fn())
+    }
+  }, [activeArticle])
 
   const handleNewArticle = () => {
     const newArticle = {
@@ -90,8 +105,12 @@ function AppContent() {
     setActiveArticle(newArticle)
   }
 
-  const handleArticleSelect = (article) => {
-    setActiveArticle(article)
+  const handleArticleSelect = async (article) => {
+    if (activeArticle) {
+      await saveArticleContent(activeArticle)
+    }
+    const content = await loadArticleContent(article.id)
+    setActiveArticle({ ...article, content: content || '' })
   }
 
   const handleDeleteArticle = (articleId) => {
@@ -104,7 +123,7 @@ function AppContent() {
     }
   }
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (isDeleting || !articleToDelete) return
     
     setIsDeleting(true)
@@ -115,6 +134,7 @@ function AppContent() {
       setActiveArticle(null)
     }
     
+    await deleteArticleFile(articleToDelete.id)
     setArticleToDelete(null)
     setIsDeleting(false)
   }
@@ -125,6 +145,14 @@ function AppContent() {
         ? { ...article, content: newContent }
         : article
     ))
+    
+    if (activeArticle?.id === articleId) {
+      setActiveArticle({ ...activeArticle, content: newContent })
+    }
+  }
+
+  const handleBlurSave = async (articleId, content) => {
+    await saveArticleContent({ id: articleId, content })
   }
 
   const handleUpdateArticle = (articleId, updates) => {
@@ -133,6 +161,10 @@ function AppContent() {
         ? { ...article, ...updates }
         : article
     ))
+    
+    if (activeArticle?.id === articleId) {
+      setActiveArticle({ ...activeArticle, ...updates })
+    }
   }
 
   const handleThemeChange = (themeId) => {
@@ -198,10 +230,10 @@ function AppContent() {
             theme={currentTheme} 
             pen={currentPen} 
             font={currentFont}
-            language={language}
             soundEnabled={soundEnabled}
             activeArticle={activeArticle}
             onContentChange={handleContentChange}
+            onBlurSave={handleBlurSave}
           />
         </div>
         <WritingSettingsPanel 
