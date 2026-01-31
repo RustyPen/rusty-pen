@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { listen } from '@tauri-apps/api/event'
 import './App.css'
 import WritingArea from './components/WritingArea'
 import Sidebar from './components/Sidebar'
@@ -6,6 +7,9 @@ import ArticleList from './components/ArticleList'
 import WritingSettingsPanel from './components/WritingSettingsPanel'
 import SettingsPanel from './components/SettingsPanel'
 import AboutPanel from './components/AboutPanel'
+import SettingsModal from './components/SettingsModal'
+import AboutModal from './components/AboutModal'
+import TitleBar from './components/TitleBar'
 import { applyGlobalTheme } from './utils/themeUtils'
 import { applyFont } from './utils/fontUtils'
 import { I18nProvider, useI18n } from './contexts/I18nContext'
@@ -20,6 +24,8 @@ function AppContent() {
   const [activeTab, setActiveTab] = useState('articles')
   const [articles, setArticles] = useState([])
   const [activeArticle, setActiveArticle] = useState(null)
+  const [settingsModalOpen, setSettingsModalOpen] = useState(false)
+  const [aboutModalOpen, setAboutModalOpen] = useState(false)
   const { language, changeLanguage, t } = useI18n()
 
   useEffect(() => {
@@ -28,6 +34,22 @@ function AppContent() {
     const savedArticles = localStorage.getItem('rusty-pen-articles')
     if (savedArticles) {
       setArticles(JSON.parse(savedArticles))
+    }
+
+    const handleOpenSettings = () => {
+      setSettingsModalOpen(true)
+    }
+
+    const handleOpenAbout = () => {
+      setAboutModalOpen(true)
+    }
+
+    window.addEventListener('open-settings', handleOpenSettings)
+    window.addEventListener('open-about', handleOpenAbout)
+
+    return () => {
+      window.removeEventListener('open-settings', handleOpenSettings)
+      window.removeEventListener('open-about', handleOpenAbout)
     }
   }, [])
 
@@ -100,53 +122,70 @@ function AppContent() {
 
   return (
     <div className={`app ${isLoaded ? 'loaded' : ''}`}>
-      <Sidebar 
-        activeTab={activeTab}
-        onTabChange={handleTabClick}
-      />
-      {activeTab === 'articles' && (
-        <>
-          <ArticleList 
-            articles={articles}
-            activeArticle={activeArticle}
-            onArticleSelect={handleArticleSelect}
-            onNewArticle={handleNewArticle}
-            onDeleteArticle={handleDeleteArticle}
-          />
-          <div className="main-content">
-            <WritingArea 
-              theme={currentTheme} 
-              pen={currentPen} 
-              font={currentFont}
-              language={language}
-              soundEnabled={soundEnabled}
-              activeArticle={activeArticle}
-              onContentChange={handleContentChange}
-            />
-          </div>
-          <WritingSettingsPanel 
-            currentTheme={currentTheme}
-            onThemeChange={handleThemeChange}
-            currentPen={currentPen}
-            onPenChange={handlePenChange}
-            soundEnabled={soundEnabled}
-            onSoundToggle={handleSoundToggle}
-          />
-        </>
-      )}
-      {activeTab === 'settings' && (
-        <SettingsPanel 
-          currentTheme={globalTheme}
-          onThemeChange={handleGlobalThemeChange}
-          currentFont={currentFont}
-          onFontChange={handleFontChange}
-          currentLanguage={language}
-          onLanguageChange={handleLanguageChange}
+      <TitleBar />
+      <div className="app-content">
+        <Sidebar 
+          activeTab={activeTab}
+          onTabChange={handleTabClick}
         />
-      )}
-      {activeTab === 'about' && (
-        <AboutPanel />
-      )}
+        {activeTab === 'articles' && (
+          <>
+            <ArticleList 
+              articles={articles}
+              activeArticle={activeArticle}
+              onArticleSelect={handleArticleSelect}
+              onNewArticle={handleNewArticle}
+              onDeleteArticle={handleDeleteArticle}
+            />
+            <div className="main-content">
+              <WritingArea 
+                theme={currentTheme} 
+                pen={currentPen} 
+                font={currentFont}
+                language={language}
+                soundEnabled={soundEnabled}
+                activeArticle={activeArticle}
+                onContentChange={handleContentChange}
+              />
+            </div>
+            <WritingSettingsPanel 
+              currentTheme={currentTheme}
+              onThemeChange={handleThemeChange}
+              currentPen={currentPen}
+              onPenChange={handlePenChange}
+              soundEnabled={soundEnabled}
+              onSoundToggle={handleSoundToggle}
+            />
+          </>
+        )}
+        {activeTab === 'settings' && (
+          <SettingsPanel 
+            currentTheme={globalTheme}
+            onThemeChange={handleGlobalThemeChange}
+            currentFont={currentFont}
+            onFontChange={handleFontChange}
+            currentLanguage={language}
+            onLanguageChange={handleLanguageChange}
+          />
+        )}
+        {activeTab === 'about' && (
+          <AboutPanel />
+        )}
+      </div>
+      <SettingsModal 
+        isOpen={settingsModalOpen}
+        onClose={() => setSettingsModalOpen(false)}
+        currentTheme={globalTheme}
+        onThemeChange={handleGlobalThemeChange}
+        currentFont={currentFont}
+        onFontChange={handleFontChange}
+        currentLanguage={language}
+        onLanguageChange={handleLanguageChange}
+      />
+      <AboutModal 
+        isOpen={aboutModalOpen}
+        onClose={() => setAboutModalOpen(false)}
+      />
     </div>
   )
 }
