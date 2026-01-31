@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react'
-import { listen } from '@tauri-apps/api/event'
 import './App.css'
 import WritingArea from './components/WritingArea'
-import Sidebar from './components/Sidebar'
 import ArticleList from './components/ArticleList'
 import WritingSettingsPanel from './components/WritingSettingsPanel'
-import SettingsPanel from './components/SettingsPanel'
-import AboutPanel from './components/AboutPanel'
 import SettingsModal from './components/SettingsModal'
 import AboutModal from './components/AboutModal'
 import TitleBar from './components/TitleBar'
@@ -21,7 +17,6 @@ function AppContent() {
   const [currentPen, setCurrentPen] = useState('fountain')
   const [soundEnabled, setSoundEnabled] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
-  const [activeTab, setActiveTab] = useState('articles')
   const [articles, setArticles] = useState([])
   const [activeArticle, setActiveArticle] = useState(null)
   const [settingsModalOpen, setSettingsModalOpen] = useState(false)
@@ -91,10 +86,6 @@ function AppContent() {
     ))
   }
 
-  const handleTabClick = (tabId) => {
-    setActiveTab(tabId)
-  }
-
   const handleThemeChange = (themeId) => {
     setCurrentTheme(themeId)
   }
@@ -124,53 +115,32 @@ function AppContent() {
     <div className={`app ${isLoaded ? 'loaded' : ''}`}>
       <TitleBar />
       <div className="app-content">
-        <Sidebar 
-          activeTab={activeTab}
-          onTabChange={handleTabClick}
+        <ArticleList 
+          articles={articles}
+          activeArticle={activeArticle}
+          onArticleSelect={handleArticleSelect}
+          onNewArticle={handleNewArticle}
+          onDeleteArticle={handleDeleteArticle}
         />
-        {activeTab === 'articles' && (
-          <>
-            <ArticleList 
-              articles={articles}
-              activeArticle={activeArticle}
-              onArticleSelect={handleArticleSelect}
-              onNewArticle={handleNewArticle}
-              onDeleteArticle={handleDeleteArticle}
-            />
-            <div className="main-content">
-              <WritingArea 
-                theme={currentTheme} 
-                pen={currentPen} 
-                font={currentFont}
-                language={language}
-                soundEnabled={soundEnabled}
-                activeArticle={activeArticle}
-                onContentChange={handleContentChange}
-              />
-            </div>
-            <WritingSettingsPanel 
-              currentTheme={currentTheme}
-              onThemeChange={handleThemeChange}
-              currentPen={currentPen}
-              onPenChange={handlePenChange}
-              soundEnabled={soundEnabled}
-              onSoundToggle={handleSoundToggle}
-            />
-          </>
-        )}
-        {activeTab === 'settings' && (
-          <SettingsPanel 
-            currentTheme={globalTheme}
-            onThemeChange={handleGlobalThemeChange}
-            currentFont={currentFont}
-            onFontChange={handleFontChange}
-            currentLanguage={language}
-            onLanguageChange={handleLanguageChange}
+        <div className="main-content">
+          <WritingArea 
+            theme={currentTheme} 
+            pen={currentPen} 
+            font={currentFont}
+            language={language}
+            soundEnabled={soundEnabled}
+            activeArticle={activeArticle}
+            onContentChange={handleContentChange}
           />
-        )}
-        {activeTab === 'about' && (
-          <AboutPanel />
-        )}
+        </div>
+        <WritingSettingsPanel 
+          currentTheme={currentTheme}
+          onThemeChange={handleThemeChange}
+          currentPen={currentPen}
+          onPenChange={handlePenChange}
+          soundEnabled={soundEnabled}
+          onSoundToggle={handleSoundToggle}
+        />
       </div>
       <SettingsModal 
         isOpen={settingsModalOpen}
