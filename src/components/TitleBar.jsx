@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback } from 'react'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { playButtonSound } from '../utils/soundUtils'
+import { useI18n } from '../contexts/I18nContext'
 import './TitleBar.css'
 
 function TitleBar() {
   const [isMaximized, setIsMaximized] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { t } = useI18n()
 
   useEffect(() => {
     const getCurrentWindowInstance = getCurrentWindow()
@@ -65,14 +67,14 @@ function TitleBar() {
               window.dispatchEvent(new CustomEvent('open-settings'))
               setMenuOpen(false)
             }}>
-              设置
+              {t('titlebar.settings')}
             </div>
             <div className="menu-item" onClick={() => {
               playButtonSound()
               window.dispatchEvent(new CustomEvent('open-about'))
               setMenuOpen(false)
             }}>
-              关于
+              {t('titlebar.about')}
             </div>
           </div>
         </div>
@@ -84,21 +86,21 @@ function TitleBar() {
         <button 
           className="titlebar-button minimize-button" 
           onClick={handleMinimize}
-          title="最小化"
+          title={t('titlebar.minimize')}
         >
           <span className="button-icon">─</span>
         </button>
         <button 
           className={`titlebar-button maximize-button ${isMaximized ? 'maximized' : ''}`} 
           onClick={handleMaximize}
-          title={isMaximized ? "还原" : "最大化"}
+          title={isMaximized ? t('titlebar.restore') : t('titlebar.maximize')}
         >
           <span className="button-icon">{isMaximized ? '❐' : '□'}</span>
         </button>
         <button 
           className="titlebar-button close-button" 
           onClick={handleClose}
-          title="关闭"
+          title={t('titlebar.close')}
         >
           <span className="button-icon">✕</span>
         </button>

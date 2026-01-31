@@ -100,5 +100,21 @@
     "play": "Play",
     "pause": "Pause",
     "close": "Close"
+  },
+  "delete_confirm": {
+    "title": "Confirm Delete",
+    "message": "Are you sure you want to delete article",
+    "warning": "This action cannot be undone. The article will be permanently deleted.",
+    "cancel": "Cancel",
+    "confirm": "Confirm Delete",
+    "deleting": "Deleting..."
+  },
+  "titlebar": {
+    "settings": "Settings",
+    "about": "About",
+    "minimize": "Minimize",
+    "maximize": "Maximize",
+    "restore": "Restore",
+    "close": "Close"
   }
 }

@@ -5,6 +5,7 @@ import Sidebar from './components/Sidebar'
 import WritingSettingsPanel from './components/WritingSettingsPanel'
 import SettingsModal from './components/SettingsModal'
 import AboutModal from './components/AboutModal'
+import DeleteConfirmModal from './components/DeleteConfirmModal'
 import TitleBar from './components/TitleBar'
 import { applyGlobalTheme } from './utils/themeUtils'
 import { applyFont } from './utils/fontUtils'
@@ -21,6 +22,9 @@ function AppContent() {
   const [activeArticle, setActiveArticle] = useState(null)
   const [settingsModalOpen, setSettingsModalOpen] = useState(false)
   const [aboutModalOpen, setAboutModalOpen] = useState(false)
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
+  const [articleToDelete, setArticleToDelete] = useState(null)
+  const [isDeleting, setIsDeleting] = useState(false)
   const { language, changeLanguage, t } = useI18n()
 
   useEffect(() => {
@@ -72,10 +76,28 @@ function AppContent() {
   }
 
   const handleDeleteArticle = (articleId) => {
-    setArticles(articles.filter(a => a.id !== articleId))
-    if (activeArticle?.id === articleId) {
+    if (isDeleting) return
+    
+    const article = articles.find(a => a.id === articleId)
+    if (article) {
+      setArticleToDelete(article)
+      setDeleteConfirmOpen(true)
+    }
+  }
+
+  const handleConfirmDelete = () => {
+    if (isDeleting || !articleToDelete) return
+    
+    setIsDeleting(true)
+    setDeleteConfirmOpen(false)
+    
+    setArticles(articles.filter(a => a.id !== articleToDelete.id))
+    if (activeArticle?.id === articleToDelete.id) {
       setActiveArticle(null)
     }
+    
+    setArticleToDelete(null)
+    setIsDeleting(false)
   }
 
   const handleContentChange = (articleId, newContent) => {
@@ -164,6 +186,12 @@ function AppContent() {
       <AboutModal 
         isOpen={aboutModalOpen}
         onClose={() => setAboutModalOpen(false)}
+      />
+      <DeleteConfirmModal 
+        isOpen={deleteConfirmOpen}
+        onClose={() => setDeleteConfirmOpen(false)}
+        onConfirm={handleConfirmDelete}
+        articleTitle={articleToDelete?.title || 'Article'}
       />
     </div>
   )

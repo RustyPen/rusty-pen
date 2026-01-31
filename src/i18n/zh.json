@@ -100,5 +100,21 @@
     "play": "播放",
     "pause": "暂停",
     "close": "关闭"
+  },
+  "delete_confirm": {
+    "title": "确认删除",
+    "message": "确定要删除文章",
+    "warning": "此操作无法撤销，删除后文章将永久丢失。",
+    "cancel": "取消",
+    "confirm": "确认删除",
+    "deleting": "删除中..."
+  },
+  "titlebar": {
+    "settings": "设置",
+    "about": "关于",
+    "minimize": "最小化",
+    "maximize": "最大化",
+    "restore": "还原",
+    "close": "关闭"
   }
 }
