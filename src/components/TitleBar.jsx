@@ -12,14 +12,12 @@ function TitleBar() {
 
     const checkMaximized = async () => {
       const maximized = await getCurrentWindowInstance.isMaximized()
-      console.log('Window maximized state:', maximized)
       setIsMaximized(maximized)
     }
 
     checkMaximized()
 
     const unlistenResize = getCurrentWindowInstance.onResized(() => {
-      console.log('Window resized')
       checkMaximized()
     })
 
@@ -30,13 +28,11 @@ function TitleBar() {
 
   const handleMinimize = useCallback(async () => {
     const appWindow = getCurrentWindow()
-    console.log('Minimize clicked')
     await appWindow.minimize()
   }, [])
 
   const handleMaximize = useCallback(async () => {
     const appWindow = getCurrentWindow()
-    console.log('Maximize clicked, isMaximized:', isMaximized)
     const newMaximizedState = !isMaximized
     setIsMaximized(newMaximizedState)
     if (newMaximizedState) {
@@ -48,7 +44,6 @@ function TitleBar() {
 
   const handleClose = useCallback(async () => {
     const appWindow = getCurrentWindow()
-    console.log('Close clicked')
     await appWindow.close()
   }, [])
 

@@ -32,8 +32,6 @@
     "placeholder": "Start writing...",
     "word_count": "chars",
     "current_pen": "Current Pen",
-    "submit": "Submit",
-    "submitted": "Article submitted!",
     "export_pdf": "Export PDF"
   },
   "themes": {

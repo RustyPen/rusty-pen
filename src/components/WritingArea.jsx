@@ -176,14 +176,6 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
     }
   }
 
-  const handleSubmit = () => {
-    if (!activeArticle || !content.trim()) {
-      return
-    }
-    
-    alert(t('writing.submitted'))
-  }
-
   const handleExportPDF = async () => {
     if (!content.trim()) {
       return
@@ -345,13 +337,6 @@ function WritingArea({ theme, pen, font, soundEnabled, language, activeArticle, 
                 disabled={!content.trim()}
               >
                 {t('writing.export_pdf')}
-              </button>
-              <button 
-                className="submit-btn"
-                onClick={handleSubmit}
-                disabled={!content.trim()}
-              >
-                {t('writing.submit')}
               </button>
             </div>
           </div>
