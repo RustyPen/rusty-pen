@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { getCurrentWindow } from '@tauri-apps/api/window'
+import { playButtonSound } from '../utils/soundUtils'
 import './TitleBar.css'
 
 function TitleBar() {
@@ -52,6 +53,7 @@ function TitleBar() {
   }, [])
 
   const handleMenuClick = () => {
+    playButtonSound()
     setMenuOpen(!menuOpen)
   }
 
@@ -64,12 +66,14 @@ function TitleBar() {
           </button>
           <div className={`menu-dropdown ${menuOpen ? 'open' : ''}`}>
             <div className="menu-item" onClick={() => {
+              playButtonSound()
               window.dispatchEvent(new CustomEvent('open-settings'))
               setMenuOpen(false)
             }}>
               设置
             </div>
             <div className="menu-item" onClick={() => {
+              playButtonSound()
               window.dispatchEvent(new CustomEvent('open-about'))
               setMenuOpen(false)
             }}>

@@ -1,9 +1,15 @@
 import './AboutModal.css'
 import { useI18n } from '../contexts/I18nContext'
 import { playButtonSound } from '../utils/soundUtils'
+import { open } from '@tauri-apps/plugin-shell'
 
 function AboutModal({ isOpen, onClose }) {
   const { t } = useI18n()
+
+  const handleGitHubClick = () => {
+    playButtonSound()
+    open('https://github.com/RustyPen/rusty-pen')
+  }
 
   if (!isOpen) return null
 
@@ -33,6 +39,15 @@ function AboutModal({ isOpen, onClose }) {
               <span className="info-label">Year</span>
               <span className="info-value">2025</span>
             </div>
+          </div>
+          <div className="about-github">
+            <button className="github-link" onClick={handleGitHubClick}>
+              <span className="github-icon">📦</span>
+              <span className="github-text">GitHub</span>
+            </button>
+          </div>
+          <div className="about-url">
+            <span className="url-label">https://github.com/RustyPen/rusty-pen</span>
           </div>
         </div>
       </div>
