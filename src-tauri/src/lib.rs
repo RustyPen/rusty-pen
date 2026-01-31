@@ -27,6 +27,7 @@ pub fn run() {
         _ => {}
       }
     })
+    .invoke_handler(tauri::generate_handler![get_system_language])
     .setup(|app| {
       if cfg!(debug_assertions) {
         app.handle().plugin(
@@ -40,4 +41,21 @@ pub fn run() {
     })
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
+}
+
+#[tauri::command]
+fn get_system_language() -> String {
+  use sys_locale::get_locale;
+  
+  let locale = get_locale().unwrap_or_else(|| "en".to_string());
+  
+  let lang_code = if locale.starts_with("zh") || locale.starts_with("zh_") {
+    "zh"
+  } else if locale.starts_with("en") || locale.starts_with("en_") {
+    "en"
+  } else {
+    "en"
+  };
+  
+  lang_code.to_string()
 }

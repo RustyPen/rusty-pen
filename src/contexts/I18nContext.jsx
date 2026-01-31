@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import { invoke } from '@tauri-apps/api/core'
 
 const I18nContext = createContext()
 
@@ -7,37 +8,24 @@ const translations = {
   en: () => import('../i18n/en.json')
 }
 
-let translationCache = {}
-
-const getSystemLanguage = () => {
-  const browserLang = navigator.language || navigator.userLanguage
-  const langCode = browserLang.split('-')[0]
-  const supportedLanguages = Object.keys(translations)
-  
-  if (supportedLanguages.includes(langCode)) {
-    return langCode
-  }
-  
-  return 'zh'
-}
-
 export const I18nProvider = ({ children }) => {
-  const [language, setLanguage] = useState(getSystemLanguage())
+  const [language, setLanguage] = useState('en')
   const [translationsData, setTranslationsData] = useState({})
 
   useEffect(() => {
-    loadTranslations(language)
-  }, [language])
-
-  const loadTranslations = async (lang) => {
-    if (translationCache[lang]) {
-      setTranslationsData(translationCache[lang])
-      return
+    const initLanguage = async () => {
+      const systemLang = await invoke('get_system_language')
+      setLanguage(systemLang)
+      document.documentElement.lang = systemLang
+      await loadTranslations(systemLang)
     }
 
+    initLanguage()
+  }, [])
+
+  const loadTranslations = async (lang) => {
     try {
       const translationsModule = await translations[lang]()
-      translationCache[lang] = translationsModule.default
       setTranslationsData(translationsModule.default)
     } catch (error) {
       console.error(`Failed to load translations for ${lang}:`, error)
@@ -59,10 +47,10 @@ export const I18nProvider = ({ children }) => {
     return value || key
   }
 
-  const changeLanguage = (lang) => {
+  const changeLanguage = async (lang) => {
     setLanguage(lang)
     document.documentElement.lang = lang
-    loadTranslations(lang)
+    await loadTranslations(lang)
   }
 
   const value = {

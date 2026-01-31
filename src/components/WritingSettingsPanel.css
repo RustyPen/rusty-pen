@@ -1,7 +1,6 @@
 .writing-settings-panel {
   display: flex;
   flex-direction: column;
-  width: 520px;
   height: 100vh;
   background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-primary) 100%);
   border-left: 2px solid var(--border-color);
