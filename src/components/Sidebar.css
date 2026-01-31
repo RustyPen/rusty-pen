@@ -111,13 +111,18 @@
   align-items: center;
 }
 
+.article-meta .article-actions {
+  display: flex;
+  gap: 1rem;
+}
+
 .article-date {
   font-family: 'Georgia', 'Times New Roman', serif;
   font-size: 0.75rem;
   color: var(--text-secondary);
 }
 
-.article-delete {
+.article-delete, .article-edit {
   background: none;
   border: none;
   cursor: pointer;
@@ -127,27 +132,12 @@
   transition: opacity 0.2s ease;
 }
 
-.article-delete:hover {
+.article-delete:hover, .article-edit:hover {
   opacity: 1;
   transform: scale(1.3);
 }
 
-.article-edit {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0.25rem;
-  opacity: 0.6;
-  transition: opacity 0.2s ease;
-}
-
-.article-edit:hover {
-  opacity: 1;
-  transform: scale(1.3);
-}
-
-.article-save {
+.article-save, .article-cancel {
   background: none;
   border: none;
   cursor: pointer;
@@ -156,23 +146,10 @@
   opacity: 0.8;
   transition: opacity 0.2s ease;
   color: var(--copper-green);
+  width: 30px;
 }
 
-.article-save:hover {
-  opacity: 1;
-  transform: scale(1.3);
-}
-
-.article-cancel {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0.25rem;
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
-}
-
+.article-save:hover,
 .article-cancel:hover {
   opacity: 1;
   transform: scale(1.3);

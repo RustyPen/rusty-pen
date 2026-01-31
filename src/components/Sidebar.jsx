@@ -7,6 +7,7 @@ const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDel
   const { t } = useI18n()
   const [editingId, setEditingId] = useState(null)
   const [editingTitle, setEditingTitle] = useState('')
+  const [isClickingButton, setIsClickingButton] = useState(false)
 
   const handleEdit = (article) => {
     playButtonSound()
@@ -14,17 +15,40 @@ const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDel
     setEditingTitle(article.title || t('sidebar.untitled'))
   }
 
-  const handleSave = (articleId) => {
+  const handleSave = (articleId, e) => {
+    if (e) {
+      e.stopPropagation()
+      e.preventDefault()
+    }
     playButtonSound()
     onUpdateArticle(articleId, { title: editingTitle })
     setEditingId(null)
     setEditingTitle('')
   }
 
-  const handleCancel = () => {
+  const handleCancel = (e) => {
+    if (e) {
+      e.stopPropagation()
+      e.preventDefault()
+    }
     playButtonSound()
     setEditingId(null)
     setEditingTitle('')
+  }
+
+  const handleBlur = (articleId) => {
+    if (isClickingButton) {
+      return
+    }
+    handleSave(articleId)
+  }
+
+  const handleButtonMouseDown = () => {
+    setIsClickingButton(true)
+  }
+
+  const handleButtonMouseUp = () => {
+    setTimeout(() => setIsClickingButton(false), 0)
   }
 
   return (
@@ -53,7 +77,7 @@ const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDel
                 value={editingTitle}
                 onChange={(e) => setEditingTitle(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
-                onBlur={() => handleSave(article.id)}
+                onBlur={() => handleBlur(article.id)}
                 autoFocus
               />
             ) : (
@@ -62,28 +86,26 @@ const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDel
             <div className="article-meta">
               <span className="article-date">{article.date}</span>
               {editingId === article.id ? (
-                <>
+                <div className="article-actions">
                   <button
                     className="article-save"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleSave(article.id)
-                    }}
+                    onMouseDown={handleButtonMouseDown}
+                    onMouseUp={handleButtonMouseUp}
+                    onClick={(e) => handleSave(article.id, e)}
                   >
                     ✓
                   </button>
                   <button
                     className="article-cancel"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      handleCancel()
-                    }}
+                    onMouseDown={handleButtonMouseDown}
+                    onMouseUp={handleButtonMouseUp}
+                    onClick={handleCancel}
                   >
                     ✕
                   </button>
-                </>
+                </div>
               ) : (
-                <>
+                <div className="article-actions">
                   <button
                     className="article-edit"
                     onClick={(e) => {
@@ -103,7 +125,7 @@ const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDel
                   >
                     🗑️
                   </button>
-                </>
+                </div>
               )}
             </div>
           </div>
