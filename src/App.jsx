@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import WritingArea from './components/WritingArea'
-import ArticleList from './components/ArticleList'
+import Sidebar from './components/Sidebar'
 import WritingSettingsPanel from './components/WritingSettingsPanel'
 import SettingsModal from './components/SettingsModal'
 import AboutModal from './components/AboutModal'
@@ -115,7 +115,7 @@ function AppContent() {
     <div className={`app ${isLoaded ? 'loaded' : ''}`}>
       <TitleBar />
       <div className="app-content">
-        <ArticleList 
+        <Sidebar 
           articles={articles}
           activeArticle={activeArticle}
           onArticleSelect={handleArticleSelect}

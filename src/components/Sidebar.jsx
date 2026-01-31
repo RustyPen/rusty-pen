@@ -1,12 +1,12 @@
-import './ArticleList.css'
+import './Sidebar.css'
 import { useI18n } from '../contexts/I18nContext'
 import { playButtonSound } from '../utils/soundUtils'
 
-const ArticleList = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDeleteArticle }) => {
+const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDeleteArticle }) => {
   const { t } = useI18n()
 
   return (
-    <div className="article-list-panel">
+    <div className="sidebar-panel">
       <button 
         className="new-article-btn" 
         onClick={() => {
@@ -45,4 +45,4 @@ const ArticleList = ({ articles, activeArticle, onArticleSelect, onNewArticle, o
   )
 }
 
-export default ArticleList
+export default Sidebar

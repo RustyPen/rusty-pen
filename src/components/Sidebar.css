@@ -1,4 +1,4 @@
-.article-list-panel {
+.sidebar-panel {
   width: 300px;
   min-width: 300px;
   display: flex;
@@ -112,7 +112,7 @@
 }
 
 @media (max-width: 1024px) {
-  .article-list-panel {
+  .sidebar-panel {
     width: 100%;
     min-width: 100%;
     min-height: 300px;
@@ -120,7 +120,7 @@
 }
 
 @media (max-width: 768px) {
-  .article-list-panel {
+  .sidebar-panel {
     width: 100%;
     min-width: 100%;
     min-height: 300px;
