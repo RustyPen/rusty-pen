@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import WritingArea from './components/WritingArea'
 import Sidebar from './components/Sidebar'
@@ -10,6 +10,7 @@ import TitleBar from './components/TitleBar'
 import { applyGlobalTheme } from './utils/themeUtils'
 import { applyFont } from './utils/fontUtils'
 import { I18nProvider, useI18n } from './contexts/I18nContext'
+import { loadSettings, saveSettings } from './utils/settingsUtils'
 
 function AppContent() {
   const [currentTheme, setCurrentTheme] = useState('vintage')
@@ -25,9 +26,27 @@ function AppContent() {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
   const [articleToDelete, setArticleToDelete] = useState(null)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [settingsLoaded, setSettingsLoaded] = useState(false)
+  const settingsLoadedRef = useRef(false)
   const { language, changeLanguage, t } = useI18n()
 
   useEffect(() => {
+    if (settingsLoadedRef.current) return
+    
+    settingsLoadedRef.current = true
+    
+    const loadAppSettings = async () => {
+      const settings = await loadSettings()
+      
+      setGlobalTheme(settings.globalTheme)
+      setCurrentFont(settings.font)
+      changeLanguage(settings.language)
+      
+      setSettingsLoaded(true)
+    }
+    
+    loadAppSettings()
+    
     setTimeout(() => setIsLoaded(true), 500)
     
     const savedArticles = localStorage.getItem('rusty-pen-articles')
@@ -128,17 +147,38 @@ function AppContent() {
     setSoundEnabled(enabled)
   }
 
-  const handleGlobalThemeChange = (themeId) => {
+  const handleGlobalThemeChange = async (themeId) => {
     setGlobalTheme(themeId)
+    if (settingsLoaded) {
+      await saveSettings({
+        globalTheme: themeId,
+        font: currentFont,
+        language: language
+      })
+    }
   }
 
-  const handleFontChange = (fontId) => {
+  const handleFontChange = async (fontId) => {
     setCurrentFont(fontId)
     applyFont(fontId)
+    if (settingsLoaded) {
+      await saveSettings({
+        globalTheme: globalTheme,
+        font: fontId,
+        language: language
+      })
+    }
   }
 
-  const handleLanguageChange = (languageId) => {
+  const handleLanguageChange = async (languageId) => {
     changeLanguage(languageId)
+    if (settingsLoaded) {
+      await saveSettings({
+        globalTheme: globalTheme,
+        font: currentFont,
+        language: languageId
+      })
+    }
   }
 
   return (
