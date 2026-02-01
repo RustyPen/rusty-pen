@@ -145,6 +145,12 @@ rusty-pen/
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+## Terms of Use
+
+1. **Free Use**: Products built from source code can be used for free.
+2. **Store Distribution**: Distribution of products to app stores (including Apple App Store, Microsoft Store, etc.) is not permitted.
+3. **Trademark Usage**: Use of the "Rusty Pen" trademark is not permitted.
+
 ## License
 
 This project is licensed under the MIT License.
