@@ -42,12 +42,14 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   max-width: 800px;
   width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-height: 98vh;
+  display: flex;
+  flex-direction: column;
   transform: scale(0.9);
   opacity: 0;
   animation: modalIn 0.3s ease-out forwards;
   border: 2px solid var(--border-color);
+  overflow: hidden;
 }
 
 .settings-modal.closing {
@@ -80,9 +82,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 32px;
+  padding: 16px 32px;
   border-bottom: 1px solid var(--border-color);
   background: var(--background-secondary);
+  flex-shrink: 0;
+  border-radius: 12px 12px 0 0;
 }
 
 .settings-modal-title {
@@ -110,10 +114,13 @@
 
 .settings-modal-content {
   padding: 32px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
 }
 
 .settings-section {
-  margin-bottom: 32px;
+  margin-bottom: 30px;
 }
 
 .settings-section:last-child {
@@ -121,7 +128,7 @@
 }
 
 .settings-section-title {
-  margin: 0 0 16px 0;
+  margin: 0 0 12px 0;
   font-size: 16px;
   font-weight: 500;
   color: var(--text-secondary);
