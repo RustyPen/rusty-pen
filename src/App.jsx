@@ -7,6 +7,7 @@ import SettingsModal from './components/SettingsModal'
 import AboutModal from './components/AboutModal'
 import DeleteConfirmModal from './components/DeleteConfirmModal'
 import TitleBar from './components/TitleBar'
+import SplashScreen from './components/SplashScreen'
 import { applyGlobalTheme } from './utils/themeUtils'
 import { applyFont } from './utils/fontUtils'
 import { I18nProvider, useI18n } from './contexts/I18nContext'
@@ -33,7 +34,7 @@ function AppContent({ initialSettings }) {
     const initApp = async () => {
       setGlobalTheme(initialSettings.globalTheme)
       setCurrentFont(initialSettings.font)
-      
+
       const savedArticles = await loadArticles()
       setArticles(savedArticles)
     }
@@ -182,7 +183,7 @@ function AppContent({ initialSettings }) {
 
   return (
     <div className={`app ${isLoaded ? 'loaded' : ''}`}>
-      <TitleBar 
+      <TitleBar
         onOpenSettings={() => setSettingsModalOpen(true)}
         onOpenAbout={() => setAboutModalOpen(true)}
       />
@@ -243,6 +244,7 @@ function App() {
   const [initialSettings, setInitialSettings] = useState(null)
   const hasInitialized = useRef(false)
   const [isAppReady, setIsAppReady] = useState(false)
+  const [showSplash, setShowSplash] = useState(true)
 
   useEffect(() => {
     if (hasInitialized.current) return
@@ -257,8 +259,20 @@ function App() {
     initApp()
   }, [])
 
+  const handleSplashComplete = () => {
+    setShowSplash(false)
+  }
+
   if (!isAppReady) {
     return null
+  }
+
+  if (showSplash) {
+    return (
+      <I18nProvider initialLanguage={initialSettings.language}>
+        <SplashScreen onComplete={handleSplashComplete} />
+      </I18nProvider>
+    )
   }
 
   return (
