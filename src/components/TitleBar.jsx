@@ -29,11 +29,13 @@ function TitleBar() {
   }, [])
 
   const handleMinimize = useCallback(async () => {
+    playButtonSound()
     const appWindow = getCurrentWindow()
     await appWindow.minimize()
   }, [])
 
   const handleMaximize = useCallback(async () => {
+    playButtonSound()
     const appWindow = getCurrentWindow()
     const newMaximizedState = !isMaximized
     setIsMaximized(newMaximizedState)
@@ -45,6 +47,7 @@ function TitleBar() {
   }, [isMaximized])
 
   const handleClose = useCallback(async () => {
+    playButtonSound()
     const appWindow = getCurrentWindow()
     await appWindow.close()
   }, [])

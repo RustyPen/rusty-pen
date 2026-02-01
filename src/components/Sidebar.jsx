@@ -10,28 +10,17 @@ const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDel
   const [isClickingButton, setIsClickingButton] = useState(false)
 
   const handleEdit = (article) => {
-    playButtonSound()
     setEditingId(article.id)
     setEditingTitle(article.title || t('sidebar.untitled'))
   }
 
-  const handleSave = (articleId, e) => {
-    if (e) {
-      e.stopPropagation()
-      e.preventDefault()
-    }
-    playButtonSound()
+  const handleSave = (articleId) => {
     onUpdateArticle(articleId, { title: editingTitle })
     setEditingId(null)
     setEditingTitle('')
   }
 
-  const handleCancel = (e) => {
-    if (e) {
-      e.stopPropagation()
-      e.preventDefault()
-    }
-    playButtonSound()
+  const handleCancel = () => {
     setEditingId(null)
     setEditingTitle('')
   }
@@ -68,7 +57,12 @@ const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDel
           <div
             key={article.id}
             className={`article-item ${activeArticle?.id === article.id ? 'active' : ''}`}
-            onClick={() => editingId === article.id ? null : onArticleSelect(article)}
+            onClick={() => {
+              playButtonSound()
+              if (activeArticle?.id !== article.id) {
+                onArticleSelect(article)
+              }
+            }}
           >
             {editingId === article.id ? (
               <input
@@ -91,7 +85,11 @@ const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDel
                     className="article-save"
                     onMouseDown={handleButtonMouseDown}
                     onMouseUp={handleButtonMouseUp}
-                    onClick={(e) => handleSave(article.id, e)}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      playButtonSound()
+                      handleSave(article.id)
+                    }}
                   >
                     ✓
                   </button>
@@ -99,7 +97,11 @@ const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDel
                     className="article-cancel"
                     onMouseDown={handleButtonMouseDown}
                     onMouseUp={handleButtonMouseUp}
-                    onClick={handleCancel}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      playButtonSound()
+                      handleCancel()
+                    }}
                   >
                     ✕
                   </button>
@@ -110,6 +112,7 @@ const Sidebar = ({ articles, activeArticle, onArticleSelect, onNewArticle, onDel
                     className="article-edit"
                     onClick={(e) => {
                       e.stopPropagation()
+                      playButtonSound()
                       handleEdit(article)
                     }}
                   >
