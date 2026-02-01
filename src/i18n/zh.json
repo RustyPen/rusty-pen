@@ -15,6 +15,7 @@
     "font_size": "字号",
     "click_sound": "点击音效",
     "ambient_sound": "环境音效",
+    "splash_screen": "启动动画",
     "settings": "设置"
   },
   "sidebar": {

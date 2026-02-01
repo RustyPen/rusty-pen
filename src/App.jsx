@@ -14,7 +14,7 @@ import { I18nProvider, useI18n } from './contexts/I18nContext'
 import { loadSettings, saveSettings, loadArticles, saveArticles, loadArticleContent, saveArticleContent, deleteArticleFile } from './utils/settingsUtils'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 
-function AppContent({ initialSettings }) {
+function AppContent({ settings, updateSettings }) {
   const [currentTheme, setCurrentTheme] = useState('vintage')
   const [globalTheme, setGlobalTheme] = useState('light')
   const [currentFont, setCurrentFont] = useState('yahei')
@@ -32,8 +32,8 @@ function AppContent({ initialSettings }) {
 
   useEffect(() => {
     const initApp = async () => {
-      setGlobalTheme(initialSettings.globalTheme)
-      setCurrentFont(initialSettings.font)
+      setGlobalTheme(settings.globalTheme)
+      setCurrentFont(settings.font)
 
       const savedArticles = await loadArticles()
       setArticles(savedArticles)
@@ -42,7 +42,7 @@ function AppContent({ initialSettings }) {
     initApp()
 
     setTimeout(() => setIsLoaded(true), 500)
-  }, [])
+  }, [settings])
 
   useEffect(() => {
     applyGlobalTheme(globalTheme)
@@ -155,29 +155,33 @@ function AppContent({ initialSettings }) {
 
   const handleGlobalThemeChange = async (themeId) => {
     setGlobalTheme(themeId)
-    await saveSettings({
-      globalTheme: themeId,
-      font: currentFont,
-      language: language
+    await updateSettings({
+      ...settings,
+      globalTheme: themeId
     })
   }
 
   const handleFontChange = async (fontId) => {
     setCurrentFont(fontId)
     applyFont(fontId)
-    await saveSettings({
-      globalTheme: globalTheme,
-      font: fontId,
-      language: language
+    await updateSettings({
+      ...settings,
+      font: fontId
     })
   }
 
   const handleLanguageChange = async (languageId) => {
     changeLanguage(languageId)
-    await saveSettings({
-      globalTheme: globalTheme,
-      font: currentFont,
+    await updateSettings({
+      ...settings,
       language: languageId
+    })
+  }
+
+  const handleSplashScreenToggle = async (enabled) => {
+    await updateSettings({
+      ...settings,
+      showSplashScreen: enabled
     })
   }
 
@@ -225,6 +229,8 @@ function AppContent({ initialSettings }) {
         onFontChange={handleFontChange}
         currentLanguage={language}
         onLanguageChange={handleLanguageChange}
+        showSplashScreen={settings.showSplashScreen}
+        onSplashScreenToggle={handleSplashScreenToggle}
       />
       <AboutModal
         isOpen={aboutModalOpen}
@@ -241,7 +247,7 @@ function AppContent({ initialSettings }) {
 }
 
 function App() {
-  const [initialSettings, setInitialSettings] = useState(null)
+  const [settings, setSettings] = useState(null)
   const hasInitialized = useRef(false)
   const [isAppReady, setIsAppReady] = useState(false)
   const [showSplash, setShowSplash] = useState(true)
@@ -251,13 +257,19 @@ function App() {
     hasInitialized.current = true
 
     const initApp = async () => {
-      const settings = await loadSettings()
-      setInitialSettings(settings)
+      const loadedSettings = await loadSettings()
+      setSettings(loadedSettings)
+      setShowSplash(loadedSettings.showSplashScreen)
       setIsAppReady(true)
     }
 
     initApp()
   }, [])
+
+  const updateSettings = async (newSettings) => {
+    setSettings(newSettings)
+    await saveSettings(newSettings)
+  }
 
   const handleSplashComplete = () => {
     setShowSplash(false)
@@ -269,15 +281,15 @@ function App() {
 
   if (showSplash) {
     return (
-      <I18nProvider initialLanguage={initialSettings.language}>
+      <I18nProvider initialLanguage={settings.language}>
         <SplashScreen onComplete={handleSplashComplete} />
       </I18nProvider>
     )
   }
 
   return (
-    <I18nProvider initialLanguage={initialSettings.language}>
-      <AppContent initialSettings={initialSettings} />
+    <I18nProvider initialLanguage={settings.language}>
+      <AppContent settings={settings} updateSettings={updateSettings} />
     </I18nProvider>
   )
 }

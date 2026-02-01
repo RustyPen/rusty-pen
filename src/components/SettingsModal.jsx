@@ -6,7 +6,7 @@ import FontSelector from './FontSelector'
 import LanguageSelector from './LanguageSelector'
 import { playButtonSound } from '../utils/soundUtils'
 
-function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFont, onFontChange, currentLanguage, onLanguageChange }) {
+function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFont, onFontChange, currentLanguage, onLanguageChange, showSplashScreen, onSplashScreenToggle }) {
   const { t } = useI18n()
   const [isClosing, setIsClosing] = useState(false)
 
@@ -14,7 +14,7 @@ function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFo
     if (isOpen) {
       document.body.style.overflow = 'hidden'
     }
-    
+
     return () => {
       document.body.style.overflow = ''
     }
@@ -44,15 +44,15 @@ function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFo
   if (!isOpen && !isClosing) return null
 
   return (
-    <div 
-      className={`settings-modal-backdrop ${isClosing ? 'closing' : ''}`} 
+    <div
+      className={`settings-modal-backdrop ${isClosing ? 'closing' : ''}`}
       onClick={handleBackdropClick}
       onKeyDown={handleKeyDown}
     >
       <div className={`settings-modal ${isClosing ? 'closing' : ''}`}>
         <div className="settings-modal-header">
           <h2 className="settings-modal-title">{t('controls.settings')}</h2>
-          <button 
+          <button
             className="settings-modal-close"
             onClick={handleClose}
             aria-label={t('buttons.close')}
@@ -60,29 +60,47 @@ function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFo
             ✕
           </button>
         </div>
-        
+
         <div className="settings-modal-content">
           <div className="settings-section">
             <h3 className="settings-section-title">{t('controls.language')}</h3>
-            <LanguageSelector 
+            <LanguageSelector
               currentLanguage={currentLanguage}
               onLanguageChange={onLanguageChange}
             />
           </div>
-          
+
+          <div className="settings-section">
+            <h3 className="settings-section-title">{t('controls.splash_screen')}</h3>
+            <div className="settings-toggle">
+              <label className="toggle-switch">
+                <input
+                  type="checkbox"
+                  checked={showSplashScreen}
+                  onChange={(e) => {
+                    playButtonSound()
+                    onSplashScreenToggle(e.target.checked)
+                  }}
+                />
+                <span className="toggle-slider"></span>
+              </label>
+              <span className="toggle-label">{showSplashScreen ? t('buttons.enable') : t('buttons.disable')}</span>
+            </div>
+          </div>
+
           <div className="settings-section">
             <h3 className="settings-section-title">{t('controls.global_theme')}</h3>
-            <GlobalThemeSelector 
-              currentTheme={currentTheme} 
-              onThemeChange={onThemeChange} 
+            <GlobalThemeSelector
+              currentTheme={currentTheme}
+              onThemeChange={onThemeChange}
             />
           </div>
-          
+
           <div className="settings-section">
             <h3 className="settings-section-title">{t('controls.font')}</h3>
-            <FontSelector 
-              currentFont={currentFont} 
-              onFontChange={onFontChange} 
+            <FontSelector
+              currentFont={currentFont}
+              onFontChange={onFontChange}
               currentTheme={currentTheme}
               currentLanguage={currentLanguage}
             />
