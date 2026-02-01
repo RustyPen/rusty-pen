@@ -4,7 +4,7 @@ import { playButtonSound } from '../utils/soundUtils'
 import { useI18n } from '../contexts/I18nContext'
 import './TitleBar.css'
 
-function TitleBar() {
+function TitleBar({ onOpenSettings, onOpenAbout }) {
   const [isMaximized, setIsMaximized] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const { t } = useI18n()
@@ -67,14 +67,14 @@ function TitleBar() {
           <div className={`menu-dropdown ${menuOpen ? 'open' : ''}`}>
             <div className="menu-item" onClick={() => {
               playButtonSound()
-              window.dispatchEvent(new CustomEvent('open-settings'))
+              onOpenSettings()
               setMenuOpen(false)
             }}>
               {t('titlebar.settings')}
             </div>
             <div className="menu-item" onClick={() => {
               playButtonSound()
-              window.dispatchEvent(new CustomEvent('open-about'))
+              onOpenAbout()
               setMenuOpen(false)
             }}>
               {t('titlebar.about')}
@@ -86,6 +86,16 @@ function TitleBar() {
         </div>
       </div>
       <div className="titlebar-right">
+        <button 
+          className="titlebar-button settings-button" 
+          onClick={() => {
+            playButtonSound()
+            onOpenSettings()
+          }}
+          title={t('titlebar.settings')}
+        >
+          <span className="button-icon">⚙️</span>
+        </button>
         <button 
           className="titlebar-button minimize-button" 
           onClick={handleMinimize}

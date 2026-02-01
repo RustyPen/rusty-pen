@@ -41,22 +41,6 @@ function AppContent({ initialSettings }) {
     initApp()
 
     setTimeout(() => setIsLoaded(true), 500)
-
-    const handleOpenSettings = () => {
-      setSettingsModalOpen(true)
-    }
-
-    const handleOpenAbout = () => {
-      setAboutModalOpen(true)
-    }
-
-    window.addEventListener('open-settings', handleOpenSettings)
-    window.addEventListener('open-about', handleOpenAbout)
-
-    return () => {
-      window.removeEventListener('open-settings', handleOpenSettings)
-      window.removeEventListener('open-about', handleOpenAbout)
-    }
   }, [])
 
   useEffect(() => {
@@ -198,7 +182,10 @@ function AppContent({ initialSettings }) {
 
   return (
     <div className={`app ${isLoaded ? 'loaded' : ''}`}>
-      <TitleBar />
+      <TitleBar 
+        onOpenSettings={() => setSettingsModalOpen(true)}
+        onOpenAbout={() => setAboutModalOpen(true)}
+      />
       <div className="app-content">
         <Sidebar
           articles={articles}
