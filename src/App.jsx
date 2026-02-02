@@ -37,6 +37,8 @@ function AppContent({ settings, updateSettings }) {
   const [articleToDelete, setArticleToDelete] = useState(null)
   const [isDeleting, setIsDeleting] = useState(false)
   const { language, changeLanguage, t } = useI18n()
+  
+  const isInitialized = useRef(false)
 
   useEffect(() => {
     const initApp = async () => {
@@ -62,12 +64,33 @@ function AppContent({ settings, updateSettings }) {
         const content = await loadArticleContent(savedArticles[0].id)
         setActiveArticle({ ...savedArticles[0], content: content || '' })
       }
+      
+      setIsLoaded(true)
     }
 
-    initApp()
-
-    setTimeout(() => setIsLoaded(true), 500)
+    if (!isInitialized.current) {
+      initApp()
+      isInitialized.current = true
+    }
   }, [settings])
+
+  useEffect(() => {
+    if (isInitialized.current) {
+      setGlobalTheme(settings.globalTheme)
+      setCurrentFont(settings.font)
+      setCurrentFontSize(settings.fontSize || 'medium')
+      setCurrentWindowSize(settings.windowSize || 'medium')
+      setUseA4Ratio(settings.useA4Ratio || false)
+      setVintagePaperId(settings.vintagePaperId || 1)
+      setCustomPaperPath(settings.customVintagePaper || null)
+      setUseCustomPaper(settings.useCustomPaper || false)
+      setPaperOpacity(settings.paperOpacity !== undefined ? settings.paperOpacity : 0.3)
+      
+      if (settings.customVintagePaper && settings.customVintagePaper !== customPaperPath) {
+        loadCustomPaperAsDataUrl(settings.customVintagePaper).then(setCustomPaperUrl)
+      }
+    }
+  }, [settings.globalTheme, settings.font, settings.fontSize, settings.windowSize, settings.useA4Ratio, settings.vintagePaperId, settings.customVintagePaper, settings.useCustomPaper, settings.paperOpacity])
 
   useEffect(() => {
     applyGlobalTheme(globalTheme)
