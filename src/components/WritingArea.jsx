@@ -63,7 +63,7 @@ const pens = {
   }
 }
 
-function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, onContentChange, onBlurSave }) {
+function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, onContentChange, onBlurSave, useA4Ratio }) {
   const [content, setContent] = useState('')
   const editorRef = useRef(null)
   const paperRef = useRef(null)
@@ -87,6 +87,17 @@ function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, 
   const currentFontSize = fontSizeMap[fontSize] || 16
   
   const isLinedPaper = theme === 'manuscript' || theme === 'telegram'
+  
+  const A4_ASPECT_RATIO = 210 / 297
+  
+  const paperStyle = {
+    background: currentTheme.background,
+    color: currentTheme.textColor
+  }
+  
+  if (useA4Ratio) {
+    paperStyle.aspectRatio = `${A4_ASPECT_RATIO}`
+  }
   
   const penPaths = {
     fountain: '/cursors/fountain.svg',
@@ -333,11 +344,8 @@ function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, 
         <>
           <div 
             ref={paperRef}
-            className={`writing-paper ${isLinedPaper ? 'lined-paper' : ''}`}
-            style={{
-              background: currentTheme.background,
-              color: currentTheme.textColor
-            }}
+            className={`writing-paper ${isLinedPaper ? 'lined-paper' : ''} ${useA4Ratio ? 'a4-ratio' : ''}`}
+            style={paperStyle}
             data-theme={theme}
           >
             <div 

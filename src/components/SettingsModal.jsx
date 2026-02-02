@@ -9,7 +9,7 @@ import WindowSizeSelector from './WindowSizeSelector'
 import ClickSoundSelector from './ClickSoundSelector'
 import { playButtonSound } from '../utils/soundUtils'
 
-function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFont, onFontChange, currentFontSize, onFontSizeChange, currentLanguage, onLanguageChange, showSplashScreen, onSplashScreenToggle, currentWindowSize, onWindowSizeChange }) {
+function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFont, onFontChange, currentFontSize, onFontSizeChange, currentLanguage, onLanguageChange, showSplashScreen, onSplashScreenToggle, currentWindowSize, onWindowSizeChange, useA4Ratio, onA4RatioToggle }) {
   const { t } = useI18n()
   const [isClosing, setIsClosing] = useState(false)
 
@@ -128,6 +128,24 @@ function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFo
               currentWindowSize={currentWindowSize}
               onWindowSizeChange={onWindowSizeChange}
             />
+          </div>
+
+          <div className="settings-section">
+            <h3 className="settings-section-title">{t('controls.a4_ratio')}</h3>
+            <div className="settings-toggle">
+              <label className="toggle-switch">
+                <input
+                  type="checkbox"
+                  checked={useA4Ratio}
+                  onChange={(e) => {
+                    playButtonSound()
+                    onA4RatioToggle(e.target.checked)
+                  }}
+                />
+                <span className="toggle-slider"></span>
+              </label>
+              <span className="toggle-label">{useA4Ratio ? t('buttons.enable') : t('buttons.disable')}</span>
+            </div>
           </div>
         </div>
       </div>

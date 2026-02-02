@@ -13,7 +13,8 @@ const defaultSettings = {
   fontSize: 'medium',
   language: 'en',
   showSplashScreen: true,
-  windowSize: 'medium'
+  windowSize: 'medium',
+  useA4Ratio: true
 }
 
 const store = await Store.load(SETTINGS_FILE)

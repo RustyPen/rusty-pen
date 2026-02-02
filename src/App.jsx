@@ -20,6 +20,7 @@ function AppContent({ settings, updateSettings }) {
   const [currentFont, setCurrentFont] = useState('yahei')
   const [currentFontSize, setCurrentFontSize] = useState('medium')
   const [currentWindowSize, setCurrentWindowSize] = useState('medium')
+  const [useA4Ratio, setUseA4Ratio] = useState(false)
   const [currentPen, setCurrentPen] = useState('fountain')
   const [soundEnabled, setSoundEnabled] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -38,6 +39,7 @@ function AppContent({ settings, updateSettings }) {
       setCurrentFont(settings.font)
       setCurrentFontSize(settings.fontSize || 'medium')
       setCurrentWindowSize(settings.windowSize || 'medium')
+      setUseA4Ratio(settings.useA4Ratio || false)
 
       const savedArticles = await loadArticles()
       setArticles(savedArticles)
@@ -218,6 +220,14 @@ function AppContent({ settings, updateSettings }) {
     })
   }
 
+  const handleA4RatioToggle = async (enabled) => {
+    setUseA4Ratio(enabled)
+    await updateSettings({
+      ...settings,
+      useA4Ratio: enabled
+    })
+  }
+
   return (
     <div className={`app ${isLoaded ? 'loaded' : ''}`}>
       <TitleBar
@@ -243,6 +253,7 @@ function AppContent({ settings, updateSettings }) {
             activeArticle={activeArticle}
             onContentChange={handleContentChange}
             onBlurSave={handleBlurSave}
+            useA4Ratio={useA4Ratio}
           />
         </div>
         <WritingSettingsPanel
@@ -269,6 +280,8 @@ function AppContent({ settings, updateSettings }) {
         onSplashScreenToggle={handleSplashScreenToggle}
         currentWindowSize={currentWindowSize}
         onWindowSizeChange={handleWindowSizeChange}
+        useA4Ratio={useA4Ratio}
+        onA4RatioToggle={handleA4RatioToggle}
       />
       <AboutModal
         isOpen={aboutModalOpen}
