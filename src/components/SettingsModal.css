@@ -42,7 +42,7 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   max-width: 800px;
   width: 90%;
-  max-height: 98vh;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
   transform: scale(0.9);
@@ -82,7 +82,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 32px;
+  padding: 10px 32px;
   border-bottom: 1px solid var(--border-color);
   background: var(--background-secondary);
   flex-shrink: 0;
@@ -120,7 +120,7 @@
 }
 
 .settings-section {
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 
 .settings-section:last-child {
@@ -136,6 +136,7 @@
 
 .settings-modal .global-theme-selector,
 .settings-modal .font-selector,
+.settings-modal .font-size-selector,
 .settings-modal .simple-language-switcher {
   margin-top: 0;
 }

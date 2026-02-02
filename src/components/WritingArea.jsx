@@ -63,7 +63,7 @@ const pens = {
   }
 }
 
-function WritingArea({ theme, pen, font, soundEnabled, activeArticle, onContentChange, onBlurSave }) {
+function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, onContentChange, onBlurSave }) {
   const [content, setContent] = useState('')
   const editorRef = useRef(null)
   const paperRef = useRef(null)
@@ -76,6 +76,15 @@ function WritingArea({ theme, pen, font, soundEnabled, activeArticle, onContentC
   const currentPen = pens[pen] || pens.fountain
   const currentFont = getFontById(font) || getFontById('georgia')
   const { t } = useI18n()
+  
+  const fontSizeMap = {
+    small: 14,
+    medium: 16,
+    large: 20,
+    xlarge: 24
+  }
+  
+  const currentFontSize = fontSizeMap[fontSize] || 16
   
   const isLinedPaper = theme === 'manuscript' || theme === 'telegram'
   
@@ -350,6 +359,7 @@ function WritingArea({ theme, pen, font, soundEnabled, activeArticle, onContentC
                 fontWeight: currentPen.fontWeight,
                 fontStyle: currentPen.fontStyle || 'normal',
                 letterSpacing: currentPen.letterSpacing || '0em',
+                fontSize: `${currentFontSize}px`,
                 color: currentTheme.textColor,
                 cursor: `url('${cursorPath}') 0 24, auto`
               }}

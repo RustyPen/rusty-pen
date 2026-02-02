@@ -18,6 +18,7 @@ function AppContent({ settings, updateSettings }) {
   const [currentTheme, setCurrentTheme] = useState('vintage')
   const [globalTheme, setGlobalTheme] = useState('light')
   const [currentFont, setCurrentFont] = useState('yahei')
+  const [currentFontSize, setCurrentFontSize] = useState('medium')
   const [currentPen, setCurrentPen] = useState('fountain')
   const [soundEnabled, setSoundEnabled] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -34,6 +35,7 @@ function AppContent({ settings, updateSettings }) {
     const initApp = async () => {
       setGlobalTheme(settings.globalTheme)
       setCurrentFont(settings.font)
+      setCurrentFontSize(settings.fontSize || 'medium')
 
       const savedArticles = await loadArticles()
       setArticles(savedArticles)
@@ -170,6 +172,14 @@ function AppContent({ settings, updateSettings }) {
     })
   }
 
+  const handleFontSizeChange = async (fontSizeId) => {
+    setCurrentFontSize(fontSizeId)
+    await updateSettings({
+      ...settings,
+      fontSize: fontSizeId
+    })
+  }
+
   const handleLanguageChange = async (languageId) => {
     changeLanguage(languageId)
     await updateSettings({
@@ -205,6 +215,7 @@ function AppContent({ settings, updateSettings }) {
             theme={currentTheme}
             pen={currentPen}
             font={currentFont}
+            fontSize={currentFontSize}
             soundEnabled={soundEnabled}
             activeArticle={activeArticle}
             onContentChange={handleContentChange}
@@ -227,6 +238,8 @@ function AppContent({ settings, updateSettings }) {
         onThemeChange={handleGlobalThemeChange}
         currentFont={currentFont}
         onFontChange={handleFontChange}
+        currentFontSize={currentFontSize}
+        onFontSizeChange={handleFontSizeChange}
         currentLanguage={language}
         onLanguageChange={handleLanguageChange}
         showSplashScreen={settings.showSplashScreen}

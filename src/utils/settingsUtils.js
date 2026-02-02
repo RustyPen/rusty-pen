@@ -10,6 +10,7 @@ const ARTICLES_DIR = 'rusty-pen-articles'
 const defaultSettings = {
   globalTheme: 'light',
   font: 'yahei',
+  fontSize: 'medium',
   language: 'en',
   showSplashScreen: true
 }
