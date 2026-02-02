@@ -13,7 +13,7 @@
     "pen": "Pen",
     "font": "Font",
     "font_size": "Font Size",
-    "click_sound": "Click Sound",
+    "button_sound": "Button Sound",
     "ambient_sound": "Ambient Sound",
     "splash_screen": "Splash Screen",
     "window_size": "Window Size",

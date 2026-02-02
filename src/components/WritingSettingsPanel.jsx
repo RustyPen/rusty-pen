@@ -2,7 +2,6 @@ import { useState } from 'react'
 import './WritingSettingsPanel.css'
 import ThemeSelector from './ThemeSelector'
 import PenSelector from './PenSelector'
-import ClickSoundSelector from './ClickSoundSelector'
 import BackgroundMusic from './BackgroundMusic'
 import { useI18n } from '../contexts/I18nContext'
 
@@ -32,11 +31,6 @@ const WritingSettingsPanel = ({
             soundEnabled={soundEnabled}
             onSoundToggle={onSoundToggle}
           />
-        </div>
-
-        <div className="settings-section">
-          <div className="section-title">{t('controls.click_sound')}</div>
-          <ClickSoundSelector />
         </div>
 
         <div className="settings-section">

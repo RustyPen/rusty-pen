@@ -13,7 +13,7 @@
     "pen": "笔具",
     "font": "字体选择",
     "font_size": "字号",
-    "click_sound": "点击音效",
+    "button_sound": "按钮音效",
     "ambient_sound": "环境音效",
     "splash_screen": "启动动画",
     "window_size": "窗口大小",

@@ -6,6 +6,7 @@ import FontSelector from './FontSelector'
 import FontSizeSelector from './FontSizeSelector'
 import LanguageSelector from './LanguageSelector'
 import WindowSizeSelector from './WindowSizeSelector'
+import ClickSoundSelector from './ClickSoundSelector'
 import { playButtonSound } from '../utils/soundUtils'
 
 function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFont, onFontChange, currentFontSize, onFontSizeChange, currentLanguage, onLanguageChange, showSplashScreen, onSplashScreenToggle, currentWindowSize, onWindowSizeChange }) {
@@ -96,6 +97,11 @@ function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFo
               currentTheme={currentTheme}
               onThemeChange={onThemeChange}
             />
+          </div>
+
+          <div className="settings-section">
+            <h3 className="settings-section-title">{t('controls.button_sound')}</h3>
+            <ClickSoundSelector />
           </div>
 
           <div className="settings-section">
