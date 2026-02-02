@@ -5,9 +5,10 @@ import GlobalThemeSelector from './GlobalThemeSelector'
 import FontSelector from './FontSelector'
 import FontSizeSelector from './FontSizeSelector'
 import LanguageSelector from './LanguageSelector'
+import WindowSizeSelector from './WindowSizeSelector'
 import { playButtonSound } from '../utils/soundUtils'
 
-function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFont, onFontChange, currentFontSize, onFontSizeChange, currentLanguage, onLanguageChange, showSplashScreen, onSplashScreenToggle }) {
+function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFont, onFontChange, currentFontSize, onFontSizeChange, currentLanguage, onLanguageChange, showSplashScreen, onSplashScreenToggle, currentWindowSize, onWindowSizeChange }) {
   const { t } = useI18n()
   const [isClosing, setIsClosing] = useState(false)
 
@@ -112,6 +113,14 @@ function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFo
             <FontSizeSelector
               currentFontSize={currentFontSize}
               onFontSizeChange={onFontSizeChange}
+            />
+          </div>
+
+          <div className="settings-section">
+            <h3 className="settings-section-title">{t('controls.window_size')}</h3>
+            <WindowSizeSelector
+              currentWindowSize={currentWindowSize}
+              onWindowSizeChange={onWindowSizeChange}
             />
           </div>
         </div>

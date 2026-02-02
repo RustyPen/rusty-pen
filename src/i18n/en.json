@@ -16,6 +16,7 @@
     "click_sound": "Click Sound",
     "ambient_sound": "Ambient Sound",
     "splash_screen": "Splash Screen",
+    "window_size": "Window Size",
     "settings": "Settings"
   },
   "sidebar": {
@@ -81,6 +82,12 @@
     "medium": "Medium",
     "large": "Large",
     "xlarge": "Extra Large"
+  },
+  "window_sizes": {
+    "small": "Small (1280x720)",
+    "medium": "Medium (1600x900)",
+    "large": "Large (1920x1080)",
+    "xlarge": "Extra Large (2560x1440)"
   },
   "sounds": {
     "none": "No Sound",

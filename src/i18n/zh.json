@@ -16,6 +16,7 @@
     "click_sound": "点击音效",
     "ambient_sound": "环境音效",
     "splash_screen": "启动动画",
+    "window_size": "窗口大小",
     "settings": "设置"
   },
   "sidebar": {
@@ -81,6 +82,12 @@
     "medium": "中号",
     "large": "大号",
     "xlarge": "特大号"
+  },
+  "window_sizes": {
+    "small": "小 (1280x720)",
+    "medium": "中 (1600x900)",
+    "large": "大 (1920x1080)",
+    "xlarge": "特大 (2560x1440)"
   },
   "sounds": {
     "none": "无声音",

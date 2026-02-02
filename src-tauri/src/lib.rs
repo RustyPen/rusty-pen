@@ -31,7 +31,7 @@ pub fn run() {
         _ => {}
       }
     })
-    .invoke_handler(tauri::generate_handler![get_system_language])
+    .invoke_handler(tauri::generate_handler![get_system_language, resize_window])
     .setup(|app| {
       if cfg!(debug_assertions) {
         app.handle().plugin(
@@ -62,4 +62,19 @@ fn get_system_language() -> String {
   };
   
   lang_code.to_string()
+}
+
+#[tauri::command]
+fn resize_window(app: tauri::AppHandle, width: u32, height: u32) -> Result<(), String> {
+  use tauri::Manager;
+  
+  if let Some(window) = app.get_webview_window("main") {
+    window
+      .set_size(tauri::Size::Physical(tauri::PhysicalSize { width, height }))
+      .map_err(|e: tauri::Error| e.to_string())?;
+    window.center().map_err(|e: tauri::Error| e.to_string())?;
+    Ok(())
+  } else {
+    Err("Window not found".to_string())
+  }
 }

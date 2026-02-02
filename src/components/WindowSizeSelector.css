@@ -1,0 +1,63 @@
+@import './Control.css';
+
+.window-size-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-primary) 100%);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.window-size-options {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.window-size-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.2rem;
+  background: var(--background-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  color: var(--text-primary);
+  min-width: 80px;
+}
+
+.window-size-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px var(--shadow-color);
+  border-color: var(--accent-color);
+}
+
+.window-size-option.active {
+  background: linear-gradient(180deg, var(--accent-color) 0%, var(--copper-green) 100%);
+  border-color: var(--border-color);
+  box-shadow: 0 4px 8px var(--shadow-color);
+  color: var(--background-primary);
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .window-size-selector {
+    padding: 0.8rem;
+  }
+
+  .window-size-options {
+    gap: 0.4rem;
+  }
+
+  .window-size-option {
+    padding: 0.6rem 1rem;
+    min-width: 70px;
+  }
+}

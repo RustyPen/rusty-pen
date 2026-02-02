@@ -11,7 +11,7 @@ import SplashScreen from './components/SplashScreen'
 import { applyGlobalTheme } from './utils/themeUtils'
 import { applyFont } from './utils/fontUtils'
 import { I18nProvider, useI18n } from './contexts/I18nContext'
-import { loadSettings, saveSettings, loadArticles, saveArticles, loadArticleContent, saveArticleContent, deleteArticleFile } from './utils/settingsUtils'
+import { loadSettings, saveSettings, loadArticles, saveArticles, loadArticleContent, saveArticleContent, deleteArticleFile, resizeWindow } from './utils/settingsUtils'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 
 function AppContent({ settings, updateSettings }) {
@@ -19,6 +19,7 @@ function AppContent({ settings, updateSettings }) {
   const [globalTheme, setGlobalTheme] = useState('light')
   const [currentFont, setCurrentFont] = useState('yahei')
   const [currentFontSize, setCurrentFontSize] = useState('medium')
+  const [currentWindowSize, setCurrentWindowSize] = useState('medium')
   const [currentPen, setCurrentPen] = useState('fountain')
   const [soundEnabled, setSoundEnabled] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -36,6 +37,7 @@ function AppContent({ settings, updateSettings }) {
       setGlobalTheme(settings.globalTheme)
       setCurrentFont(settings.font)
       setCurrentFontSize(settings.fontSize || 'medium')
+      setCurrentWindowSize(settings.windowSize || 'medium')
 
       const savedArticles = await loadArticles()
       setArticles(savedArticles)
@@ -195,6 +197,27 @@ function AppContent({ settings, updateSettings }) {
     })
   }
 
+  const handleWindowSizeChange = async (windowSizeId) => {
+    setCurrentWindowSize(windowSizeId)
+    
+    const windowSizes = {
+      small: { width: 1280, height: 720 },
+      medium: { width: 1600, height: 900 },
+      large: { width: 1920, height: 1080 },
+      xlarge: { width: 2560, height: 1440 }
+    }
+    
+    const size = windowSizes[windowSizeId]
+    if (size) {
+      await resizeWindow(size.width, size.height)
+    }
+    
+    await updateSettings({
+      ...settings,
+      windowSize: windowSizeId
+    })
+  }
+
   return (
     <div className={`app ${isLoaded ? 'loaded' : ''}`}>
       <TitleBar
@@ -244,6 +267,8 @@ function AppContent({ settings, updateSettings }) {
         onLanguageChange={handleLanguageChange}
         showSplashScreen={settings.showSplashScreen}
         onSplashScreenToggle={handleSplashScreenToggle}
+        currentWindowSize={currentWindowSize}
+        onWindowSizeChange={handleWindowSizeChange}
       />
       <AboutModal
         isOpen={aboutModalOpen}

@@ -12,7 +12,8 @@ const defaultSettings = {
   font: 'yahei',
   fontSize: 'medium',
   language: 'en',
-  showSplashScreen: true
+  showSplashScreen: true,
+  windowSize: 'medium'
 }
 
 const store = await Store.load(SETTINGS_FILE)
@@ -130,5 +131,14 @@ export async function deleteArticleFile(articleId) {
     console.log('Article file deleted:', articleId)
   } catch (error) {
     console.error('Failed to delete article file:', error)
+  }
+}
+
+export async function resizeWindow(width, height) {
+  try {
+    await invoke('resize_window', { width, height })
+    console.log('Window resized successfully:', width, height)
+  } catch (error) {
+    console.error('Failed to resize window:', error)
   }
 }
