@@ -40,6 +40,36 @@
   box-shadow: 0 0 0 2px var(--copper-green);
 }
 
+.vintage-paper-button.upload-button {
+  background-color: var(--background-secondary);
+  font-size: 2rem;
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+.vintage-paper-button.upload-button:hover:not(:disabled) {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.vintage-paper-button.upload-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.vintage-paper-button.clear-button {
+  background-color: var(--background-secondary);
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  font-weight: bold;
+}
+
+.vintage-paper-button.clear-button:hover {
+  background-color: #e74c3c;
+  color: white;
+  border-color: #c0392b;
+}
+
 .paper-number {
   font-size: 1.2rem;
   font-weight: bold;

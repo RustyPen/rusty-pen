@@ -70,7 +70,7 @@ const pens = {
   }
 }
 
-function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, onContentChange, onBlurSave, useA4Ratio, vintagePaperId }) {
+function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, onContentChange, onBlurSave, useA4Ratio, vintagePaperId, customPaperUrl, useCustomPaper, paperOpacity }) {
   const [content, setContent] = useState('')
   const editorRef = useRef(null)
   const paperRef = useRef(null)
@@ -98,10 +98,16 @@ function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, 
   const A4_ASPECT_RATIO = 210 / 297
   
   let paperTexture = currentTheme.paperTexture
-  if (theme === 'vintage' && vintagePaperId) {
-    const selectedPaper = vintagePapers.find(p => p.id === vintagePaperId)
-    if (selectedPaper) {
-      paperTexture = selectedPaper.texture
+  let currentPaperOpacity = paperOpacity !== undefined ? paperOpacity : 0.3
+  
+  if (theme === 'vintage') {
+    if (useCustomPaper && customPaperUrl) {
+      paperTexture = `url(${customPaperUrl})`
+    } else if (vintagePaperId) {
+      const selectedPaper = vintagePapers.find(p => p.id === vintagePaperId)
+      if (selectedPaper) {
+        paperTexture = selectedPaper.texture
+      }
     }
   }
   
@@ -365,7 +371,10 @@ function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, 
           >
             <div 
               className="paper-texture"
-              style={{ backgroundImage: paperTexture }}
+              style={{ 
+                backgroundImage: paperTexture,
+                opacity: currentPaperOpacity
+              }}
             ></div>
             <div
               ref={editorRef}

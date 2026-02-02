@@ -14,9 +14,20 @@ const WritingSettingsPanel = ({
   soundEnabled, 
   onSoundToggle,
   vintagePaperId,
-  onVintagePaperChange
+  onVintagePaperChange,
+  customPaperPath,
+  customPaperUrl,
+  useCustomPaper,
+  onCustomPaperChange,
+  paperOpacity,
+  onPaperOpacityChange
 }) => {
   const { t } = useI18n()
+
+  const handleOpacityChange = (e) => {
+    const value = parseFloat(e.target.value)
+    onPaperOpacityChange(value)
+  }
 
   return (
     <div className="writing-settings-panel">
@@ -29,8 +40,25 @@ const WritingSettingsPanel = ({
               <div className="section-title">{t('controls.vintage_paper')}</div>
               <VintagePaperSelector 
                 currentPaperId={vintagePaperId} 
-                onPaperChange={onVintagePaperChange} 
+                onPaperChange={onVintagePaperChange}
+                customPaperPath={customPaperPath}
+                customPaperUrl={customPaperUrl}
+                useCustomPaper={useCustomPaper}
+                onCustomPaperChange={onCustomPaperChange}
               />
+              <div className="opacity-control">
+                <label>{t('controls.paper_opacity')}</label>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.1"
+                  value={paperOpacity}
+                  onChange={handleOpacityChange}
+                  className="opacity-slider"
+                />
+                <span className="opacity-value">{Math.round(paperOpacity * 100)}%</span>
+              </div>
             </div>
           )}
         </div>

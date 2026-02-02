@@ -1,11 +1,12 @@
 import { Store } from '@tauri-apps/plugin-store'
 import { appDataDir, join } from '@tauri-apps/api/path'
-import { readTextFile, writeTextFile, exists, mkdir, remove } from '@tauri-apps/plugin-fs'
+import { readTextFile, writeTextFile, exists, mkdir, remove, readFile, writeFile } from '@tauri-apps/plugin-fs'
 import { invoke } from '@tauri-apps/api/core'
 
 const SETTINGS_FILE = 'rusty-pen-settings.json'
 const SETTINGS_KEY = 'settings'
 const ARTICLES_DIR = 'rusty-pen-articles'
+const CUSTOM_PAPER_DIR = 'rusty-pen-custom-papers'
 
 const defaultSettings = {
   globalTheme: 'light',
@@ -15,7 +16,10 @@ const defaultSettings = {
   showSplashScreen: true,
   windowSize: 'medium',
   useA4Ratio: true,
-  vintagePaperId: 1
+  vintagePaperId: 1,
+  customVintagePaper: null,
+  useCustomPaper: false,
+  paperOpacity: 0.3
 }
 
 const store = await Store.load(SETTINGS_FILE)
@@ -142,5 +146,65 @@ export async function resizeWindow(width, height) {
     console.log('Window resized successfully:', width, height)
   } catch (error) {
     console.error('Failed to resize window:', error)
+  }
+}
+
+async function getCustomPaperDir() {
+  const appDataDirPath = await appDataDir()
+  return await join(appDataDirPath, CUSTOM_PAPER_DIR)
+}
+
+export async function saveCustomPaper(fileData, fileName) {
+  try {
+    const customPaperDir = await getCustomPaperDir()
+    const dirExists = await exists(customPaperDir)
+    
+    if (!dirExists) {
+      await mkdir(customPaperDir, { recursive: true })
+    }
+    
+    const filePath = await join(customPaperDir, fileName)
+    const binaryData = Uint8Array.from(atob(fileData), c => c.charCodeAt(0))
+    await writeFile(filePath, binaryData)
+    console.log('Custom paper saved:', filePath)
+    return filePath
+  } catch (error) {
+    console.error('Failed to save custom paper:', error)
+    throw error
+  }
+}
+
+export async function deleteCustomPaper(filePath) {
+  try {
+    const fileExists = await exists(filePath)
+    if (fileExists) {
+      await remove(filePath)
+      console.log('Custom paper deleted:', filePath)
+    }
+  } catch (error) {
+    console.error('Failed to delete custom paper:', error)
+  }
+}
+
+export async function loadCustomPaperAsDataUrl(filePath) {
+  try {
+    const fileExists = await exists(filePath)
+    if (!fileExists) {
+      return null
+    }
+    
+    const fileData = await readFile(filePath)
+    const uint8Array = new Uint8Array(fileData)
+    let binary = ''
+    for (let i = 0; i < uint8Array.length; i++) {
+      binary += String.fromCharCode(uint8Array[i])
+    }
+    const base64Data = btoa(binary)
+    const extension = filePath.split('.').pop()
+    const mimeType = extension === 'png' ? 'image/png' : 'image/jpeg'
+    return `data:${mimeType};base64,${base64Data}`
+  } catch (error) {
+    console.error('Failed to load custom paper as data URL:', error)
+    return null
   }
 }

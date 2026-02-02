@@ -11,7 +11,7 @@ import SplashScreen from './components/SplashScreen'
 import { applyGlobalTheme } from './utils/themeUtils'
 import { applyFont } from './utils/fontUtils'
 import { I18nProvider, useI18n } from './contexts/I18nContext'
-import { loadSettings, saveSettings, loadArticles, saveArticles, loadArticleContent, saveArticleContent, deleteArticleFile, resizeWindow } from './utils/settingsUtils'
+import { loadSettings, saveSettings, loadArticles, saveArticles, loadArticleContent, saveArticleContent, deleteArticleFile, resizeWindow, saveCustomPaper, deleteCustomPaper, loadCustomPaperAsDataUrl } from './utils/settingsUtils'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 
 function AppContent({ settings, updateSettings }) {
@@ -24,6 +24,10 @@ function AppContent({ settings, updateSettings }) {
   const [currentPen, setCurrentPen] = useState('fountain')
   const [soundEnabled, setSoundEnabled] = useState(false)
   const [vintagePaperId, setVintagePaperId] = useState(1)
+  const [customPaperPath, setCustomPaperPath] = useState(null)
+  const [customPaperUrl, setCustomPaperUrl] = useState(null)
+  const [useCustomPaper, setUseCustomPaper] = useState(false)
+  const [paperOpacity, setPaperOpacity] = useState(0.3)
   const [isLoaded, setIsLoaded] = useState(false)
   const [articles, setArticles] = useState([])
   const [activeArticle, setActiveArticle] = useState(null)
@@ -42,6 +46,14 @@ function AppContent({ settings, updateSettings }) {
       setCurrentWindowSize(settings.windowSize || 'medium')
       setUseA4Ratio(settings.useA4Ratio || false)
       setVintagePaperId(settings.vintagePaperId || 1)
+      setCustomPaperPath(settings.customVintagePaper || null)
+      setUseCustomPaper(settings.useCustomPaper || false)
+      setPaperOpacity(settings.paperOpacity !== undefined ? settings.paperOpacity : 0.3)
+
+      if (settings.customVintagePaper) {
+        const dataUrl = await loadCustomPaperAsDataUrl(settings.customVintagePaper)
+        setCustomPaperUrl(dataUrl)
+      }
 
       const savedArticles = await loadArticles()
       setArticles(savedArticles)
@@ -80,6 +92,17 @@ function AppContent({ settings, updateSettings }) {
       unlisten.then(fn => fn())
     }
   }, [activeArticle])
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      updateSettings({
+        ...settings,
+        paperOpacity: paperOpacity
+      })
+    }, 500)
+
+    return () => clearTimeout(timeoutId)
+  }, [paperOpacity])
 
   const handleNewArticle = () => {
     const newArticle = {
@@ -237,9 +260,38 @@ function AppContent({ settings, updateSettings }) {
 
   const handleVintagePaperChange = async (paperId) => {
     setVintagePaperId(paperId)
+    setUseCustomPaper(false)
     await updateSettings({
       ...settings,
-      vintagePaperId: paperId
+      vintagePaperId: paperId,
+      useCustomPaper: false
+    })
+  }
+
+  const handleCustomPaperChange = async (filePath, base64Data) => {
+    if (filePath === null && customPaperPath) {
+      await deleteCustomPaper(customPaperPath)
+    }
+    
+    setCustomPaperPath(filePath)
+    if (filePath) {
+      setUseCustomPaper(true)
+      if (base64Data) {
+        const extension = filePath.split('.').pop()
+        const mimeType = extension === 'png' ? 'image/png' : 'image/jpeg'
+        setCustomPaperUrl(`data:${mimeType};base64,${base64Data}`)
+      } else {
+        const dataUrl = await loadCustomPaperAsDataUrl(filePath)
+        setCustomPaperUrl(dataUrl)
+      }
+    } else {
+      setUseCustomPaper(false)
+      setCustomPaperUrl(null)
+    }
+    await updateSettings({
+      ...settings,
+      customVintagePaper: filePath,
+      useCustomPaper: !!filePath
     })
   }
 
@@ -270,6 +322,9 @@ function AppContent({ settings, updateSettings }) {
             onBlurSave={handleBlurSave}
             useA4Ratio={useA4Ratio}
             vintagePaperId={vintagePaperId}
+            customPaperUrl={customPaperUrl}
+            useCustomPaper={useCustomPaper}
+            paperOpacity={paperOpacity}
           />
         </div>
         <WritingSettingsPanel
@@ -281,6 +336,12 @@ function AppContent({ settings, updateSettings }) {
           onSoundToggle={handleSoundToggle}
           vintagePaperId={vintagePaperId}
           onVintagePaperChange={handleVintagePaperChange}
+          customPaperPath={customPaperPath}
+          customPaperUrl={customPaperUrl}
+          useCustomPaper={useCustomPaper}
+          onCustomPaperChange={handleCustomPaperChange}
+          paperOpacity={paperOpacity}
+          onPaperOpacityChange={setPaperOpacity}
         />
       </div>
       <SettingsModal
