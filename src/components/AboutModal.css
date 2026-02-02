@@ -47,7 +47,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   border-bottom: 2px solid var(--border-color);
   background: linear-gradient(180deg, var(--copper-green) 0%, var(--border-color) 100%);
   border-radius: 9px 9px 0 0;
@@ -129,6 +129,7 @@
   display: flex;
   justify-content: center;
   gap: 2rem;
+  margin-top: 1rem;
 }
 
 .info-item {
@@ -159,7 +160,6 @@
 }
 
 .about-github {
-  margin-top: 2rem;
   display: flex;
   justify-content: center;
 }
@@ -210,6 +210,41 @@
   border: 1px solid var(--border-color);
   border-radius: 4px;
   display: inline-block;
+}
+
+.about-email {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.email-label {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.email-value {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1rem;
+  color: var(--text-primary);
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-primary) 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.email-value:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 @media (max-width: 768px) {

@@ -30,6 +30,19 @@ function AboutModal({ isOpen, onClose }) {
           </div>
           <p className="about-slogan">{t('sidebar.slogan')}</p>
           <p className="about-description">{t('sidebar.about_description')}</p>
+          <div className="about-github">
+            <button className="github-link" onClick={handleGitHubClick}>
+              <span className="github-icon">📦</span>
+              <span className="github-text">GitHub</span>
+            </button>
+          </div>
+          <div className="about-url">
+            <span className="url-label">https://github.com/RustyPen/rusty-pen</span>
+          </div>
+          <div className="about-email">
+            <div className="email-label">Contact</div>
+            <div className="email-value">z502545@icloud.com</div>
+          </div>
           <div className="about-info">
             <div className="info-item">
               <span className="info-label">Version</span>
@@ -39,15 +52,6 @@ function AboutModal({ isOpen, onClose }) {
               <span className="info-label">Year</span>
               <span className="info-value">2026</span>
             </div>
-          </div>
-          <div className="about-github">
-            <button className="github-link" onClick={handleGitHubClick}>
-              <span className="github-icon">📦</span>
-              <span className="github-text">GitHub</span>
-            </button>
-          </div>
-          <div className="about-url">
-            <span className="url-label">https://github.com/RustyPen/rusty-pen</span>
           </div>
         </div>
       </div>
