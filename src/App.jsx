@@ -43,6 +43,11 @@ function AppContent({ settings, updateSettings }) {
 
       const savedArticles = await loadArticles()
       setArticles(savedArticles)
+
+      if (savedArticles.length > 0) {
+        const content = await loadArticleContent(savedArticles[0].id)
+        setActiveArticle({ ...savedArticles[0], content: content || '' })
+      }
     }
 
     initApp()
