@@ -1,0 +1,59 @@
+.vintage-paper-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.vintage-paper-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.vintage-paper-button {
+  width: 60px;
+  height: 80px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  background-color: var(--background-primary);
+  background-size: cover;
+  background-position: center;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vintage-paper-button:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.vintage-paper-button.active {
+  border-color: var(--copper-green);
+  box-shadow: 0 0 0 2px var(--copper-green);
+}
+
+.paper-number {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+  .vintage-paper-button {
+    width: 50px;
+    height: 70px;
+  }
+
+  .paper-number {
+    font-size: 1rem;
+  }
+}

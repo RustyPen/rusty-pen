@@ -8,6 +8,13 @@ import { playButtonSound } from '../utils/soundUtils'
 import { save } from '@tauri-apps/plugin-dialog'
 import { writeFile } from '@tauri-apps/plugin-fs'
 
+export const vintagePapers = [
+  { id: 1, texture: 'url(images/vintage1.jpg)' },
+  { id: 2, texture: 'url(images/vintage2.jpg)' },
+  { id: 3, texture: 'url(images/vintage3.jpg)' },
+  { id: 4, texture: 'url(images/vintage4.jpg)' }
+]
+
 const themes = {
   vintage: {
     name: '复古信纸',
@@ -63,7 +70,7 @@ const pens = {
   }
 }
 
-function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, onContentChange, onBlurSave, useA4Ratio }) {
+function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, onContentChange, onBlurSave, useA4Ratio, vintagePaperId }) {
   const [content, setContent] = useState('')
   const editorRef = useRef(null)
   const paperRef = useRef(null)
@@ -89,6 +96,14 @@ function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, 
   const isLinedPaper = theme === 'manuscript' || theme === 'telegram'
   
   const A4_ASPECT_RATIO = 210 / 297
+  
+  let paperTexture = currentTheme.paperTexture
+  if (theme === 'vintage' && vintagePaperId) {
+    const selectedPaper = vintagePapers.find(p => p.id === vintagePaperId)
+    if (selectedPaper) {
+      paperTexture = selectedPaper.texture
+    }
+  }
   
   const paperStyle = {
     background: currentTheme.background,
@@ -350,7 +365,7 @@ function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, 
           >
             <div 
               className="paper-texture"
-              style={{ backgroundImage: currentTheme.paperTexture }}
+              style={{ backgroundImage: paperTexture }}
             ></div>
             <div
               ref={editorRef}

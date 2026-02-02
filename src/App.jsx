@@ -23,6 +23,7 @@ function AppContent({ settings, updateSettings }) {
   const [useA4Ratio, setUseA4Ratio] = useState(false)
   const [currentPen, setCurrentPen] = useState('fountain')
   const [soundEnabled, setSoundEnabled] = useState(false)
+  const [vintagePaperId, setVintagePaperId] = useState(1)
   const [isLoaded, setIsLoaded] = useState(false)
   const [articles, setArticles] = useState([])
   const [activeArticle, setActiveArticle] = useState(null)
@@ -40,6 +41,7 @@ function AppContent({ settings, updateSettings }) {
       setCurrentFontSize(settings.fontSize || 'medium')
       setCurrentWindowSize(settings.windowSize || 'medium')
       setUseA4Ratio(settings.useA4Ratio || false)
+      setVintagePaperId(settings.vintagePaperId || 1)
 
       const savedArticles = await loadArticles()
       setArticles(savedArticles)
@@ -233,6 +235,14 @@ function AppContent({ settings, updateSettings }) {
     })
   }
 
+  const handleVintagePaperChange = async (paperId) => {
+    setVintagePaperId(paperId)
+    await updateSettings({
+      ...settings,
+      vintagePaperId: paperId
+    })
+  }
+
   return (
     <div className={`app ${isLoaded ? 'loaded' : ''}`}>
       <TitleBar
@@ -259,6 +269,7 @@ function AppContent({ settings, updateSettings }) {
             onContentChange={handleContentChange}
             onBlurSave={handleBlurSave}
             useA4Ratio={useA4Ratio}
+            vintagePaperId={vintagePaperId}
           />
         </div>
         <WritingSettingsPanel
@@ -268,6 +279,8 @@ function AppContent({ settings, updateSettings }) {
           onPenChange={handlePenChange}
           soundEnabled={soundEnabled}
           onSoundToggle={handleSoundToggle}
+          vintagePaperId={vintagePaperId}
+          onVintagePaperChange={handleVintagePaperChange}
         />
       </div>
       <SettingsModal

@@ -14,7 +14,8 @@ const defaultSettings = {
   language: 'en',
   showSplashScreen: true,
   windowSize: 'medium',
-  useA4Ratio: true
+  useA4Ratio: true,
+  vintagePaperId: 1
 }
 
 const store = await Store.load(SETTINGS_FILE)
