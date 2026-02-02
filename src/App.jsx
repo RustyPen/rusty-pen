@@ -11,10 +11,19 @@ import SplashScreen from './components/SplashScreen'
 import { applyGlobalTheme } from './utils/themeUtils'
 import { applyFont } from './utils/fontUtils'
 import { I18nProvider, useI18n } from './contexts/I18nContext'
-import { loadSettings, saveSettings, loadArticles, saveArticles, loadArticleContent, saveArticleContent, deleteArticleFile, resizeWindow, saveCustomPaper, deleteCustomPaper, loadCustomPaperAsDataUrl } from './utils/settingsUtils'
+import { loadSettings, saveSettings, loadArticles, saveArticles, loadArticleContent, saveArticleContent, deleteArticleFile, resizeWindow, deleteCustomPaper, loadCustomPaperAsDataUrl } from './utils/settingsUtils'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 
-function AppContent({ settings, updateSettings }) {
+function AppContent({ 
+  settings, 
+  updateSettings, 
+  articles, 
+  activeArticle, 
+  onNewArticle, 
+  onArticleSelect, 
+  onDeleteArticle, 
+  onUpdateArticle 
+}) {
   const [currentTheme, setCurrentTheme] = useState('vintage')
   const [globalTheme, setGlobalTheme] = useState('light')
   const [currentFont, setCurrentFont] = useState('yahei')
@@ -28,69 +37,34 @@ function AppContent({ settings, updateSettings }) {
   const [customPaperUrl, setCustomPaperUrl] = useState(null)
   const [useCustomPaper, setUseCustomPaper] = useState(false)
   const [paperOpacity, setPaperOpacity] = useState(0.3)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [articles, setArticles] = useState([])
-  const [activeArticle, setActiveArticle] = useState(null)
   const [settingsModalOpen, setSettingsModalOpen] = useState(false)
   const [aboutModalOpen, setAboutModalOpen] = useState(false)
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false)
   const [articleToDelete, setArticleToDelete] = useState(null)
   const [isDeleting, setIsDeleting] = useState(false)
   const { language, changeLanguage, t } = useI18n()
-  
-  const isInitialized = useRef(false)
 
   useEffect(() => {
-    const initApp = async () => {
-      setGlobalTheme(settings.globalTheme)
-      setCurrentFont(settings.font)
-      setCurrentFontSize(settings.fontSize || 'medium')
-      setCurrentWindowSize(settings.windowSize || 'medium')
-      setUseA4Ratio(settings.useA4Ratio || false)
-      setVintagePaperId(settings.vintagePaperId || 1)
-      setCustomPaperPath(settings.customVintagePaper || null)
-      setUseCustomPaper(settings.useCustomPaper || false)
-      setPaperOpacity(settings.paperOpacity !== undefined ? settings.paperOpacity : 0.3)
+    settings.globalTheme !== globalTheme && setGlobalTheme(settings.globalTheme)
+    settings.font !== currentFont && setCurrentFont(settings.font)
+    settings.fontSize !== currentFontSize && setCurrentFontSize(settings.fontSize || 'medium')
+    settings.windowSize !== currentWindowSize && setCurrentWindowSize(settings.windowSize || 'medium')
+    settings.useA4Ratio !== useA4Ratio && setUseA4Ratio(settings.useA4Ratio || false)
+    settings.vintagePaperId !== vintagePaperId && setVintagePaperId(settings.vintagePaperId || 1)
+    settings.useCustomPaper !== useCustomPaper && setUseCustomPaper(settings.useCustomPaper || false)
+    settings.paperOpacity !== paperOpacity && setPaperOpacity(settings.paperOpacity !== undefined ? settings.paperOpacity : 0.3)
+  }, [settings.globalTheme, settings.font, settings.fontSize, settings.windowSize, settings.useA4Ratio, settings.vintagePaperId, settings.useCustomPaper, settings.paperOpacity])
 
-      if (settings.customVintagePaper) {
-        const dataUrl = await loadCustomPaperAsDataUrl(settings.customVintagePaper)
+  useEffect(() => {
+    setCustomPaperPath(settings.customVintagePaper || null)
+    if (settings.customVintagePaper) {
+      loadCustomPaperAsDataUrl(settings.customVintagePaper).then((dataUrl) => {
         setCustomPaperUrl(dataUrl)
-      }
-
-      const savedArticles = await loadArticles()
-      setArticles(savedArticles)
-
-      if (savedArticles.length > 0) {
-        const content = await loadArticleContent(savedArticles[0].id)
-        setActiveArticle({ ...savedArticles[0], content: content || '' })
-      }
-      
-      setIsLoaded(true)
+      }).catch(() => {
+        console.error('Failed to load custom paper', settings.customVintagePaper)
+      })
     }
-
-    if (!isInitialized.current) {
-      initApp()
-      isInitialized.current = true
-    }
-  }, [settings])
-
-  useEffect(() => {
-    if (isInitialized.current) {
-      setGlobalTheme(settings.globalTheme)
-      setCurrentFont(settings.font)
-      setCurrentFontSize(settings.fontSize || 'medium')
-      setCurrentWindowSize(settings.windowSize || 'medium')
-      setUseA4Ratio(settings.useA4Ratio || false)
-      setVintagePaperId(settings.vintagePaperId || 1)
-      setCustomPaperPath(settings.customVintagePaper || null)
-      setUseCustomPaper(settings.useCustomPaper || false)
-      setPaperOpacity(settings.paperOpacity !== undefined ? settings.paperOpacity : 0.3)
-      
-      if (settings.customVintagePaper && settings.customVintagePaper !== customPaperPath) {
-        loadCustomPaperAsDataUrl(settings.customVintagePaper).then(setCustomPaperUrl)
-      }
-    }
-  }, [settings.globalTheme, settings.font, settings.fontSize, settings.windowSize, settings.useA4Ratio, settings.vintagePaperId, settings.customVintagePaper, settings.useCustomPaper, settings.paperOpacity])
+  }, [settings.customVintagePaper])
 
   useEffect(() => {
     applyGlobalTheme(globalTheme)
@@ -134,16 +108,7 @@ function AppContent({ settings, updateSettings }) {
       content: '',
       date: new Date().toLocaleDateString()
     }
-    setArticles([newArticle, ...articles])
-    setActiveArticle(newArticle)
-  }
-
-  const handleArticleSelect = async (article) => {
-    if (activeArticle) {
-      await saveArticleContent(activeArticle)
-    }
-    const content = await loadArticleContent(article.id)
-    setActiveArticle({ ...article, content: content || '' })
+    onNewArticle(newArticle)
   }
 
   const handleDeleteArticle = (articleId) => {
@@ -162,42 +127,19 @@ function AppContent({ settings, updateSettings }) {
     setIsDeleting(true)
     setDeleteConfirmOpen(false)
 
-    setArticles(articles.filter(a => a.id !== articleToDelete.id))
-    if (activeArticle?.id === articleToDelete.id) {
-      setActiveArticle(null)
-    }
-
+    onDeleteArticle(articleToDelete.id)
+    
     await deleteArticleFile(articleToDelete.id)
     setArticleToDelete(null)
     setIsDeleting(false)
   }
 
   const handleContentChange = (articleId, newContent) => {
-    setArticles(articles.map(article =>
-      article.id === articleId
-        ? { ...article, content: newContent }
-        : article
-    ))
-
-    if (activeArticle?.id === articleId) {
-      setActiveArticle({ ...activeArticle, content: newContent })
-    }
+    onUpdateArticle(articleId, { content: newContent })
   }
 
   const handleBlurSave = async (articleId, content) => {
     await saveArticleContent({ id: articleId, content })
-  }
-
-  const handleUpdateArticle = (articleId, updates) => {
-    setArticles(articles.map(article =>
-      article.id === articleId
-        ? { ...article, ...updates }
-        : article
-    ))
-
-    if (activeArticle?.id === articleId) {
-      setActiveArticle({ ...activeArticle, ...updates })
-    }
   }
 
   const handleThemeChange = (themeId) => {
@@ -254,19 +196,19 @@ function AppContent({ settings, updateSettings }) {
 
   const handleWindowSizeChange = async (windowSizeId) => {
     setCurrentWindowSize(windowSizeId)
-    
+
     const windowSizes = {
       small: { width: 1280, height: 720 },
       medium: { width: 1600, height: 900 },
       large: { width: 1920, height: 1080 },
       xlarge: { width: 2560, height: 1440 }
     }
-    
+
     const size = windowSizes[windowSizeId]
     if (size) {
       await resizeWindow(size.width, size.height)
     }
-    
+
     await updateSettings({
       ...settings,
       windowSize: windowSizeId
@@ -295,7 +237,7 @@ function AppContent({ settings, updateSettings }) {
     if (filePath === null && customPaperPath) {
       await deleteCustomPaper(customPaperPath)
     }
-    
+
     setCustomPaperPath(filePath)
     if (filePath) {
       setUseCustomPaper(true)
@@ -319,7 +261,7 @@ function AppContent({ settings, updateSettings }) {
   }
 
   return (
-    <div className={`app ${isLoaded ? 'loaded' : ''}`}>
+    <div className="app">
       <TitleBar
         onOpenSettings={() => setSettingsModalOpen(true)}
         onOpenAbout={() => setAboutModalOpen(true)}
@@ -328,10 +270,10 @@ function AppContent({ settings, updateSettings }) {
         <Sidebar
           articles={articles}
           activeArticle={activeArticle}
-          onArticleSelect={handleArticleSelect}
+          onArticleSelect={onArticleSelect}
           onNewArticle={handleNewArticle}
           onDeleteArticle={handleDeleteArticle}
-          onUpdateArticle={handleUpdateArticle}
+          onUpdateArticle={onUpdateArticle}
         />
         <div className="main-content">
           <WritingArea
@@ -401,18 +343,31 @@ function AppContent({ settings, updateSettings }) {
 
 function App() {
   const [settings, setSettings] = useState(null)
-  const hasInitialized = useRef(false)
+  const [articles, setArticles] = useState([])
+  const [activeArticle, setActiveArticle] = useState(null)
   const [isAppReady, setIsAppReady] = useState(false)
   const [showSplash, setShowSplash] = useState(true)
+  const hasInitialized = useRef(false)
 
   useEffect(() => {
     if (hasInitialized.current) return
     hasInitialized.current = true
 
     const initApp = async () => {
-      const loadedSettings = await loadSettings()
+      const [loadedSettings, savedArticles] = await Promise.all([
+        loadSettings(),
+        loadArticles()
+      ])
+
       setSettings(loadedSettings)
       setShowSplash(loadedSettings.showSplashScreen)
+      setArticles(savedArticles)
+
+      if (savedArticles.length > 0) {
+        const content = await loadArticleContent(savedArticles[0].id)
+        setActiveArticle({ ...savedArticles[0], content: content || '' })
+      }
+
       setIsAppReady(true)
     }
 
@@ -424,15 +379,48 @@ function App() {
     await saveSettings(newSettings)
   }
 
+  const handleNewArticle = (newArticle) => {
+    setArticles([newArticle, ...articles])
+    setActiveArticle(newArticle)
+  }
+
+  const handleArticleSelect = async (article) => {
+    if (activeArticle) {
+      await saveArticleContent(activeArticle)
+    }
+    const content = await loadArticleContent(article.id)
+    setActiveArticle({ ...article, content: content || '' })
+  }
+
+  const handleDeleteArticle = async (articleId) => {
+    setArticles(articles.filter(a => a.id !== articleId))
+    if (activeArticle?.id === articleId) {
+      if (articles.length > 0) {
+        const content = await loadArticleContent(articles[0].id)
+        setActiveArticle({ ...articles[0], content: content || '' })
+      } else {
+        setActiveArticle(null)
+      }
+    }
+  }
+
+  const handleUpdateArticle = (articleId, updates) => {
+    setArticles(articles.map(article =>
+      article.id === articleId
+        ? { ...article, ...updates }
+        : article
+    ))
+
+    if (activeArticle?.id === articleId) {
+      setActiveArticle({ ...activeArticle, ...updates })
+    }
+  }
+
   const handleSplashComplete = () => {
     setShowSplash(false)
   }
 
-  if (!isAppReady) {
-    return null
-  }
-
-  if (showSplash) {
+  if (showSplash && settings !== null) {
     return (
       <I18nProvider initialLanguage={settings.language}>
         <SplashScreen onComplete={handleSplashComplete} />
@@ -440,9 +428,22 @@ function App() {
     )
   }
 
+  if (!isAppReady) {
+    return null
+  }
+
   return (
     <I18nProvider initialLanguage={settings.language}>
-      <AppContent settings={settings} updateSettings={updateSettings} />
+      <AppContent 
+        settings={settings} 
+        updateSettings={updateSettings}
+        articles={articles}
+        activeArticle={activeArticle}
+        onNewArticle={handleNewArticle}
+        onArticleSelect={handleArticleSelect}
+        onDeleteArticle={handleDeleteArticle}
+        onUpdateArticle={handleUpdateArticle}
+      />
     </I18nProvider>
   )
 }

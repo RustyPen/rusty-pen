@@ -2,12 +2,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.app.loaded {
   opacity: 1;
+  transition: opacity 1s ease-in-out;
 }
 
 .app-content {
