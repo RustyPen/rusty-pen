@@ -2,7 +2,7 @@
 
 > The pen is rusty. The mind isn't.
 
-A vintage-inspired writing application that brings the ritual of traditional writing to the digital age.
+A vintage-inspired cross-platform writing application that brings the ritual of traditional writing to the digital age.
 
 ## About
 
@@ -15,10 +15,10 @@ This name naturally fits writing, note-taking, and creative tools, especially wi
 
 ## Product Vision
 
-- **Type**: Cross-platform writing app (Web, Windows, macOS, iOS), with optional physical accessories (vintage notebooks, metal bookmarks, ink color cards)
+- **Type**: Cross-platform desktop application (Windows, macOS, Linux)
 - **Style**: Minimalist UI + vintage animations + immersive sound effects
 - **Differentiation**: Transform writing into a ritual and collecting experience
-- **Positioning**: Spark creativity using "old-school methods" - simulate typewriters, telegrams, stationery, etc.
+- **Positioning**: Spark creativity using "old-school methods" - simulate telegrams, stationery, and other traditional writing experiences
 - **Target Users**:
   - Artistic youth, writers, diary enthusiasts
   - Digital minimalists (Anti-distraction)
@@ -30,33 +30,82 @@ This name naturally fits writing, note-taking, and creative tools, especially wi
 
 | Feature | Description |
 |----------|-------------|
-| **Daily Pen Unlock** | Unlock a new pen each day: fountain pen, ballpoint pen, feather pen, brush pen, pencil, chalk, etc. Each pen has unique writing texture (font + friction sound effects) |
-| **Mechanical Sound System** | Toggle immersive sound effects: typewriter enter sounds, feather pen scratching paper, etc. |
-| **Multiple Themes** | Various paper themes (vintage stationery, 1940s letters, 1960s manuscripts, etc.), user-customizable |
-| **Multiple Papers** | Regular paper, lined paper, parchment, vintage paper, etc. Users can customize paper styles: color, thickness, texture |
-| **Custom Fonts** | Support user-uploaded custom fonts for all writing content, especially for Chinese users: running script, cursive, regular script, clerical script, artistic fonts, handwriting |
-| **Seasonal Theme Skins** | Seasonal theme skins like autumn falling leaves stationery, winter snowy night ink, available for manual switching |
+| **Pen Selection** | 4 pen types available: fountain pen, brush pen, feather pen, ballpoint pen. Each pen has unique font styles and writing sound effects |
+| **Paper Themes** | 4 paper themes: vintage stationery, parchment, manuscript paper, telegram paper. Each theme has unique background and color scheme |
+| **Custom Paper Background** | Support uploading custom background images to create your exclusive writing environment |
+| **Paper Transparency** | Adjustable paper texture transparency to balance visual effects and readability |
+| **A4 Aspect Ratio** | Option to use A4 paper aspect ratio, simulating real paper dimensions |
+| **Font System** | Support multiple fonts, including Chinese fonts (Songti, Heiti, Kaiti, Fangsong, Microsoft YaHei, Round, Xingshu, Caoshu, Lishu, Shoujinti) and English fonts (serif, sans-serif, handwriting, etc.) |
+| **Font Size** | 4 font sizes available: small, medium, large, extra large |
+| **Pen Sound Effects** | Each pen has unique writing sound effects, can be toggled |
 
-### 📜 Output & Sharing
+### 🎨 Visual Themes
 
 | Feature | Description |
 |----------|-------------|
-| **Vintage Stationery Export** | Automatically apply themes and export as PDF or images |
-| **Rusty Pen Club Achievement System** | Write continuously for 3/7/30 days to unlock vintage pens, badges, displayable on personal profile |
+| **Global Themes** | 6 global themes available: light, dark, autumn falling leaves, winter snowy night, ink style, vintage |
+| **Startup Animation** | Book opening animation creating a sense of ritual |
+| **Custom Title Bar** | Vintage-style title bar consistent with overall design |
+
+### 📝 Article Management
+
+| Feature | Description |
+|----------|-------------|
+| **New Article** | Quickly create new articles |
+| **Article List** | Sidebar displays all articles |
+| **Article Deletion** | Safe deletion with confirmation dialog |
+| **Auto Save** | Article content automatically saved without manual operation |
+| **Persistent Storage** | Article content persistently stored locally |
+
+### 🔊 Sound System
+
+| Feature | Description |
+|----------|-------------|
+| **Pen Sound Effects** | 4 pen types each have unique writing sound effects, can be toggled |
+| **Button Sound Effects** | 4 click sound effects available to enhance interaction feedback |
+| **Ambient Sound Effects** | 6 ambient sound effects available: fireplace, rain, train, cafe, forest, ocean waves, creating immersive writing atmosphere |
+
+### 🌐 Internationalization
+
+| Feature | Description |
+|----------|-------------|
+| **Multi-language Support** | Support Chinese and English interface switching |
+| **Complete Translation** | All interface elements and prompt messages fully translated |
+
+### 📄 Export
+
+| Feature | Description |
+|----------|-------------|
+| **PDF Export** | Export articles as PDF format, preserving paper themes and styles |
+
+### ⚙️ Settings
+
+| Feature | Description |
+|----------|-------------|
+| **Global Theme Settings** | Switch application global theme |
+| **Font Settings** | Select font and font size |
+| **Window Size Settings** | 4 window sizes available: small, medium, large, extra large |
+| **Startup Animation Toggle** | Option to show or hide startup animation |
+| **Language Settings** | Switch interface language |
+
+### 🖥️ Interface Components
+
+- **Sidebar**: Article list and quick actions
+- **Writing Area**: Immersive writing experience
+- **Writing Settings Panel**: Quick adjustment of pens, papers, sound effects, etc.
+- **Settings Modal**: Global settings options
+- **About Modal**: Application information
+- **Delete Confirmation Modal**: Safe deletion confirmation
+- **Word Count**: Real-time display of article word count
 
 ## Visual & Interaction Design
 
 - **Color Palette**: Rusty red, parchment yellow, ink black, copper green
-- **Typography**: Primarily serif fonts (Garamond, Caslon), supplemented by handwriting fonts
+- **Typography**: Primarily serif fonts, supplemented by handwriting fonts
 - **Animations**: Slow fade-ins, paper curling, ink spreading
 - **Icons**: Aged metal texture with slight oxidation spots
-- **Buttons**: Multiple styles to match themes - rounded rectangles, metallic sheen, click sounds
-- **Input Area**: A pen follows input, simulating handwriting. Users can manually adjust pen position and angle for added realism and fun
-- **Scrollbars**: Traditional style with vintage paper texture
-- **Modals**: Simple, vintage-style popups
-- **Startup Animation**: Book opening animation simulating the ritual of vintage writing
-- **Main Interface**: Clean, vintage-style interface including pen selection, paper themes, writing area
-- **Personal Profile**: Display writing records, unlocked pens, completed challenges
+- **Cursors**: Each pen has unique cursor style
+- **Scrollbars**: Traditional style, consistent with vintage theme
 
 ## Slogans
 
@@ -64,21 +113,25 @@ This name naturally fits writing, note-taking, and creative tools, especially wi
 - Where old ink meets new ideas.
 - Your thoughts, unpolished and true.
 
-## App Store Subtitles
+## Subtitles
 
-- "A writing app for those who miss the weight of a real pen."
-- "No likes. No edits. Just you and the page."
+- A writing app for those who miss the weight of a real pen.
+- No likes. No edits. Just you and the page.
 
 ## File Storage Format
 
-Article content is stored in custom `.rustypen` format.
+Uses Tauri file system plugin for persistent storage.
 
 ## Tech Stack
 
-- **Frontend**: React + Vite
-- **Styling**: CSS with custom variables
+- **Frontend Framework**: React 19
+- **Build Tool**: Vite
+- **Desktop Framework**: Tauri 2
+- **Styling**: CSS custom variables
 - **Audio**: Web Audio API for sound effects
+- **PDF Export**: html2canvas + jsPDF
 - **Icons**: SVG icons
+- **Internationalization**: Custom I18n system
 
 ## Getting Started
 
@@ -86,6 +139,7 @@ Article content is stored in custom `.rustypen` format.
 
 - Node.js (v14 or higher)
 - npm or yarn
+- Rust (for Tauri development)
 
 ### Installation
 
@@ -98,19 +152,6 @@ cd rusty-pen
 
 # Install dependencies
 npm install
-
-# Start the development server
-npm run dev
-```
-
-### Build for Production
-
-```bash
-# Build the project
-npm run build
-
-# Preview the production build
-npm run preview
 ```
 
 ## Project Structure
@@ -118,42 +159,103 @@ npm run preview
 ```
 rusty-pen/
 ├── public/
-│   ├── icons/           # SVG icons
-│   └── sounds/         # Audio files
-│       ├── ambient/      # Background sounds
-│       └── pens/        # Pen sound effects
+│   ├── cursors/          # Pen cursors
+│   ├── icons/            # SVG icons
+│   ├── images/           # Paper texture images
+│   └── sounds/           # Audio files
+│       ├── ambient/      # Ambient sound effects
+│       ├── button/       # Button sound effects
+│       └── pens/         # Pen sound effects
 ├── src/
-│   ├── components/      # React components
-│   │   ├── App.jsx
-│   │   ├── Header.jsx
-│   │   ├── PenSelector.jsx
-│   │   ├── WritingArea.jsx
-│   │   ├── ThemeSelector.jsx
+│   ├── components/       # React components
+│   │   ├── AboutModal.jsx
 │   │   ├── BackgroundMusic.jsx
-│   │   ├── SoundToggle.jsx
-│   │   └── PenIcon.jsx
+│   │   ├── ClickSoundSelector.jsx
+│   │   ├── DeleteConfirmModal.jsx
+│   │   ├── FontSelector.jsx
+│   │   ├── FontSizeSelector.jsx
+│   │   ├── GlobalThemeSelector.jsx
+│   │   ├── Header.jsx
+│   │   ├── LanguageSelector.jsx
+│   │   ├── PenIcon.jsx
+│   │   ├── PenSelector.jsx
+│   │   ├── SettingsButton.jsx
+│   │   ├── SettingsModal.jsx
+│   │   ├── Sidebar.jsx
+│   │   ├── SplashScreen.jsx
+│   │   ├── ThemeSelector.jsx
+│   │   ├── TitleBar.jsx
+│   │   ├── VintagePaperSelector.jsx
+│   │   ├── WindowSizeSelector.jsx
+│   │   ├── WritingArea.jsx
+│   │   └── WritingSettingsPanel.jsx
+│   ├── contexts/         # React Context
+│   │   └── I18nContext.jsx
+│   ├── i18n/             # Internationalization files
+│   │   ├── en.json
+│   │   └── zh.json
+│   ├── utils/            # Utility functions
+│   │   ├── fontUtils.js
+│   │   ├── languageUtils.js
+│   │   ├── settingsUtils.js
+│   │   ├── soundUtils.js
+│   │   └── themeUtils.js
 │   ├── App.jsx
+│   ├── App.css
 │   ├── main.jsx
 │   └── index.css
+├── src-tauri/            # Tauri backend
+│   ├── src/
+│   │   ├── lib.rs
+│   │   └── main.rs
+│   ├── capabilities/
+│   │   └── default.json
+│   ├── icons/            # App icons
+│   ├── Cargo.toml
+│   └── tauri.conf.json
 ├── index.html
 ├── package.json
 ├── vite.config.js
 └── README.md
 ```
 
+## Development
+
+### Run Development Server
+
+```bash
+npm run dev
+```
+
+### Run Tauri Development Mode
+
+```bash
+npm run tauri:dev
+```
+
+### Build Desktop Application
+
+```bash
+npm run tauri:build
+```
+
+After building, the installation package is located in the `src-tauri/target/release/bundle/` directory.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Terms of Use
-
-1. **Free Use**: Products built from source code can be used for free.
-2. **Store Distribution**: Distribution of products to app stores (including Apple App Store, Microsoft Store, etc.) is not permitted.
-3. **Trademark Usage**: Use of the "Rusty Pen" trademark is not permitted.
-
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the **Rusty Pen Custom License (RPCL) v1.0**, which grants free use and modification rights, subject to the following conditions:
+
+- ❌ **Not allowed** to distribute derivative works on any app store (e.g., Apple App Store, Google Play, Microsoft Store, etc.)  
+- ❌ **Not allowed** for commercial use (including selling, advertising, SaaS, or monetization) without prior written permission  
+- ❌ **Not allowed** to use the "Rusty Pen" name, logo, or confusingly similar branding  
+- ✅ **Allowed** for personal and non-commercial use, including modification and redistribution (outside app stores)
+
+📄 Full license terms: [LICENSE](LICENSE)  
+📧 For commercial licensing inquiries: `fuxing.zhang@qq.com`
 
 ## Contact
 
