@@ -28,7 +28,7 @@
 .language-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px var(--shadow-color);
-  background: linear-gradient(180deg, var(--parchment-yellow) 0%, var(--aged-paper) 100%);
+  background: linear-gradient(180deg, var(--background-primary) 0%, var(--background-secondary) 100%);
 }
 
 .language-button.active {
