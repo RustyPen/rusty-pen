@@ -15,7 +15,7 @@ export const vintagePapers = [
   { id: 4, texture: 'url(images/vintage4.jpg)' }
 ]
 
-const themes = {
+const papers = {
   vintage: {
     name: '复古信纸',
     background: 'linear-gradient(180deg, #FAF3E0 0%, #F5E6D3 50%, #E8DCC8 100%)',
@@ -70,7 +70,7 @@ const pens = {
   }
 }
 
-function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, onContentChange, onBlurSave, useA4Ratio, vintagePaperId, customPaperUrl, useCustomPaper, paperOpacity }) {
+function WritingArea({ paper, pen, font, fontSize, soundEnabled, activeArticle, onContentChange, onBlurSave, useA4Ratio, vintagePaperId, customPaperUrl, useCustomPaper, paperOpacity }) {
   const [content, setContent] = useState('')
   const editorRef = useRef(null)
   const paperRef = useRef(null)
@@ -79,7 +79,7 @@ function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, 
   const isTypingRef = useRef(false)
   const isUpdatingRef = useRef(false)
   
-  const currentTheme = themes[theme] || themes.vintage
+  const currentPaper = papers[paper] || papers.vintage
   const currentPen = pens[pen] || pens.fountain
   const currentFont = getFontById(font) || getFontById('georgia')
   const { t } = useI18n()
@@ -93,14 +93,14 @@ function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, 
   
   const currentFontSize = fontSizeMap[fontSize] || 16
   
-  const isLinedPaper = theme === 'manuscript' || theme === 'telegram'
+  const isLinedPaper = paper === 'manuscript' || paper === 'telegram'
   
   const A4_ASPECT_RATIO = 210 / 297
   
-  let paperTexture = currentTheme.paperTexture
+  let paperTexture = currentPaper.paperTexture
   let currentPaperOpacity = paperOpacity !== undefined ? paperOpacity : 0.3
   
-  if (theme === 'vintage') {
+  if (paper === 'vintage') {
     if (useCustomPaper && customPaperUrl) {
       paperTexture = `url(${customPaperUrl})`
     } else if (vintagePaperId) {
@@ -112,8 +112,8 @@ function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, 
   }
   
   const paperStyle = {
-    background: currentTheme.background,
-    color: currentTheme.textColor
+    background: currentPaper.background,
+    color: currentPaper.textColor
   }
   
   if (useA4Ratio) {
@@ -276,7 +276,7 @@ function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, 
         writingEditor.style.padding = '2rem'
         
         if (writingEditor.classList.contains('lined-paper')) {
-          const isTelegram = writingPaper?.getAttribute('data-theme') === 'telegram'
+          const isTelegram = writingPaper?.getAttribute('data-paper') === 'telegram'
           const lineColor = isTelegram ? 'rgba(0, 0, 0, 0.2)' : 'rgba(184, 115, 51, 0.3)'
           
           const svgPattern = `
@@ -360,7 +360,7 @@ function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, 
             ref={paperRef}
             className={`writing-paper ${isLinedPaper ? 'lined-paper' : ''} ${useA4Ratio ? 'a4-ratio' : ''}`}
             style={paperStyle}
-            data-theme={theme}
+            data-paper={paper}
           >
             <div 
               className="paper-texture"
@@ -385,7 +385,7 @@ function WritingArea({ theme, pen, font, fontSize, soundEnabled, activeArticle, 
                 fontStyle: currentPen.fontStyle || 'normal',
                 letterSpacing: currentPen.letterSpacing || '0em',
                 fontSize: `${currentFontSize}px`,
-                color: currentTheme.textColor,
+                color: currentPaper.textColor,
                 cursor: `url('${cursorPath}') 0 24, auto`
               }}
             ></div>

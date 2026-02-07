@@ -1,10 +1,10 @@
-.global-theme-selector {
+.theme-selector {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
 }
 
-.global-theme-label {
+.theme-label {
   font-family: 'Georgia', 'Times New Roman', serif;
   font-size: 0.9rem;
   color: var(--text-secondary);
@@ -13,14 +13,14 @@
   letter-spacing: 0.05em;
 }
 
-.global-theme-buttons {
+.theme-buttons {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.global-theme-button {
+.theme-button {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,28 +35,28 @@
   min-width: 70px;
 }
 
-.global-theme-button:hover {
+.theme-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px var(--shadow-color);
   background: linear-gradient(180deg, var(--background-primary) 0%, var(--background-secondary) 100%);
 }
 
-.global-theme-button.active {
+.theme-button.active {
   background: linear-gradient(180deg, var(--accent-color) 0%, var(--copper-green) 100%);
   border-color: var(--border-color);
   box-shadow: 0 4px 8px var(--shadow-color);
 }
 
-.global-theme-button.active .global-theme-name {
+.theme-button.active .theme-name {
   color: var(--background-primary);
 }
 
-.global-theme-icon {
+.theme-icon {
   font-size: 1.5rem;
   line-height: 1;
 }
 
-.global-theme-name {
+.theme-name {
   font-family: 'Georgia', 'Times New Roman', serif;
   font-size: 0.75rem;
   color: var(--text-secondary);
@@ -64,21 +64,21 @@
 }
 
 @media (max-width: 768px) {
-  .global-theme-buttons {
+  .theme-buttons {
     flex-direction: row;
     gap: 0.3rem;
   }
   
-  .global-theme-button {
+  .theme-button {
     min-width: 60px;
     padding: 0.5rem 0.8rem;
   }
   
-  .global-theme-icon {
+  .theme-icon {
     font-size: 1.2rem;
   }
   
-  .global-theme-name {
+  .theme-name {
     font-size: 0.7rem;
   }
 }

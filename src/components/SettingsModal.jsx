@@ -1,7 +1,7 @@
 import './SettingsModal.css'
 import { useState, useEffect } from 'react'
 import { useI18n } from '../contexts/I18nContext'
-import GlobalThemeSelector from './GlobalThemeSelector'
+import ThemeSelector from './ThemeSelector'
 import FontSelector from './FontSelector'
 import FontSizeSelector from './FontSizeSelector'
 import LanguageSelector from './LanguageSelector'
@@ -92,8 +92,8 @@ function SettingsModal({ isOpen, onClose, currentTheme, onThemeChange, currentFo
           </div>
 
           <div className="settings-section">
-            <h3 className="settings-section-title">{t('controls.global_theme')}</h3>
-            <GlobalThemeSelector
+            <h3 className="settings-section-title">{t('controls.theme')}</h3>
+            <ThemeSelector
               currentTheme={currentTheme}
               onThemeChange={onThemeChange}
             />

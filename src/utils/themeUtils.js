@@ -1,4 +1,4 @@
-export const globalThemes = {
+export const themes = {
   light: {
     name: '浅色',
     icon: '☀️',
@@ -103,22 +103,22 @@ export const globalThemes = {
   }
 }
 
-export const getGlobalThemes = () => {
-  return Object.keys(globalThemes).map(id => ({
+export const getThemes = () => {
+  return Object.keys(themes).map(id => ({
     id,
-    name: globalThemes[id].name,
-    icon: globalThemes[id].icon,
-    defaultFont: globalThemes[id].defaultFont,
-    recommendedFonts: globalThemes[id].recommendedFonts
+    name: themes[id].name,
+    icon: themes[id].icon,
+    defaultFont: themes[id].defaultFont,
+    recommendedFonts: themes[id].recommendedFonts
   }))
 }
 
 export const getThemeById = (themeId) => {
-  return globalThemes[themeId]
+  return themes[themeId]
 }
 
-export const applyGlobalTheme = (themeId) => {
-  const theme = globalThemes[themeId]
+export const applyTheme = (themeId) => {
+  const theme = themes[themeId]
   if (!theme) return
 
   Object.entries(theme.colors).forEach(([property, value]) => {

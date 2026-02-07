@@ -8,7 +8,7 @@
   },
   "controls": {
     "language": "Language",
-    "global_theme": "Global Theme",
+    "theme": "Theme",
     "paper_theme": "Paper Theme",
     "vintage_paper": "Vintage Paper Background",
     "upload_custom_paper": "Upload Custom Background",
@@ -48,11 +48,13 @@
     "autumn": "Autumn",
     "winter": "Winter",
     "ink": "Ink Style",
-    "vintage": "Vintage",
-    "vintage_paper": "Vintage Paper",
-    "parchment_paper": "Parchment",
-    "manuscript_paper": "Manuscript",
-    "telegram_paper": "Telegram"
+    "vintage": "Vintage"
+  },
+  "papers": {
+    "vintage": "Vintage Paper",
+    "parchment": "Parchment",
+    "manuscript": "Manuscript",
+    "telegram": "Telegram"
   },
   "pens": {
     "fountain": "Fountain Pen",

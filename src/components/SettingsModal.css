@@ -134,14 +134,14 @@
   color: var(--text-secondary);
 }
 
-.settings-modal .global-theme-selector,
+.settings-modal .theme-selector,
 .settings-modal .font-selector,
 .settings-modal .font-size-selector,
 .settings-modal .simple-language-switcher {
   margin-top: 0;
 }
 
-.settings-modal .global-theme-label,
+.settings-modal .theme-label,
 .settings-modal .font-label {
   font-size: 14px;
   color: var(--text-secondary);

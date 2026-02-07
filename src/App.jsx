@@ -8,7 +8,7 @@ import AboutModal from './components/AboutModal'
 import DeleteConfirmModal from './components/DeleteConfirmModal'
 import TitleBar from './components/TitleBar'
 import SplashScreen from './components/SplashScreen'
-import { applyGlobalTheme } from './utils/themeUtils'
+import { applyTheme } from './utils/themeUtils'
 import { applyFont } from './utils/fontUtils'
 import { I18nProvider, useI18n } from './contexts/I18nContext'
 import { loadSettings, saveSettings, loadArticles, saveArticles, loadArticleContent, saveArticleContent, deleteArticleFile, resizeWindow, deleteCustomPaper, loadCustomPaperAsDataUrl } from './utils/settingsUtils'
@@ -24,8 +24,8 @@ function AppContent({
   onDeleteArticle, 
   onUpdateArticle 
 }) {
-  const [currentTheme, setCurrentTheme] = useState('vintage')
-  const [globalTheme, setGlobalTheme] = useState('light')
+  const [currentPaper, setCurrentPaper] = useState('vintage')
+  const [theme, setTheme] = useState('light')
   const [currentFont, setCurrentFont] = useState('yahei')
   const [currentFontSize, setCurrentFontSize] = useState('medium')
   const [currentWindowSize, setCurrentWindowSize] = useState('medium')
@@ -45,7 +45,7 @@ function AppContent({
   const { language, changeLanguage, t } = useI18n()
 
   useEffect(() => {
-    settings.globalTheme !== globalTheme && setGlobalTheme(settings.globalTheme)
+    settings.theme !== theme && setTheme(settings.theme)
     settings.font !== currentFont && setCurrentFont(settings.font)
     settings.fontSize !== currentFontSize && setCurrentFontSize(settings.fontSize || 'medium')
     settings.windowSize !== currentWindowSize && setCurrentWindowSize(settings.windowSize || 'medium')
@@ -53,7 +53,7 @@ function AppContent({
     settings.vintagePaperId !== vintagePaperId && setVintagePaperId(settings.vintagePaperId || 1)
     settings.useCustomPaper !== useCustomPaper && setUseCustomPaper(settings.useCustomPaper || false)
     settings.paperOpacity !== paperOpacity && setPaperOpacity(settings.paperOpacity !== undefined ? settings.paperOpacity : 0.3)
-  }, [settings.globalTheme, settings.font, settings.fontSize, settings.windowSize, settings.useA4Ratio, settings.vintagePaperId, settings.useCustomPaper, settings.paperOpacity])
+  }, [settings.theme, settings.font, settings.fontSize, settings.windowSize, settings.useA4Ratio, settings.vintagePaperId, settings.useCustomPaper, settings.paperOpacity])
 
   useEffect(() => {
     setCustomPaperPath(settings.customVintagePaper || null)
@@ -67,8 +67,8 @@ function AppContent({
   }, [settings.customVintagePaper])
 
   useEffect(() => {
-    applyGlobalTheme(globalTheme)
-  }, [globalTheme])
+    applyTheme(theme)
+  }, [theme])
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -142,8 +142,8 @@ function AppContent({
     await saveArticleContent({ id: articleId, content })
   }
 
-  const handleThemeChange = (themeId) => {
-    setCurrentTheme(themeId)
+  const handlePaperChange = (paperId) => {
+    setCurrentPaper(paperId)
   }
 
   const handlePenChange = (penId) => {
@@ -154,11 +154,11 @@ function AppContent({
     setSoundEnabled(enabled)
   }
 
-  const handleGlobalThemeChange = async (themeId) => {
-    setGlobalTheme(themeId)
+  const handleThemeChange = async (themeId) => {
+    setTheme(themeId)
     await updateSettings({
       ...settings,
-      globalTheme: themeId
+      theme: themeId
     })
   }
 
@@ -277,7 +277,7 @@ function AppContent({
         />
         <div className="main-content">
           <WritingArea
-            theme={currentTheme}
+            paper={currentPaper}
             pen={currentPen}
             font={currentFont}
             fontSize={currentFontSize}
@@ -293,8 +293,8 @@ function AppContent({
           />
         </div>
         <WritingSettingsPanel
-          currentTheme={currentTheme}
-          onThemeChange={handleThemeChange}
+          currentPaper={currentPaper}
+          onPaperChange={handlePaperChange}
           currentPen={currentPen}
           onPenChange={handlePenChange}
           soundEnabled={soundEnabled}
@@ -312,8 +312,8 @@ function AppContent({
       <SettingsModal
         isOpen={settingsModalOpen}
         onClose={() => setSettingsModalOpen(false)}
-        currentTheme={globalTheme}
-        onThemeChange={handleGlobalThemeChange}
+        currentTheme={theme}
+        onThemeChange={handleThemeChange}
         currentFont={currentFont}
         onFontChange={handleFontChange}
         currentFontSize={currentFontSize}

@@ -9,7 +9,7 @@ const ARTICLES_DIR = 'rusty-pen-articles'
 const CUSTOM_PAPER_DIR = 'rusty-pen-custom-papers'
 
 const defaultSettings = {
-  globalTheme: 'light',
+  theme: 'light',
   font: 'yahei',
   fontSize: 'medium',
   language: 'en',

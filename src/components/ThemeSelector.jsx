@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
-import './GlobalThemeSelector.css'
-import { getGlobalThemes, applyGlobalTheme } from '../utils/themeUtils'
+import './ThemeSelector.css'
+import { getThemes, applyTheme } from '../utils/themeUtils'
 import { playButtonSound } from '../utils/soundUtils'
 import { useI18n } from '../contexts/I18nContext'
 
-function GlobalThemeSelector({ currentTheme, onThemeChange }) {
+function ThemeSelector({ currentTheme, onThemeChange }) {
   const [selectedTheme, setSelectedTheme] = useState(currentTheme || 'light')
-  const themes = getGlobalThemes()
+  const themes = getThemes()
   const { t } = useI18n()
 
   useEffect(() => {
-    applyGlobalTheme(selectedTheme)
+    applyTheme(selectedTheme)
   }, [selectedTheme])
 
   const handleThemeChange = (themeId) => {
@@ -20,17 +20,17 @@ function GlobalThemeSelector({ currentTheme, onThemeChange }) {
   }
 
   return (
-    <div className="global-theme-selector">
-      <div className="global-theme-buttons">
+    <div className="theme-selector">
+      <div className="theme-buttons">
         {themes.map((theme) => (
           <button
             key={theme.id}
-            className={`global-theme-button ${selectedTheme === theme.id ? 'active' : ''}`}
+            className={`theme-button ${selectedTheme === theme.id ? 'active' : ''}`}
             onClick={() => handleThemeChange(theme.id)}
             title={t(`themes.${theme.id}`)}
           >
-            <span className="global-theme-icon">{theme.icon}</span>
-            <span className="global-theme-name">{t(`themes.${theme.id}`)}</span>
+            <span className="theme-icon">{theme.icon}</span>
+            <span className="theme-name">{t(`themes.${theme.id}`)}</span>
           </button>
         ))}
       </div>
@@ -38,4 +38,4 @@ function GlobalThemeSelector({ currentTheme, onThemeChange }) {
   )
 }
 
-export default GlobalThemeSelector
+export default ThemeSelector

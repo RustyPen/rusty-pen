@@ -7,8 +7,8 @@ import VintagePaperSelector from './VintagePaperSelector'
 import { useI18n } from '../contexts/I18nContext'
 
 const WritingSettingsPanel = ({ 
-  currentTheme, 
-  onThemeChange, 
+  currentPaper, 
+  onPaperChange, 
   currentPen, 
   onPenChange, 
   soundEnabled, 
@@ -34,8 +34,8 @@ const WritingSettingsPanel = ({
       <div className="writing-settings-content">
         <div className="settings-section">
           <div className="section-title">{t('controls.paper_theme')}</div>
-          <PaperSelector currentTheme={currentTheme} onThemeChange={onThemeChange} />
-          {currentTheme === 'vintage' && (
+          <PaperSelector currentPaper={currentPaper} onPaperChange={onPaperChange} />
+          {currentPaper === 'vintage' && (
             <div className="vintage-paper-section">
               <div className="section-title">{t('controls.vintage_paper')}</div>
               <VintagePaperSelector 

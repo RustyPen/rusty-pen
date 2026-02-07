@@ -174,7 +174,7 @@ rusty-pen/
 │   │   ├── DeleteConfirmModal.jsx
 │   │   ├── FontSelector.jsx
 │   │   ├── FontSizeSelector.jsx
-│   │   ├── GlobalThemeSelector.jsx
+│   │   ├── ThemeSelector.jsx
 │   │   ├── Header.jsx
 │   │   ├── LanguageSelector.jsx
 │   │   ├── PenIcon.jsx

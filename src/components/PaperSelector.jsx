@@ -2,33 +2,33 @@ import './PaperSelector.css'
 import { playButtonSound } from '../utils/soundUtils'
 import { useI18n } from '../contexts/I18nContext'
 
-const themes = [
+const papers = [
   { id: 'vintage', icon: '📜' },
   { id: 'parchment', icon: '📄' },
   { id: 'manuscript', icon: '📝' },
   { id: 'telegram', icon: '📨' }
 ]
 
-function PaperSelector({ currentTheme, onThemeChange }) {
+function PaperSelector({ currentPaper, onPaperChange }) {
   const { t } = useI18n()
 
-  const handleThemeChange = (themeId) => {
+  const handlePaperChange = (paperId) => {
     playButtonSound()
-    onThemeChange(themeId)
+    onPaperChange(paperId)
   }
 
   return (
     <div className="paper-selector">
       <div className="paper-buttons">
-        {themes.map((theme) => (
+        {papers.map((paper) => (
           <button
-            key={theme.id}
-            className={`control-button ${currentTheme === theme.id ? 'active' : ''}`}
-            onClick={() => handleThemeChange(theme.id)}
-            title={t(`themes.${theme.id}_paper`)}
+            key={paper.id}
+            className={`control-button ${currentPaper === paper.id ? 'active' : ''}`}
+            onClick={() => handlePaperChange(paper.id)}
+            title={t(`papers.${paper.id}`)}
           >
-            <span className="control-icon">{theme.icon}</span>
-            <span className="control-text">{t(`themes.${theme.id}_paper`)}</span>
+            <span className="control-icon">{paper.icon}</span>
+            <span className="control-text">{t(`papers.${paper.id}`)}</span>
           </button>
         ))}
       </div>

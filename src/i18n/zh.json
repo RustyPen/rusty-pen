@@ -8,7 +8,7 @@
   },
   "controls": {
     "language": "语言",
-    "global_theme": "全局主题",
+    "theme": "主题",
     "paper_theme": "纸张主题",
     "vintage_paper": "复古信纸背景",
     "upload_custom_paper": "上传自定义背景",
@@ -48,11 +48,13 @@
     "autumn": "秋季落叶",
     "winter": "冬日雪夜",
     "ink": "水墨风格",
-    "vintage": "年代感",
-    "vintage_paper": "复古信纸",
-    "parchment_paper": "羊皮纸",
-    "manuscript_paper": "手稿纸",
-    "telegram_paper": "电报纸"
+    "vintage": "年代感"
+  },
+  "papers": {
+    "vintage": "复古信纸",
+    "parchment": "羊皮纸",
+    "manuscript": "手稿纸",
+    "telegram": "电报纸"
   },
   "pens": {
     "fountain": "钢笔",
