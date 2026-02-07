@@ -183,7 +183,7 @@ rusty-pen/
 │   │   ├── SettingsModal.jsx
 │   │   ├── Sidebar.jsx
 │   │   ├── SplashScreen.jsx
-│   │   ├── ThemeSelector.jsx
+│   │   ├── PaperSelector.jsx
 │   │   ├── TitleBar.jsx
 │   │   ├── VintagePaperSelector.jsx
 │   │   ├── WindowSizeSelector.jsx

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './WritingSettingsPanel.css'
-import ThemeSelector from './ThemeSelector'
+import PaperSelector from './PaperSelector'
 import PenSelector from './PenSelector'
 import BackgroundMusic from './BackgroundMusic'
 import VintagePaperSelector from './VintagePaperSelector'
@@ -34,7 +34,7 @@ const WritingSettingsPanel = ({
       <div className="writing-settings-content">
         <div className="settings-section">
           <div className="section-title">{t('controls.paper_theme')}</div>
-          <ThemeSelector currentTheme={currentTheme} onThemeChange={onThemeChange} />
+          <PaperSelector currentTheme={currentTheme} onThemeChange={onThemeChange} />
           {currentTheme === 'vintage' && (
             <div className="vintage-paper-section">
               <div className="section-title">{t('controls.vintage_paper')}</div>

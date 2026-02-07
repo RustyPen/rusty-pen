@@ -1,4 +1,4 @@
-import './ThemeSelector.css'
+import './PaperSelector.css'
 import { playButtonSound } from '../utils/soundUtils'
 import { useI18n } from '../contexts/I18nContext'
 
@@ -9,7 +9,7 @@ const themes = [
   { id: 'telegram', icon: '📨' }
 ]
 
-function ThemeSelector({ currentTheme, onThemeChange }) {
+function PaperSelector({ currentTheme, onThemeChange }) {
   const { t } = useI18n()
 
   const handleThemeChange = (themeId) => {
@@ -18,8 +18,8 @@ function ThemeSelector({ currentTheme, onThemeChange }) {
   }
 
   return (
-    <div className="theme-selector">
-      <div className="theme-buttons">
+    <div className="paper-selector">
+      <div className="paper-buttons">
         {themes.map((theme) => (
           <button
             key={theme.id}
@@ -36,4 +36,4 @@ function ThemeSelector({ currentTheme, onThemeChange }) {
   )
 }
 
-export default ThemeSelector
+export default PaperSelector
