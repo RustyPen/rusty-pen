@@ -4,6 +4,12 @@
 
 一个复古风格的跨平台写作应用，将传统书写的仪式感带入数字时代。
 
+## 📱 iOS Version
+
+Rusty Pen 现已推出 iOS 原生 SwiftUI 版本，已上架 App Store：
+
+[App Store 下载链接](https://apps.apple.com/us/app/rusty-pen/id6759075369?mt=12)
+
 ## 关于
 
 `Rusty Pen` 是一个非常有韵味的名字！它结合了两个意象：

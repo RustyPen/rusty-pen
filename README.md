@@ -4,6 +4,12 @@
 
 A vintage-inspired cross-platform writing application that brings the ritual of traditional writing to the digital age.
 
+## 📱 iOS Version
+
+Rusty Pen now has an iOS native SwiftUI version, available on the App Store:
+
+[App Store Download Link](https://apps.apple.com/us/app/rusty-pen/id6759075369?mt=12)
+
 ## About
 
 `Rusty Pen` is a name full of character, combining two powerful imagery:
