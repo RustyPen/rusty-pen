@@ -1,4 +1,4 @@
-# Rusty Pen（中文版）
+# Rusty Pen
 
 > 笔会生锈，思想不会。
 
@@ -40,6 +40,22 @@ Rusty Pen 现已推出 iOS 原生 SwiftUI 版本，已上架 App Store：
   - 文艺青年、写作者、日记爱好者
   - 数字极简主义者（Anti-distraction）
   - 喜欢手写感但依赖数字工具的人
+
+## ☕ 支持项目
+
+如果 Rusty Pen 对你有帮助，欢迎请我喝杯咖啡～
+
+<table>
+  <tr>
+    <td>
+      <img src="sponsor/weixin.jpg" width="200"/>
+    </td>
+    <td width="100" align="center" > 🙏 </td>
+    <td>
+      <img src="sponsor/alipay.jpg" width="200"/>
+    </td>
+  </tr>
+</table>
 
 ## 核心功能
 
@@ -278,16 +294,6 @@ npm run tauri:build
 ## 联系方式
 
 如有问题或建议，请在 GitHub 上提交 issue。
-
-
-## ☕ 支持项目
-
-如果 Rusty Pen 对你有帮助，欢迎请我喝杯咖啡～
-
-<div align="center">
-  <img src="sponsor/weixin.jpg" width="200"/>
-  <img src="sponsor/alipay.jpg" width="200" style="margin:0 0 0 100px"/>
-</div>
 
 ---
 
