@@ -69,3 +69,4 @@ jobs:
           prerelease: false
           args: ${{ matrix.args }}
           projectPath: 'src-tauri'
+          releaseAssetNamePattern: '[name]_[platform]_[version]_[arch][setup].[ext]'
