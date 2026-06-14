@@ -4,6 +4,17 @@
 
 一个复古风格的跨平台写作应用，将传统书写的仪式感带入数字时代。
 
+## 截图
+
+<div align="center">
+  <img src="screenshots/cn.jpg" alt="English Interface" height="500"/>
+</div>
+
+<div align="center">
+  <img src="screenshots/settings-cn-1.jpg" alt="Settings Panel" height="400">
+  <img src="screenshots/settings-cn-2.jpg" alt="Settings Panel" height="400">
+</div>
+
 ## 📱 iOS Version
 
 Rusty Pen 现已推出 iOS 原生 SwiftUI 版本，已上架 App Store：
@@ -267,6 +278,16 @@ npm run tauri:build
 ## 联系方式
 
 如有问题或建议，请在 GitHub 上提交 issue。
+
+
+## ☕ 支持项目
+
+如果 Rusty Pen 对你有帮助，欢迎请我喝杯咖啡～
+
+<div align="center">
+  <img src="sponsor/weixin.jpg" width="200"/>
+  <img src="sponsor/alipay.jpg" width="200" style="margin:0 0 0 100px"/>
+</div>
 
 ---
 

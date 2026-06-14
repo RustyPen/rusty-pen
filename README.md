@@ -4,6 +4,19 @@
 
 A vintage-inspired cross-platform writing application that brings the ritual of traditional writing to the digital age.
 
+[🇨🇳 中文文档](README.zh.md)
+
+## Screenshots
+
+<div align="center">
+  <img src="screenshots/en.jpg" alt="English Interface" height="500"/>
+</div>
+
+<div align="center">
+  <img src="screenshots/settings-en-1.jpg" alt="Settings Panel" height="400">
+  <img src="screenshots/settings-en-2.jpg" alt="Settings Panel" height="400">
+</div>
+
 ## 📱 iOS Version
 
 Rusty Pen now has an iOS native SwiftUI version, available on the App Store:
