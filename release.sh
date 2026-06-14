@@ -83,31 +83,31 @@ if [ "$CURRENT_BRANCH" != "main" ] && [ "$CURRENT_BRANCH" != "master" ]; then
   fi
 fi
 
-# # Commit and push to current branch
-# git add package.json src-tauri/tauri.conf.json
-# git commit -m "chore: bump version to $VERSION"
-# git push origin "$CURRENT_BRANCH"
+# Commit and push to current branch
+git add package.json src-tauri/tauri.conf.json
+git commit -m "chore: bump version to $VERSION"
+git push origin "$CURRENT_BRANCH"
 
-# echo "✅ Committed and pushed to branch $CURRENT_BRANCH successfully"
+echo "✅ Committed and pushed to branch $CURRENT_BRANCH successfully"
 
-# # Switch to and merge release branch
-# echo "🔄 Switching to release branch..."
-# git checkout release || git checkout -b release
-# git merge "$CURRENT_BRANCH" --no-ff -m "Merge $CURRENT_BRANCH into release for v$VERSION"
-# git push origin release
+# Switch to and merge release branch
+echo "🔄 Switching to release branch..."
+git checkout release || git checkout -b release
+git merge "$CURRENT_BRANCH" --no-ff -m "Merge $CURRENT_BRANCH into release for v$VERSION"
+git push origin release
 
-# # Switch back to current branch
-# git checkout "$CURRENT_BRANCH"
-# echo "✅ Switched to branch $CURRENT_BRANCH successfully"
+# Switch back to current branch
+git checkout "$CURRENT_BRANCH"
+echo "✅ Switched to branch $CURRENT_BRANCH successfully"
 
-# echo ""
-# echo "🎉 Release process completed！"
-# echo ""
-# echo "Next steps："
-# echo "1. Go to GitHub Actions to check build progress："
-# echo "   https://github.com/RustyPen/rusty-pen/actions"
-# echo "2. Go to Releases page after build is done："
-# echo "   https://github.com/RustyPen/rusty-pen/releases"
-# echo "3. Find Draft Release 'Rusty Pen v$VERSION' and Publish"
-# echo ""
-# echo "Current branch：$(git branch --show-current)"
+echo ""
+echo "🎉 Release process completed！"
+echo ""
+echo "Next steps："
+echo "1. Go to GitHub Actions to check build progress："
+echo "   https://github.com/RustyPen/rusty-pen/actions"
+echo "2. Go to Releases page after build is done："
+echo "   https://github.com/RustyPen/rusty-pen/releases"
+echo "3. Find Draft Release 'Rusty Pen v$VERSION' and Publish"
+echo ""
+echo "Current branch：$(git branch --show-current)"

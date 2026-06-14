@@ -4,6 +4,21 @@
 - npm run dev - 仅启动 Web 开发服务器
 - npm run build - 仅构建 Web 版本
 
+## 应用图标
+
+> https://v2.tauri.org.cn/develop/icons/
+
+1. 准备一张 512x512 或 1024x1024 的透明 PNG 图片，命名为 app-icon.png，放在项目根目录
+2. 执行命令，自动生成所有平台所需的图标（会覆盖 src-tauri/icons 文件夹）
+
+```bash
+npm run tauri icon app-icon.png
+
+# 如果图标未更新
+cd src-tauri
+cargo clean
+```
+
 ## 添加 Tauri v2 签名配置（Updater + 平台签名）
 
 ### 第一步：生成 Updater 签名密钥（最重要，必做）
