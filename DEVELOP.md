@@ -46,45 +46,6 @@ cat ~/.tauri/rusty-pen.key.pub
 
 ```json
 {
-  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "rusty-pen",
-  "version": "0.1.0",
-  "identifier": "com.rustypen.app",
-  "build": {
-    "frontendDist": "../dist",
-    "devUrl": "http://localhost:5173",
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build"
-  },
-  "app": {
-    "windows": [
-      {
-        "title": "Rusty Pen",
-        "width": 1600,
-        "height": 900,
-        "minWidth": 1000,
-        "minHeight": 700,
-        "resizable": true,
-        "fullscreen": false,
-        "center": true,
-        "decorations": false
-      }
-    ],
-    "security": {
-      "csp": null
-    }
-  },
-  "bundle": {
-    "active": true,
-    "targets": "all",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ]
-  },
   "plugins": {
     "updater": {
       "pubkey": "你的公钥内容（从 .key.pub 文件复制）",
